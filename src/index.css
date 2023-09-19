@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+nav a.active {
+  opacity: 1;
+  background-color: #2e4057;
+}
+
+.svgUp {
+  background-image: url("/svg/waveUp.svg");
+}
+
+.svgDown {
+  background-image: url("/svg/waveDown.svg");
+}
+
+.svgUp,
+.svgDown {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.tab__buttons {
+  background-color: #2e4057;
+}
+.tab__buttons:hover {
+  background-color: #255cff;
+}
+.tab__buttons--active {
+  background-color: #255cff;
+  transform: translateY(-5px);
+}
+
+.tab__contents {
+  display: none;
+}
+.tab__contents--active {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+.paragraf__contents {
+  display: none;
+}
+.paragraf__contents--active {
+  display: flex;
+  flex-direction: column;
+}
