@@ -1,3 +1,4 @@
+import Pagination from "../../ui/Pagination";
 import Tabel from "../../ui/Tabel";
 
 const bagasiHero = [
@@ -40,6 +41,7 @@ const bagasiHero = [
 
 const bagasiComplete = [
   {
+    id: 1,
     berangkat: "2023-07-10T00:00:00.000+00:00",
     dari: "Jakarta",
     tujuan: "Cairo",
@@ -48,6 +50,7 @@ const bagasiComplete = [
     status: "Opened",
   },
   {
+    id: 2,
     berangkat: "2023-07-04T09:48:51.265+00:00",
     dari: "Dubai",
     tujuan: "Istanbul",
@@ -56,6 +59,7 @@ const bagasiComplete = [
     status: "Canceled",
   },
   {
+    id: 3,
     berangkat: "2023-07-06T00:00:00.000+00:00",
     dari: "Jakarta",
     tujuan: "Cairo",
@@ -64,6 +68,7 @@ const bagasiComplete = [
     status: "Closed",
   },
   {
+    id: 4,
     berangkat: "tanggal 4",
     dari: "Cairo",
     tujuan: "Istanbul",
@@ -72,6 +77,7 @@ const bagasiComplete = [
     status: "Scheduled",
   },
   {
+    id: 5,
     berangkat: "tanggal 5",
     dari: "Istanbul",
     tujuan: "Jakarta",
@@ -86,5 +92,10 @@ export function TabelBagasiHero() {
 }
 
 export function TabelBagasiComplete() {
-  return <Tabel feature="bagasi" dataObj={bagasiComplete} />;
+  return (
+    <>
+      <Tabel feature="bagasi" dataObj={bagasiComplete} />
+      {bagasiComplete.length > 8 && <Pagination />}
+    </>
+  );
 }

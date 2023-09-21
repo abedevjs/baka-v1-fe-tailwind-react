@@ -1,5 +1,4 @@
 import { useGeolocation } from "../services & hooks/useGeoLocation";
-import { dateFormatter } from "../utilities/formatter";
 
 function Greetings() {
   const city = useGeolocation();
@@ -15,8 +14,6 @@ function Greetings() {
   // const locale = navigator.language;
   // const today = new Intl.DateTimeFormat(locale, options).format(date);
   const today = new Intl.DateTimeFormat("in-ID", options).format(date);
-
-  dateFormatter("2023-07-10T00:00:00.000+00:00");
 
   return (
     <div className="flex flex-col space-y-1">

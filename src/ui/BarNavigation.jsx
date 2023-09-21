@@ -1,4 +1,4 @@
-import { ButtonLogin } from "./Button";
+import { ButtonYellow } from "./Button";
 import Copyright from "./Copyright";
 import Greetings from "./Greetings";
 import Logo from "./Logo";
@@ -14,7 +14,7 @@ function BarNavigation() {
 
       <Navigation />
 
-      <ButtonLogin />
+      <ButtonYellow text="Masuk/Login" destination="/login" />
 
       <Copyright />
     </aside>

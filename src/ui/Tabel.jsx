@@ -1,6 +1,9 @@
-import { dateFormatter } from "../utilities/formatter";
+import { currencyFormat, dateFormat } from "../utilities/formatter";
+import { Link } from "react-router-dom";
 
 function Tabel({ feature, dataObj }) {
+  if (dataObj.length == 0) return null;
+
   let props = [];
   //   console.log(feature);
   switch (feature) {
@@ -26,6 +29,22 @@ function Tabel({ feature, dataObj }) {
 
     case "orderHero":
       props = ["Berangkat", "Dari", "Tujuan", "Berat", "Status"];
+      break;
+
+    case "userBagasi":
+      props = [
+        "Berangkat",
+        "Dari",
+        "Tujuan",
+        "Sisa",
+        "Harga (Kg)",
+        "Status",
+        "Action",
+      ];
+      break;
+
+    case "userOrder":
+      props = ["Berangkat", "Dari", "Tujuan", "Berat", "Status", "Action"];
       break;
 
     default:
@@ -54,6 +73,7 @@ function Tabel({ feature, dataObj }) {
             <TabelBody
               key={i}
               feature={feature}
+              id={el.id}
               berangkat={el.berangkat}
               dari={el.dari}
               tujuan={el.tujuan}
@@ -80,6 +100,7 @@ function TabelHead({ property }) {
 
 function TabelBody({
   feature,
+  id,
   berangkat,
   dari,
   tujuan,
@@ -94,17 +115,17 @@ function TabelBody({
       {feature == "bagasi" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            {dateFormatter(berangkat)}
+            {dateFormat(berangkat)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt="Jakarta" />
+              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt="Cairo" />
+              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
               <span>{tujuan}</span>
             </div>
           </td>
@@ -112,18 +133,21 @@ function TabelBody({
             {sisa} <span className="text-xs italic">Kg</span>
           </td>
           <td scope="row" className="px-6 py-3">
-            Rp. {harga}
+            {currencyFormat(harga)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt="Scheduled" />
+              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
               <span>{status}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            <a href="orderForm.html" className="text-blue-600 hover:underline">
-              {action}
-            </a>
+            <Link
+              to={`/create-order/${id}`}
+              className="text-blue-600 hover:underline"
+            >
+              {status == "Opened" ? "BELI" : "Lihat"}
+            </Link>
           </td>
         </tr>
       )}
@@ -131,17 +155,17 @@ function TabelBody({
       {feature == "bagasiHero" && (
         <tr className="bg-bodyBackColor hover:opacity-90 duration-300">
           <td scope="row" className="px-6 py-3">
-            {dateFormatter(berangkat)}
+            {dateFormat(berangkat)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt="Jakarta" />
+              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt="Cairo" />
+              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
               <span>{tujuan}</span>
             </div>
           </td>
@@ -150,7 +174,7 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt="Scheduled" />
+              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
               <span>{status}</span>
             </div>
           </td>
@@ -160,17 +184,17 @@ function TabelBody({
       {feature == "order" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            {berangkat}
+            {dateFormat(berangkat)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt="Jakarta" />
+              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt="Cairo" />
+              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
               <span>{tujuan}</span>
             </div>
           </td>
@@ -179,7 +203,7 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt="Preparing" />
+              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
               <span>{status}</span>
             </div>
           </td>
@@ -189,17 +213,17 @@ function TabelBody({
       {feature == "orderHero" && (
         <tr className="bg-bodyBackColor hover:opacity-90 duration-300">
           <td scope="row" className="px-6 py-3">
-            {dateFormatter(berangkat)}
+            {dateFormat(berangkat)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt="Jakarta" />
+              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt="Cairo" />
+              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
               <span>{tujuan}</span>
             </div>
           </td>
@@ -208,9 +232,86 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt="Preparing" />
+              <img src={`/svg/${status.toLowerCase()}.svg`} alt={tujuan} />
               <span>{status}</span>
             </div>
+          </td>
+        </tr>
+      )}
+
+      {feature == "userBagasi" && (
+        <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
+          <td scope="row" className="px-6 py-3">
+            {dateFormat(berangkat)}
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <div className="flex justify-left space-x-2">
+              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+              <span>{dari}</span>
+            </div>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <div className="flex justify-left space-x-2">
+              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+              <span>{tujuan}</span>
+            </div>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            {sisa} <span className="text-xs italic">Kg</span>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            {currencyFormat(harga)}
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <div className="flex justify-left space-x-2">
+              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
+              <span>{status}</span>
+            </div>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <Link
+              to={`/update-bagasi/${id}`}
+              className="text-blue-600 hover:underline"
+            >
+              Edit/Hapus
+            </Link>
+          </td>
+        </tr>
+      )}
+
+      {feature == "userOrder" && (
+        <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
+          <td scope="row" className="px-6 py-3">
+            {dateFormat(berangkat)}
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <div className="flex justify-left space-x-2">
+              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+              <span>{dari}</span>
+            </div>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <div className="flex justify-left space-x-2">
+              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+              <span>{tujuan}</span>
+            </div>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            {total} <span className="text-xs italic">Kg</span>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <div className="flex justify-left space-x-2">
+              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
+              <span>{status}</span>
+            </div>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <Link
+              to={`/update-order/${id}`}
+              className="text-blue-600 hover:underline"
+            >
+              Edit/Hapus
+            </Link>
           </td>
         </tr>
       )}

@@ -1,8 +1,12 @@
-import ContentWrapper from "../ui/ContentWrapper";
-import TextBox from "../ui/TextBox";
-import TextTitle from "../ui/TextTitle";
+import { TabelOrderComplete } from "../../features/order/TabelOrder";
+import { ButtonBlue } from "../../ui/Button";
+import ContentWrapper from "../../ui/ContentWrapper";
+import TextBox from "../../ui/TextBox";
+import TextTitle from "../../ui/TextTitle";
+import Wrapper from "../../ui/Wrapper";
+import { Link } from "react-router-dom";
 
-function Order() {
+function ListOrder() {
   return (
     <ContentWrapper padding="p-6">
       {/* Text Box */}
@@ -69,8 +73,21 @@ function Order() {
 
       {/* Text Title */}
       <TextTitle icon="order" title="daftar jastip" />
+
+      {/* Table-Pagination Container */}
+      <Wrapper type="table-pagination">
+        <TabelOrderComplete />
+      </Wrapper>
+
+      <>
+        {/* CTA Content */}
+        <div className="w-full flex flex-col space-y-2">
+          <span className="text-base self-center">Mau jastip juga?</span>
+          <ButtonBlue text="Lihat List Bagasi" destination="/list-bagasi" />
+        </div>
+      </>
     </ContentWrapper>
   );
 }
 
-export default Order;
+export default ListOrder;

@@ -6,7 +6,7 @@ function Wrapper({ type, children }) {
       {type == "table-pagination" && (
         <div className="w-full mb-8 px-4 flex flex-col lg:px-0">
           {children}
-          <Pagination />
+          {/* {<Pagination />} */}
         </div>
       )}
     </>

@@ -1,4 +1,4 @@
-function TextTitle({ icon, title }) {
+function TextTitle({ icon = "", title = "" }) {
   return (
     <div className="mb-4 flex space-x-2 ">
       {icon == "bagasi" && (

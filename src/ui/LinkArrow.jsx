@@ -1,8 +1,10 @@
-export function LinkArrowRight({ text }) {
+import { Link } from "react-router-dom";
+
+export function LinkArrowRight({ text = "", destination = "" }) {
   return (
     <div className="flex items-center justify-end">
-      <a
-        href="#"
+      <Link
+        destination={destination}
         className="flex items-center text-sm text-white hover:translate-x-1 duration-300"
       >
         <span>{text}</span>
@@ -17,16 +19,16 @@ export function LinkArrowRight({ text }) {
             d="M9.29 15.88L13.17 12L9.29 8.12a.996.996 0 1 1 1.41-1.41l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3a.996.996 0 0 1-1.41 0c-.38-.39-.39-1.03 0-1.42z"
           />
         </svg>
-      </a>
+      </Link>
     </div>
   );
 }
 
-export function LinkArrowLeft({ text, style }) {
+export function LinkArrowLeft({ text = "", style, destination = "/home" }) {
   return (
     <div className={`${style} flex items-center justify-start`}>
-      <a
-        href="#"
+      <Link
+        to={destination}
         className="flex items-center text-sm hover:-translate-x-1 duration-300"
       >
         <svg
@@ -45,7 +47,7 @@ export function LinkArrowLeft({ text, style }) {
           />
         </svg>
         <span>{text}</span>
-      </a>
+      </Link>
     </div>
   );
 }

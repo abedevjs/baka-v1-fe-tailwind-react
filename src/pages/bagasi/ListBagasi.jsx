@@ -1,11 +1,11 @@
-import { TabelBagasiComplete } from "../features/bagasi/TabelBagasi";
-import ContentWrapper from "../ui/ContentWrapper";
-import Pagination from "../ui/Pagination";
-import TextBox from "../ui/TextBox";
-import TextTitle from "../ui/TextTitle";
-import Wrapper from "../ui/Wrapper";
+import { TabelBagasiComplete } from "../../features/bagasi/TabelBagasi";
+import { ButtonBlue } from "../../ui/Button";
+import ContentWrapper from "../../ui/ContentWrapper";
+import TextBox from "../../ui/TextBox";
+import TextTitle from "../../ui/TextTitle";
+import Wrapper from "../../ui/Wrapper";
 
-function Bagasi() {
+function ListBagasi() {
   return (
     <ContentWrapper padding="p-6">
       {/* Text Box */}
@@ -77,8 +77,20 @@ function Bagasi() {
       <Wrapper type="table-pagination">
         <TabelBagasiComplete />
       </Wrapper>
+
+      {/* Text Title */}
+      <TextTitle icon="bagasi" title="jual bagasi" />
+
+      {/* Link ke Jual Bagasi */}
+      <div className=" w-fit mx-auto flex flex-col space-y-2">
+        <span>Kakak mau jual bagasi?</span>
+        <ButtonBlue
+          text="Isi Formulir Jual Bagasi"
+          destination="/create-bagasi"
+        />
+      </div>
     </ContentWrapper>
   );
 }
 
-export default Bagasi;
+export default ListBagasi;
