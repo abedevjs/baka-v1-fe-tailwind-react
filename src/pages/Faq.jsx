@@ -14,7 +14,11 @@ function Faq() {
         title="pertanyaan dan jawaban"
       />
       {/* Link */}
-      <LinkArrowLeft text="Kembali ke Halaman Policy" style="mb-12" />
+      <LinkArrowLeft
+        text="Kembali ke Halaman Policy"
+        destination="/rules"
+        style="mb-12"
+      />
 
       <Accordion title="Akun" data={akun} />
       <Accordion title="Bagasi" data={bagasi} />

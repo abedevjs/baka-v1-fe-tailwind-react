@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Tab() {
+export function Tab({ tabOpen }) {
   const [openTab, setOpenTab] = useState(1);
+
+  function handleClick(e) {
+    if (e.target.tabIndex == -1) e.target.tabIndex = 1;
+    setOpenTab(e.target.tabIndex);
+    tabOpen(e.target.tabIndex);
+  }
 
   return (
     <>
@@ -16,7 +22,8 @@ function Tab() {
         <div className="tab_container w-full flex justify-evenly items-center">
           {/* Traveler Button */}
           <button
-            onClick={() => setOpenTab(1)}
+            tabIndex={1}
+            onClick={(e) => handleClick(e)}
             className={`${
               openTab == 1
                 ? "tab__buttons tab__buttons--active"
@@ -24,23 +31,19 @@ function Tab() {
             } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300 sm:px-14`}
           >
             {/* <a href="#" class="p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition-all duration-300 opacity-100 bg-primaryBlueBold"> */}
-            <a href="#" className=" ">
-              Untuk Traveler
-            </a>
+            <div className=" ">Untuk Traveler</div>
           </button>
           {/* Jastiper Button */}
           <button
-            onClick={() => setOpenTab(2)}
+            tabIndex={2}
+            onClick={(e) => handleClick(e)}
             className={`${
               openTab == 2
                 ? "tab__buttons tab__buttons--active"
                 : "tab__buttons"
             } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300 sm:px-14`}
           >
-            <a href="#" className=" ">
-              {/* <a href="#" class="p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition-all duration-300 bg-primaryBlue opacity-80 hover:opacity-100 hover:bg-primaryBlueBold "> */}
-              Untuk Jastiper
-            </a>
+            <div className=" ">Untuk Jastiper</div>
           </button>
         </div>
 
@@ -52,8 +55,8 @@ function Tab() {
             Lihat Tanya-Jawab
           </Link>
         </div>
+        {/* <ParagrafContent contentNumber={openTab} /> */}
       </div>
-
       {/* akhir Steps Box */}
     </>
   );
@@ -163,7 +166,7 @@ function TabContent({ contentNumber }) {
   );
 }
 
-function ParagrafContent({ contentNumber }) {
+export function ParagrafContent({ contentNumber }) {
   return (
     <>
       {/* Paragraf Container start */}
@@ -174,7 +177,7 @@ function ParagrafContent({ contentNumber }) {
             : "paragraf__contents"
         } p-6 space-y-2  sm:mt-2 sm:p-2 sm:space-y-0`}
       >
-        <span className="text-base">Poin 1:</span>
+        <span className="text-base">Untuk Traveler yang menjual Bagasi:</span>
         <p className="p-2 text-base sm:text-sm">Bagasi</p>
       </div>
       <div
@@ -184,7 +187,7 @@ function ParagrafContent({ contentNumber }) {
             : "paragraf__contents"
         } p-6 space-y-2  sm:mt-2 sm:p-2 sm:space-y-0`}
       >
-        <span className="text-base">Poin 1:</span>
+        <span className="text-base">Untuk Jastiper yang membeli Bagasi:</span>
         <p className="p-2 text-base sm:text-sm">Order</p>
       </div>
       {/* Paragraf Container start */}
@@ -192,4 +195,4 @@ function ParagrafContent({ contentNumber }) {
   );
 }
 
-export default Tab;
+// export default Tab;

@@ -1,8 +1,11 @@
+import { useState } from "react";
 import ContentWrapper from "../ui/ContentWrapper";
-import Tab from "../ui/Tab";
+import { ParagrafContent, Tab } from "../ui/Tab";
 import TextBox from "../ui/TextBox";
 
 function Rules() {
+  const [open, setOpen] = useState(1); //* saya pakai useState di sini karena pargraf content terbuka dgn angka. angka tsb di pass back and forth antara Tab component sebagai child dan Rules component sebagai parent
+
   return (
     <ContentWrapper padding="p-6">
       <>
@@ -15,7 +18,7 @@ function Rules() {
         {/* Steps Container */}
         <div
           className="
-          flex justify-center space-x-4
+          mt-6 flex justify-center space-x-4
           lg:flex-col lg:space-x-0 lg:space-y-8
           sm:space-y-6
           "
@@ -30,10 +33,10 @@ function Rules() {
           >
             <img src="/svg/policy.svg" className="" alt="" />
           </div>
-          <Tab />
+          <Tab tabOpen={setOpen} />
         </div>
         {/* Paragraf Container start */}
-        {/* Disini seharusnya ada paragraf */}
+        <ParagrafContent contentNumber={open} />
         {/* Paragraf Container start */}
       </>
     </ContentWrapper>
