@@ -1,6 +1,6 @@
 import { useGeolocation } from "../services & hooks/useGeoLocation";
 
-function Greetings() {
+function LogoGreetings() {
   const city = useGeolocation();
   const date = new Date();
   const options = {
@@ -16,12 +16,15 @@ function Greetings() {
   const today = new Intl.DateTimeFormat("in-ID", options).format(date);
 
   return (
-    <div className="flex flex-col space-y-1">
-      <p className=" text-white text-xs">{!city ? "" : `${city}`}</p>
-      <p className=" text-white text-xs">{today}</p>
-      <span className="text-white text-xs ">Hello Muhammad Akbar 👋 </span>
+    <div className="flex flex-col gap-2">
+      <img src="/images/logo.png" alt="" className="h-auto w-28 self-center" />
+      <div className="flex flex-col space-y-1">
+        <p className=" text-white text-xs">{!city ? "" : `${city}`}</p>
+        <p className=" text-white text-xs">{today}</p>
+        <span className="text-white text-xs ">Hello Muhammad Akbar 👋 </span>
+      </div>
     </div>
   );
 }
 
-export default Greetings;
+export default LogoGreetings;

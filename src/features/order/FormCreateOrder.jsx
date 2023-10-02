@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FormUploadDokumen } from "../../ui/Form";
 import Notification from "../../ui/Notification";
 
@@ -400,9 +401,9 @@ function FormCreateOrder() {
                 />
                 <label htmlFor="terms" className="text-xs">
                   Dengan ini saya menyatakan setuju dengan{" "}
-                  <a href="rules.html" target="_blank" className="underline">
+                  <Link to="/rules" target="_blank" className="underline">
                     Syarat &amp; Ketentuan
-                  </a>{" "}
+                  </Link>{" "}
                   yang berlaku.
                 </label>
               </div>
