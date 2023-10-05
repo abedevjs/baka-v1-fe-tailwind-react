@@ -30,3 +30,13 @@ export function currencyFormat(currency) {
 
   return rupiah.format(currency);
 }
+
+export function cutWords(text, num) {
+  if (text.length < 1) return text;
+  const output = text.split(" ").slice(0, num).join(" ");
+  // console.log(`OLD: ${text}`);
+  // console.log(`OLDLENGTH: ${text.length}`);
+  // console.log(`NEW: ${output}`);
+  // console.log(`OutputLENGTH: ${output.length}`);
+  return output;
+}

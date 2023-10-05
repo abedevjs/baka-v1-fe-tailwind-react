@@ -1,21 +1,17 @@
 import ContentWrapper from "../ui/ContentWrapper";
+const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 function Login() {
+  // const { isLoading } = useAuthGoogle();
+  function handleClick(provider) {
+    window.open(`${BAKA_URL}/auth/${provider}`, "_self");
+  }
   return (
     <ContentWrapper padding="p-6">
       <div
         id="modalContainer"
-        className="fixed w-[50%] h-[30%] p-4 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-[1000] bg-white opacity-95 rounded-lg shadow-lg lg:w-2/3 lg:h-1/5 sm:w-4/5 sm:h-1/3 sm:p-2"
+        className=" w-2/3  bg-white opacity-95 rounded-lg shadow-lg lg:w-2/3 lg:h-1/5 sm:w-4/5 sm:h-1/3 sm:p-2"
       >
-        {/* Tombol Close */}
-        <div className="relative">
-          <img
-            id="modalCloseBtn"
-            src="/svg/close-fill.svg"
-            alt="Close"
-            className="right-2 w-6 h-auto cursor-pointer absolute fill-red-8 sm:w-4"
-          />
-        </div>
         {/* Content */}
         <div className="h-full flex flex-col flex-wrap justify-around">
           {/* Greetings Text */}
@@ -33,9 +29,9 @@ function Login() {
           {/* Login Buttons Icons */}
           <div className="w-full flex space-x-2 justify-center items-center sm:flex-col sm:space-x-0 sm:space-y-1">
             <div className="py-2 px-4 flex border border-gray-500 rounded-md sm:py-3">
-              <a
-                href="#"
-                className="flex items-center space-x-2 lg:space-x-1 lg:text-center"
+              <button
+                onClick={() => handleClick("google")}
+                className="flex items-center space-x-2 lg:space-x-1 lg:text-center cursor-pointer"
               >
                 <img
                   src="/svg/google.svg"
@@ -45,12 +41,12 @@ function Login() {
                 <span className="text-sm font-thin sm:text-xs">
                   Masuk dengan Google
                 </span>
-              </a>
+              </button>
             </div>
             <span className="text-sm">atau</span>
             <div className="py-2 px-4 flex border border-gray-500 rounded-md sm:py-3">
-              <a
-                href="#"
+              <button
+                onClick={() => handleClick("facebook")}
                 className="flex items-center space-x-2 lg:space-x-1 lg:text-center"
               >
                 <img
@@ -61,7 +57,7 @@ function Login() {
                 <span className="text-sm font-thin sm:text-xs">
                   Masuk dengan Facebook
                 </span>
-              </a>
+              </button>
             </div>
           </div>
         </div>

@@ -1,6 +1,15 @@
+import { useQueryClient } from "@tanstack/react-query";
 import Notification from "../../ui/Notification";
+import { useGetUser } from "./useUser";
 
 function DataUser() {
+  const { data } = useGetUser();
+  const { nama, email } = data;
+
+  // const queryClient = useQueryClient();
+  // const { data: test } = queryClient.getQueryData("user");
+  // console.log(test);
+
   return (
     <>
       {/* DATA USER Wrapper */}
@@ -10,12 +19,12 @@ function DataUser() {
           {/* Box 1 Nama */}
           <div className="w-full p-4 col-start-1 col-end-3 flex flex-col bg-secondaryYellowTint rounded-lg sm:p-2">
             <span className="text-xs text-primaryBlue">Nama</span>
-            <span className="text-sm">Muhammad Akbar</span>
+            <span className="text-sm">{nama}</span>
           </div>
           {/* Box 2 Email */}
           <div className="w-full p-4 col-start-1 col-end-3 row-start-2 flex flex-col bg-secondaryYellowTint rounded-lg sm:p-2">
             <span className="text-xs text-primaryBlue">Email</span>
-            <span className="text-sm">bonsoir.abe@gmail.com</span>
+            <span className="text-sm">{email}</span>
           </div>
           {/* Box 3 WA */}
           <form className="w-full p-4 row-start-3 col-start-1 col-end-3 flex items-center justify-between bg-secondaryYellowTint rounded-lg sm:p-2">
@@ -28,14 +37,14 @@ function DataUser() {
                 type="text"
                 minLength={10}
                 maxLength={15}
-                defaultValue={"01006944643"}
+                defaultValue={data.telpon ? data.telpon : "Belum ada"}
                 className="border-b-2 border-textColor text-sm bg-transparent outline-none"
               />
             </div>
             {/* Notification */}
-            <Notification type="success" text="berhasil!" />
+            {/* <Notification type="success" text="berhasil!" /> */}
             {/* Tombol Submit */}
-            <div className="p-2 px-2 sm:p-1 sm:px-1 sm:items-end justify-self-center self-center text-xs text-white text-center opacity-80 rounded-md bg-slate-700 duration-300 cursor-pointer hover:opacity-100">
+            <div className="p-2 px-2 sm:p-1 sm:px-1 sm:items-end shadow-sm justify-self-center self-center text-xs text-white text-center opacity-80 rounded-md bg-slate-700 duration-300 cursor-pointer hover:opacity-100">
               <button type="submit">Update WhatsApp</button>
             </div>
           </form>

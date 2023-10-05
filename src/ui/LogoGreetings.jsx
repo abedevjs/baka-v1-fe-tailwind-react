@@ -21,7 +21,7 @@ function LogoGreetings() {
       <div className="flex flex-col space-y-1">
         <p className=" text-white text-xs">{!city ? "" : `${city}`}</p>
         <p className=" text-white text-xs">{today}</p>
-        <span className="text-white text-xs ">Hello Muhammad Akbar 👋 </span>
+        {/* <span className="text-white text-xs ">Hello Muhammad Akbar 👋 </span> */}
       </div>
     </div>
   );

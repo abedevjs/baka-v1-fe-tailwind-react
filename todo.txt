@@ -1,0 +1,2 @@
+🔴 Bermasalah saat google oauth via mobile
+🔴 kenapa react query fetching terus state nya? foto dalam logout box blm bisa di persist
