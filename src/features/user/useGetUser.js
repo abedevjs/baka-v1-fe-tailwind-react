@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 export function useGetUser() {
   const queryClient = useQueryClient();
-  const { data, isLoading } = useQuery({
+  const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: apiGetUser,
 
@@ -13,5 +13,5 @@ export function useGetUser() {
     // },
   });
 
-  return { data, isLoading };
+  return { user, isLoading };
 }

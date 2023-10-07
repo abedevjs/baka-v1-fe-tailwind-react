@@ -1,10 +1,23 @@
 import { useQueryClient } from "@tanstack/react-query";
 import Notification from "../../ui/Notification";
-import { useGetUser } from "./useUser";
+import { useGetUser } from "./useGetUser";
+import { useForm } from "react-hook-form";
+import { useUpdateUser } from "./userUpdateUser";
+import Spinner from "../../ui/Spinner";
 
 function DataUser() {
-  const { data } = useGetUser();
-  const { nama, email } = data;
+  const { user, isLoading } = useGetUser();
+  const { register, handleSubmit, reset } = useForm();
+  const { updateUser } = useUpdateUser();
+  const { nama, email } = user;
+  if (isLoading) return <Spinner />;
+
+  function onSuccess(data) {
+    if (!data) return;
+
+    updateUser(data);
+  }
+  function onError() {}
 
   // const queryClient = useQueryClient();
   // const { data: test } = queryClient.getQueryData("user");
@@ -27,17 +40,22 @@ function DataUser() {
             <span className="text-sm">{email}</span>
           </div>
           {/* Box 3 WA */}
-          <form className="w-full p-4 row-start-3 col-start-1 col-end-3 flex items-center justify-between bg-secondaryYellowTint rounded-lg sm:p-2">
+          <form
+            onSubmit={handleSubmit(onSuccess, onError)}
+            className="w-full p-4 row-start-3 col-start-1 col-end-3 flex items-center justify-between bg-secondaryYellowTint rounded-lg sm:p-2"
+          >
             {/* Label-Input WhatsApp */}
             <div className="w-1/3 flex flex-col">
-              <label htmlFor="whatsapp" className="text-xs text-primaryBlue">
+              <label htmlFor="telpon" className="text-xs text-primaryBlue">
                 Nomor&nbsp;WhatsApp
               </label>
               <input
                 type="text"
                 minLength={10}
                 maxLength={15}
-                defaultValue={data.telpon ? data.telpon : "Belum ada"}
+                defaultValue={user.telpon ? user.telpon : "Belum ada"}
+                id="telpon"
+                {...register("telpon")}
                 className="border-b-2 border-textColor text-sm bg-transparent outline-none"
               />
             </div>

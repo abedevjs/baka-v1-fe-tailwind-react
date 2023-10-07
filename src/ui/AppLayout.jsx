@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import BarNavigation from "./BarNavigation";
-import { useGetUser } from "../features/user/useUser";
 
 function AppLayout() {
   return (

@@ -1,8 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FormUploadDokumen } from "../../ui/Form";
 import Notification from "../../ui/Notification";
+import { useGetAllBagasi } from "./useGetAllBagasi";
+import Spinner from "../../ui/Spinner";
+import { currencyFormat, dateFormat } from "../../utilities/formatter";
+import { useDeleteBagasi } from "./useDeleteBagasi";
+
+const today = new Date();
 
 function FormUpdateBagasi() {
+  const { id } = useParams();
+  const { bagasi, isLoading } = useGetAllBagasi();
+  const { deleteBagasi, isDeleting } = useDeleteBagasi();
+
+  if (isLoading) return <Spinner />;
+
+  const data = bagasi?.map((el) => el).filter((el) => el._id == id);
+  const {
+    dari,
+    tujuan,
+    status,
+    pesawat,
+    waktuBerangkat,
+    waktuTiba,
+    initialKg,
+    availableKg,
+    bookedKg,
+    hargaRp,
+    adminFeeRp,
+    netRp,
+    balanceRp,
+    catatan,
+  } = data[0];
+
+  function handleDelete() {
+    deleteBagasi(id);
+  }
+
   return (
     <>
       {/* JUAL BAGASI Wrapper  */}
@@ -33,8 +67,8 @@ function FormUpdateBagasi() {
                   Dari
                 </span>
                 <div className="flex space-x-2 text-base lg:text-sm sm:text-xs">
-                  <img src="/svg/jakarta.svg" alt="Jakarta" />
-                  <span>Jakarta</span>
+                  <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+                  <span>{dari}</span>
                 </div>
               </div>
               {/* Content Box Tujuan */}
@@ -43,8 +77,8 @@ function FormUpdateBagasi() {
                   Tujuan
                 </span>
                 <div className="flex space-x-2 text-base lg:text-sm">
-                  <img src="/svg/istanbul.svg" alt="Istanbul" />
-                  <span>Istanbul</span>
+                  <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+                  <span>{tujuan}</span>
                 </div>
               </div>
             </div>
@@ -58,7 +92,7 @@ function FormUpdateBagasi() {
           >
             {/* Icon */}
             <img
-              src="/svg/opened.svg"
+              src={`/svg/${status.toLowerCase()}.svg`}
               className="w-12 h-auto lg:w-10 sm:w-8"
               alt="Date"
             />
@@ -67,7 +101,7 @@ function FormUpdateBagasi() {
               <span className="text-sm text-primaryBlue lg:text-xs">
                 Status
               </span>
-              <span className="text-base lg:text-sm sm:text-xs">Opened</span>
+              <span className="text-base lg:text-sm sm:text-xs">{status}</span>
             </div>
           </div>
           {/* Box 3 Maskapai */}
@@ -88,8 +122,12 @@ function FormUpdateBagasi() {
               <span className="text-sm text-primaryBlue lg:text-xs">
                 Maskapai
               </span>
-              <span className="text-base lg:text-sm sm:text-xs">
-                Turkish Airline
+              <span
+                className={`text-base ${
+                  pesawat == "" ? " text-red-500" : ""
+                } lg:text-sm sm:text-xs`}
+              >
+                {pesawat == "" ? "(Konfirmasi)" : pesawat}
               </span>
             </div>
           </div>
@@ -118,10 +156,11 @@ function FormUpdateBagasi() {
                 </label>
                 <input
                   type="date"
-                  min="2023-01-01"
-                  max="2023-01-10"
+                  min={new Date(waktuBerangkat).toISOString().split("T")[0]}
                   id="berangkat"
-                  defaultValue="2023-01-01"
+                  defaultValue={
+                    new Date(waktuBerangkat).toISOString().split("T")[0]
+                  }
                   required=""
                   className="text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
                 />
@@ -136,10 +175,9 @@ function FormUpdateBagasi() {
                 </label>
                 <input
                   type="date"
-                  min="2023-01-01"
-                  max="2023-01-10"
+                  min={new Date(waktuBerangkat).toISOString().split("T")[0]}
                   id="tiba"
-                  defaultValue="2023-01-01"
+                  defaultValue={new Date(waktuTiba).toISOString().split("T")[0]}
                   required=""
                   className="text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
                 />
@@ -175,6 +213,7 @@ function FormUpdateBagasi() {
                   max={60}
                   id="berat"
                   required=""
+                  defaultValue={initialKg}
                   className="text-base lg:text-sm sm:text-xs text-center bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -182,13 +221,17 @@ function FormUpdateBagasi() {
                 <span className="text-sm text-primaryBlue lg:text-xs">
                   Booked <span className="text-xs text-textColor">(Kg)</span>
                 </span>
-                <span className="text-base lg:text-sm sm:text-xs">40</span>
+                <span className="text-base lg:text-sm sm:text-xs">
+                  {bookedKg}
+                </span>
               </div>
               <div className="flex flex-col justify-evenly">
                 <span className="text-sm text-primaryBlue lg:text-xs">
                   Sisa <span className="text-xs text-textColor">(Kg)</span>
                 </span>
-                <span className="text-base lg:text-sm sm:text-xs">20</span>
+                <span className="text-base lg:text-sm sm:text-xs">
+                  {availableKg}
+                </span>
               </div>
             </div>
           </div>
@@ -216,13 +259,14 @@ function FormUpdateBagasi() {
                 <span className="text-xs text-textColor">(@ Kg)</span>
               </label>
               <div className="lg:w-[50%] sm:w-full flex space-x-1 lg:space-x-0 lg:justify-evenly">
-                <span className="text-base lg:text-sm sm:text-xs">Rp.</span>
+                {/* <span className="text-base lg:text-sm sm:text-xs">Rp.</span> */}
                 <input
                   type="text"
                   minLength={1}
-                  maxLength={7}
+                  maxLength={9}
                   id="harga"
                   required=""
+                  defaultValue={currencyFormat(hargaRp)}
                   className="w-full text-base lg:text-sm sm:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -262,7 +306,7 @@ function FormUpdateBagasi() {
                   Balance
                 </span>
                 <span className="text-base lg:text-sm sm:text-xs">
-                  Rp. 4.000.000
+                  {currencyFormat(balanceRp)}
                 </span>
               </div>
               <div className="flex flex-col justify-evenly">
@@ -270,13 +314,13 @@ function FormUpdateBagasi() {
                   Tax <span className="text-xs text-textColor">(5%)</span>
                 </span>
                 <span className="text-base lg:text-sm sm:text-xs">
-                  Rp. 200.000
+                  {currencyFormat(adminFeeRp)}
                 </span>
               </div>
               <div className="flex flex-col justify-evenly">
                 <span className="text-sm text-primaryBlue lg:text-xs">Net</span>
                 <span className="text-base lg:text-sm sm:text-xs">
-                  Rp. 3.800.000
+                  {currencyFormat(netRp)}
                 </span>
               </div>
             </div>
@@ -307,7 +351,7 @@ function FormUpdateBagasi() {
                 maxLength={250}
                 className="p-2 w-full text-sm border-2 border-textColor bg-transparent outline-none rounded-lg"
                 placeholder="Tidak wajib diisi..."
-                defaultValue={""}
+                defaultValue={catatan}
               />
             </div>
           </div>
@@ -356,6 +400,12 @@ function FormUpdateBagasi() {
         <FormUploadDokumen />
       </div>{" "}
       {/* JUAL BAGASI Wrapper end */}
+      {/* Link Delete Account */}
+      <div className="w-1/4 sm:w-full mb-2 p-2 px-2 mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 cursor-pointer hover:opacity-80">
+        <button onClick={handleDelete} disabled={isDeleting}>
+          {isDeleting ? "Menghapus..." : "Hapus Bagasi"}
+        </button>
+      </div>
     </>
   );
 }

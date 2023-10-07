@@ -1,10 +1,10 @@
-export function dateFormat(data) {
+export function dateFormat(data, format = "") {
   const options = {
     //hour: 'numeric',
     //minute: 'numeric',
     day: "2-digit", //'2-digit'
-    month: "short", //'2-digit' 'long'
-    year: "2-digit", //'2-digit'
+    month: format == "" ? "short" : "long", //'2-digit' 'long'
+    year: format == "" ? "2-digit" : "numeric", //'2-digit'
     // weekday: 'long',//numeric, short, narrow
   };
   const output1 = new Date(data).toLocaleString("in-ID", options);

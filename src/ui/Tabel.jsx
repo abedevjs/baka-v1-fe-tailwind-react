@@ -1,8 +1,8 @@
 import { currencyFormat, dateFormat } from "../utilities/formatter";
 import { Link } from "react-router-dom";
 
-function Tabel({ feature, dataObj }) {
-  if (dataObj.length == 0) return null;
+function Tabel({ feature, dataObj = [] }) {
+  if (!dataObj.length) return null;
 
   let props = [];
   //   console.log(feature);
@@ -52,7 +52,8 @@ function Tabel({ feature, dataObj }) {
       break;
   }
 
-  //   console.log(props.map((el) => console.log(el)));
+  // console.log(props.map((el) => console.log(el)));
+  // dataObj.map((el, i) => console.log(el.waktuBerangkat));
 
   return (
     <div className="overflow-y-auto overflow-x-auto mb-7 shadow-md rounded-xl md:w-[45rem] sm:w-[20rem]">
@@ -73,13 +74,13 @@ function Tabel({ feature, dataObj }) {
             <TabelBody
               key={i}
               feature={feature}
-              id={el.id}
-              berangkat={el.berangkat}
+              id={el._id}
+              berangkat={el.waktuBerangkat}
               dari={el.dari}
               tujuan={el.tujuan}
-              sisa={el.sisa}
+              sisa={el.availableKg}
               total={el.total}
-              harga={el.harga}
+              harga={el.hargaRp}
               status={el.status}
               action={el.action}
             />
@@ -184,7 +185,7 @@ function TabelBody({
       {feature == "order" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            {dateFormat(berangkat)}
+            tgl brkt bagasi
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -213,7 +214,7 @@ function TabelBody({
       {feature == "orderHero" && (
         <tr className="bg-bodyBackColor hover:opacity-90 duration-300">
           <td scope="row" className="px-6 py-3">
-            {dateFormat(berangkat)}
+            tgl brkt bagasi
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -282,7 +283,7 @@ function TabelBody({
       {feature == "userOrder" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            {dateFormat(berangkat)}
+            tgl brkt bagasi
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">

@@ -1,12 +1,11 @@
-import { useGetUser } from "../features/user/useUser";
+import { useGetUser } from "../features/user/useGetUser";
 import { cutWords } from "../utilities/formatter";
-import Spinner from "./Spinner";
 
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 function LogoutBox() {
-  const { data } = useGetUser();
-  const { nama, provider, image } = data;
+  const { user } = useGetUser();
+  const { nama, provider, image } = user;
   function handleClick() {
     window.open(`${BAKA_URL}/auth/logout`, "_self");
   }
@@ -21,14 +20,14 @@ function LogoutBox() {
         />
         <div className=" flex flex-col text-xs text-textColor">
           <span>{`${!nama ? "Nama User" : cutWords(nama, 2)}`}</span>
-          <span className="italic text-center">{`${
-            !provider ? "Proses..." : `by: ${provider.toUpperCase()}`
+          <span className="italic capitalize">{`${
+            !provider ? "Proses..." : `${provider}`
           }`}</span>
         </div>
       </div>
       <button
         onClick={handleClick}
-        className=" text-base text-red-600 font-semibold hover:opacity-80"
+        className=" py-1 px-2 text-sm text-white bg-red-500 rounded-md cursor-pointer hover:opacity-80"
       >
         Keluar
       </button>

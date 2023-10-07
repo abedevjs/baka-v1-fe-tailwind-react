@@ -1,7 +1,9 @@
 import { LinkArrowRight } from "../../ui/LinkArrow";
 import Pagination from "../../ui/Pagination";
 import Tabel from "../../ui/Tabel";
+import Spinner from "../../ui/Spinner";
 import { Link } from "react-router-dom";
+import { useGetUser } from "./useGetUser";
 
 const bagasiComplete = [
   {
@@ -36,11 +38,14 @@ const orderComplete = [
 ];
 
 export function TabelUserBagasi() {
+  const { user, isLoading } = useGetUser();
+  if (isLoading) return <Spinner />;
+
   return (
     <>
-      <Tabel feature="userBagasi" dataObj={bagasiComplete} />
-      {bagasiComplete.length > 5 && <Pagination />}
-      {bagasiComplete.length == 0 && (
+      <Tabel feature="userBagasi" dataObj={user?.bagasi} />
+      {user?.bagasi?.length > 5 && <Pagination />}
+      {user?.bagasi?.length == 0 && (
         <>
           {/* NO BAGASI Content */}
           <div className="w-1/2 mx-auto flex-col space-y-2">

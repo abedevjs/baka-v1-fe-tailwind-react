@@ -68,7 +68,28 @@ function AdminBagasiStatus() {
             htmlFor="berat"
             className="text-sm text-primaryBlue lg:text-xs"
           >
-            Dokumen <span className="text-xs text-textColor">(text)</span>
+            Nama Dokumen{" "}
+            <span className="text-xs text-textColor">(Tiket Penerbangan)</span>
+          </label>
+          <input
+            type="text"
+            required=""
+            className="w-full lg:w-full text-base lg:text-sm text-center border-b-2 border-textColor outline-none bg-transparent"
+          />
+        </div>
+        {/* Box Maskapai */}
+        <div
+          className="w-full py-2 px-6 flex flex-col justify-around bg-bodyBackColor rounded-lg
+                  lg:py-1 lg:px-3
+                  sm:col-end-3
+                  "
+        >
+          <label
+            htmlFor="berat"
+            className="text-sm text-primaryBlue lg:text-xs"
+          >
+            Nama Pesawat{" "}
+            <span className="text-xs text-textColor">(Maskapai)</span>
           </label>
           <input
             type="text"

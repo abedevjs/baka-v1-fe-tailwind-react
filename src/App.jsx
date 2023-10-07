@@ -26,7 +26,11 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       // staleTime: 60 * 1000,
-      staleTime: 0,
+      staleTime: 0, //the time in milliseconds after data is considered stale. Defaults to 0.
+      refetchOnWindowFocus: false, //automatically requests fresh data in the background if user leaves the app and returns to stale data.
+      refetchOnmount: false, // if true, refetch on mount if the data is stale.
+      // refetchOnReconnect: false,//if true, refetch on reconnect if the data is stale.
+      // retry: 1,//if true, failed queries will retry infinitely.
     },
   },
 });
@@ -119,14 +123,14 @@ function App() {
         containerStyle={{ margin: "8px" }}
         toastOptions={{
           success: {
-            duration: 3000,
+            duration: 5000, //5secs
           },
           error: {
-            duration: 5000,
+            duration: 10000, //10secs
           },
           style: {
-            fontSize: "16px",
-            maxWidth: "500px",
+            fontSize: "14px",
+            maxWidth: "700px",
             padding: "16px 24px",
             backgroundColor: "#f7f8fe",
             color: "#0b2471",

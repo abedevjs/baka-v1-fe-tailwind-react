@@ -1,5 +1,7 @@
+import { useGetAllOrder } from "../../pages/order/useGetAllOrder";
 import Pagination from "../../ui/Pagination";
 import Tabel from "../../ui/Tabel";
+import Spinner from "../../ui/Spinner";
 
 const orderHero = [
   {
@@ -86,10 +88,17 @@ export function TabelOrderHero() {
 }
 
 export function TabelOrderComplete() {
+  const { order, isLoading } = useGetAllOrder();
+
+  if (isLoading) return <Spinner />;
+
+  console.log(order);
+
   return (
     <>
-      <Tabel feature="order" dataObj={orderComplete} />
-      {orderComplete.length > 8 && <Pagination />}
+      <p>sementara desactive cek halaman Tabel Order</p>
+      {/* <Tabel feature="order" dataObj={order} />
+      {order.length > 8 && <Pagination />} */}
     </>
   );
 }

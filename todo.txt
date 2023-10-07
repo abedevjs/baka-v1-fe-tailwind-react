@@ -1,2 +1,20 @@
 🔴 Bermasalah saat google oauth via mobile
+🔴 compare the dates. Traveler cant createBagasi if waktuBerangkat is before today
+🔴 http://localhost:5173/update-bagasi/6520c445605079bd9f88da99 hanya user owner yg boleh masuk ke halaman tersebut
+🔴 Toaster nya di edit ya, gagal begrond merah, sukses begrond hijau. FOnt nya juga di sesuaikan antara desktop dan mobile
+🔴 Compare dates user ga bisa misalnya brkt tgl 6 oktober tiba tgl 1 oktober. Atau hari ini tgl 6okt berangkat tgl 5okt
+🔴 Design n Style halaman /login
+
+
 🔴 kenapa react query fetching terus state nya? foto dalam logout box blm bisa di persist
+✅ refetchOnWindowFocus: false, di app.js
+
+Router yg blm dikerjakan
+- updateBagasi
+- getAllOrder
+- createOrder via bagasi ID
+- updateOrder
+- deleteOrder
+- updateUser
+- deleteUser
+- uploadDokumen

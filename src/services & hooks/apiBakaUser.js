@@ -12,3 +12,16 @@ export async function apiGetUser() {
     console.log(error);
   }
 }
+
+export async function apiUpdateUser(data) {
+  try {
+    const res = await axios({
+      url: `${BAKA_URL}/user/update`,
+      method: "patch",
+      data,
+    }).then((abe) => console.log(abe));
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+}

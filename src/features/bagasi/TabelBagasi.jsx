@@ -1,5 +1,7 @@
 import Pagination from "../../ui/Pagination";
+import Spinner from "../../ui/Spinner";
 import Tabel from "../../ui/Tabel";
+import { useGetAllBagasi } from "./useGetAllBagasi";
 
 const bagasiHero = [
   {
@@ -92,10 +94,14 @@ export function TabelBagasiHero() {
 }
 
 export function TabelBagasiComplete() {
+  const { bagasi, isLoading } = useGetAllBagasi();
+
+  if (isLoading) return <Spinner />;
+
   return (
     <>
-      <Tabel feature="bagasi" dataObj={bagasiComplete} />
-      {bagasiComplete.length > 8 && <Pagination />}
+      <Tabel feature="bagasi" dataObj={bagasi} />
+      {bagasi.length > 8 && <Pagination />}
     </>
   );
 }
