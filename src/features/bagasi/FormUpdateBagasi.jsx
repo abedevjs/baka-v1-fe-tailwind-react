@@ -5,6 +5,12 @@ import { useGetAllBagasi } from "./useGetAllBagasi";
 import Spinner from "../../ui/Spinner";
 import { currencyFormat, dateFormat } from "../../utilities/formatter";
 import { useDeleteBagasi } from "./useDeleteBagasi";
+import { useUpdateBagasi } from "./useUpdateBagasi";
+import { useForm } from "react-hook-form";
+
+const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
+const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
+const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 
 const today = new Date();
 
@@ -12,9 +18,13 @@ function FormUpdateBagasi() {
   const { id } = useParams();
   const { bagasi, isLoading } = useGetAllBagasi();
   const { deleteBagasi, isDeleting } = useDeleteBagasi();
+  const { updateBagasi, isUpdating } = useUpdateBagasi();
+  const { register, handleSubmit, formState } = useForm();
+  const { errors, isDirty } = formState;
 
   if (isLoading) return <Spinner />;
 
+  //Destructuring data bagasi dari calling useGetAllBagasi() --start
   const data = bagasi?.map((el) => el).filter((el) => el._id == id);
   const {
     dari,
@@ -32,10 +42,43 @@ function FormUpdateBagasi() {
     balanceRp,
     catatan,
   } = data[0];
+  //Destructuring data bagasi dari calling useGetAllBagasi() --end
 
+  //Executing update form dari calling useUpdateBagasi() --start
+  function onSuccess(data) {
+    if (!isDirty) return;
+    if (!data) return;
+
+    //1. totalbagasi tdk boleh lewat 80kg
+    // console.log(data.availableKg, bookedKg);
+    // console.log(typeof data.availableKg);
+    // if (data.availableKg > MAX_BAGASI_KG)
+    //   return console.log("1. totalbagasi tdk boleh lewat 80kg");
+    //2. total bagasi tdk boleh lebih kecil dari bagasi yg sdh di booking (brrti tdk boleh dibwhnya booking)
+    // if (data.availableKg < bookedKg)
+    //   return console.log(
+    //     "2. total bagasi tdk boleh lebih kecil dari bagasi yg sdh di booking"
+    //   );
+    // data = {
+    //   waktuBerangkat: data.waktuBerangkat,
+    //   waktuTiba: data.waktuTiba,
+    //   catatan: data.catatan,
+    //   availableKg: data.availableKg,
+    //   hargaRp: data.hargaRp,
+    // };
+
+    updateBagasi({ id: id, body: data });
+  }
+  function onError(err) {
+    console.log(err);
+  }
+  //Executing update form dari calling useUpdateBagasi() --end
+
+  //Executing tombol 'Hapus Bagasi'. dari calling useDeleteBagasi() --start
   function handleDelete() {
     deleteBagasi(id);
   }
+  //Executing tombol 'Hapus Bagasi'. dari calling useDeleteBagasi() --end
 
   return (
     <>
@@ -43,7 +86,7 @@ function FormUpdateBagasi() {
       <div className="w-full mb-8 py-8 px-4 mx-auto font-text text-textColor bg-secondaryYellow rounded-lg shadow-md lg:px-0">
         {/* Form Jual Bagasi */}
         <form
-          action=""
+          onSubmit={handleSubmit(onSuccess, onError)}
           className="mb-6 px-4 grid grid-cols-4 grid-rows-6 gap-4 sm:py-4 sm:grid-rows-10 sm:gap-2 "
         >
           {/* Box 1 Dari - Tujuan */}
@@ -157,18 +200,18 @@ function FormUpdateBagasi() {
                 <input
                   type="date"
                   min={new Date(waktuBerangkat).toISOString().split("T")[0]}
-                  id="berangkat"
                   defaultValue={
                     new Date(waktuBerangkat).toISOString().split("T")[0]
                   }
-                  required=""
+                  id="waktuBerangkat"
+                  {...register("waktuBerangkat")}
                   className="text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
               {/* Label + Input Tiba */}
               <div className="flex flex-col justify-evenly">
                 <label
-                  htmlFor="tiba"
+                  htmlFor="waktuTiba"
                   className="text-sm text-primaryBlue lg:text-xs"
                 >
                   Tgl Tiba
@@ -176,9 +219,9 @@ function FormUpdateBagasi() {
                 <input
                   type="date"
                   min={new Date(waktuBerangkat).toISOString().split("T")[0]}
-                  id="tiba"
                   defaultValue={new Date(waktuTiba).toISOString().split("T")[0]}
-                  required=""
+                  id="waktuTiba"
+                  {...register("waktuTiba")}
                   className="text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -201,7 +244,7 @@ function FormUpdateBagasi() {
             <div className="w-[80%] flex justify-around sm:w-full">
               <div className="flex flex-col justify-evenly">
                 <label
-                  htmlFor="berat"
+                  htmlFor="availableKg"
                   className="text-sm text-primaryBlue lg:text-xs"
                 >
                   Berat&nbsp;
@@ -209,11 +252,11 @@ function FormUpdateBagasi() {
                 </label>
                 <input
                   type="number"
-                  min={1}
-                  max={60}
-                  id="berat"
-                  required=""
+                  min={MIN_BAGASI_KG}
+                  max={MAX_BAGASI_KG}
                   defaultValue={initialKg}
+                  id="availableKg"
+                  {...register("availableKg")}
                   className="text-base lg:text-sm sm:text-xs text-center bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -252,21 +295,21 @@ function FormUpdateBagasi() {
             {/* Label + Input Box */}
             <div className="w-[50%] flex flex-col justify-evenly lg:w-[80%]">
               <label
-                htmlFor="harga"
+                htmlFor="hargaRp"
                 className="text-sm text-primaryBlue lg:text-xs"
               >
                 Harga&nbsp;
                 <span className="text-xs text-textColor">(@ Kg)</span>
               </label>
               <div className="lg:w-[50%] sm:w-full flex space-x-1 lg:space-x-0 lg:justify-evenly">
-                {/* <span className="text-base lg:text-sm sm:text-xs">Rp.</span> */}
+                <span className="text-base lg:text-sm sm:text-xs">Rp.</span>
                 <input
                   type="text"
                   minLength={1}
-                  maxLength={9}
-                  id="harga"
-                  required=""
-                  defaultValue={currencyFormat(hargaRp)}
+                  maxLength={10}
+                  defaultValue={Intl.NumberFormat("in-ID").format(hargaRp)}
+                  id="hargaRp"
+                  {...register("hargaRp")}
                   className="w-full text-base lg:text-sm sm:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -337,7 +380,7 @@ function FormUpdateBagasi() {
             {/* Label + Input Box */}
             <div className="w-[80%] flex flex-col space-y-2">
               <label
-                htmlFor="noteTravel"
+                htmlFor="catatan"
                 className="text-sm text-primaryBlue lg:text-xs"
               >
                 Catatan Traveler{" "}
@@ -346,12 +389,14 @@ function FormUpdateBagasi() {
                 </span>
               </label>
               <textarea
-                name="noteTravel"
+                name="catatan"
                 rows={2}
-                maxLength={250}
+                maxLength={MAX_LENGTH_CATATAN}
                 className="p-2 w-full text-sm border-2 border-textColor bg-transparent outline-none rounded-lg"
                 placeholder="Tidak wajib diisi..."
                 defaultValue={catatan}
+                id="catatan"
+                {...register("catatan")}
               />
             </div>
           </div>
@@ -375,7 +420,7 @@ function FormUpdateBagasi() {
                 id="default-checkbox"
                 type="checkbox"
                 defaultValue=""
-                required=""
+                required={true}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
               <label htmlFor="terms" className="text-xs">
@@ -394,7 +439,7 @@ function FormUpdateBagasi() {
               <button type="submit">Update Bagasi</button>
             </div>
             {/* Notification Message */}
-            <Notification type="success" text="Update bagasi berhasil" />
+            {/* <Notification type="success" text="Update bagasi berhasil" /> */}
           </div>
         </form>
         <FormUploadDokumen />

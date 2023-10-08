@@ -229,7 +229,9 @@ function FormCreateOrder() {
           {/* Content Box Dari */}
           <div className="w-[70%] flex flex-col space-y-2 sm:w-full">
             <span className="text-xs  text-primaryBlue">Catatan Traveler</span>
-            <p className="text-sm capitalize sm:text-xs">{catatan}</p>
+            <p className="text-sm capitalize sm:text-xs">
+              {catatan ? catatan : "---"}
+            </p>
           </div>
         </div>
         {/* Error Message (Jika status bukan 'OPENED') */}

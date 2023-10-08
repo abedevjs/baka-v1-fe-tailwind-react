@@ -27,7 +27,7 @@ function LogoutBox() {
       </div>
       <button
         onClick={handleClick}
-        className=" py-1 px-2 text-sm text-white bg-red-500 rounded-md cursor-pointer hover:opacity-80"
+        className=" py-1 px-2 text-sm text-white bg-red-500 rounded-md cursor-pointer opacity-80 hover:opacity-100"
       >
         Keluar
       </button>

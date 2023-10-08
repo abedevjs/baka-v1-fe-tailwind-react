@@ -37,10 +37,6 @@ function User() {
       </Wrapper>
 
       <ButtonRed text="Hapus Akun Saya" destination="/login" />
-      <Notification
-        type="error"
-        text="Gagal menghapus akun, dicoba lagi ya kak"
-      />
     </ContentWrapper>
   );
 }

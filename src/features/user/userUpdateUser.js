@@ -4,14 +4,14 @@ import toast from "react-hot-toast";
 
 export function useUpdateUser() {
   const queryClient = useQueryClient();
-  const { mutate: updateUser, isLoading } = useMutation({
-    mutationFn: (data) => apiUpdateUser(data),
+  const { mutate: updateUser, isLoading: isUpdating } = useMutation({
+    mutationFn: (body) => apiUpdateUser(body),
     onSuccess: () => {
-      toast.success("update telpon berhasil");
+      toast.success("Update nomer WhatsApp berhasil 🤝");
       queryClient.invalidateQueries(["user"]);
     },
     onError: (err) => toast.error(err.message),
   });
 
-  return { updateUser, isLoading };
+  return { updateUser, isUpdating };
 }

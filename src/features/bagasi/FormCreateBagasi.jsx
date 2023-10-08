@@ -7,11 +7,15 @@ import toast from "react-hot-toast";
 import { useGetUser } from "../user/useGetUser";
 import { useCreateBagasi } from "./useCreateBagasi";
 
+const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
+const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
+const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
+
 const today = new Date();
 
 function FormCreateBagasi() {
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
-  const { errors, isSubmitting, isSubmitSuccessful, isLoading } = formState;
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors, isLoading } = formState;
   const { user } = useGetUser();
   const { createBagasi, isCreating } = useCreateBagasi();
 
@@ -223,8 +227,8 @@ function FormCreateBagasi() {
               </label>
               <input
                 type="number"
-                min={1}
-                max={60}
+                min={MIN_BAGASI_KG}
+                max={MAX_BAGASI_KG}
                 id="availableKg"
                 {...register("availableKg", {
                   required: "Mohon diisi berat bagasi yang akan dijual kak",
@@ -336,7 +340,7 @@ function FormCreateBagasi() {
               <textarea
                 name="catatan"
                 rows={2}
-                maxLength={250}
+                maxLength={MAX_LENGTH_CATATAN}
                 id="catatan"
                 {...register("catatan")}
                 disabled={isCreating}

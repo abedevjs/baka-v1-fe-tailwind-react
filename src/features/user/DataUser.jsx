@@ -8,12 +8,15 @@ import Spinner from "../../ui/Spinner";
 function DataUser() {
   const { user, isLoading } = useGetUser();
   const { register, handleSubmit, reset } = useForm();
-  const { updateUser } = useUpdateUser();
+  const { updateUser, isUpdating } = useUpdateUser();
   const { nama, email } = user;
+
   if (isLoading) return <Spinner />;
 
   function onSuccess(data) {
+    // console.log(data.telpon == user.telpon);
     if (!data) return;
+    if (data.telpon == user.telpon) return;
 
     updateUser(data);
   }
@@ -62,9 +65,12 @@ function DataUser() {
             {/* Notification */}
             {/* <Notification type="success" text="berhasil!" /> */}
             {/* Tombol Submit */}
-            <div className="p-2 px-2 sm:p-1 sm:px-1 sm:items-end shadow-sm justify-self-center self-center text-xs text-white text-center opacity-80 rounded-md bg-slate-700 duration-300 cursor-pointer hover:opacity-100">
-              <button type="submit">Update WhatsApp</button>
-            </div>
+            <button
+              disabled={isUpdating}
+              className="p-2 px-2 sm:p-1 sm:px-1 sm:items-end shadow-sm justify-self-center self-center text-xs text-white text-center opacity-80 rounded-md bg-slate-700 duration-300 cursor-pointer hover:opacity-100"
+            >
+              {isUpdating ? "Mengirim..." : "Update WhatsApp"}
+            </button>
           </form>
         </div>{" "}
         {/* DATA USER GRID end */}

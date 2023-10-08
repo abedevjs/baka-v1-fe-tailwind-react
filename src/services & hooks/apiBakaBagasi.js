@@ -45,6 +45,18 @@ export async function apiCreateBagasi(body) {
   }
 }
 
+export async function apiUpdateBagasi(id, body) {
+  // console.log(id, body);
+  try {
+    const res = await axios.patch(`${BAKA_URL}/bagasi/${id}`, body, {
+      withCredentials: true,
+    });
+    return res;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
+
 export async function apiDeleteBagasi(id) {
   try {
     const res = await axios.delete(`${BAKA_URL}/bagasi/${id}`, {

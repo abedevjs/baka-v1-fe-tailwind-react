@@ -9,19 +9,17 @@ export async function apiGetUser() {
     // console.log(res.data.data.user);
     return res.data?.data?.user;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.response.data.message);
   }
 }
 
-export async function apiUpdateUser(data) {
+export async function apiUpdateUser(body) {
   try {
-    const res = await axios({
-      url: `${BAKA_URL}/user/update`,
-      method: "patch",
-      data,
-    }).then((abe) => console.log(abe));
+    const res = await axios.patch(`${BAKA_URL}/user/update`, body, {
+      withCredentials: true,
+    });
     return res;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.response.data.message);
   }
 }
