@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FormUploadDokumen } from "../../ui/Form";
 import Notification from "../../ui/Notification";
 import { useGetAllBagasi } from "./useGetAllBagasi";
@@ -7,6 +7,7 @@ import { currencyFormat, dateFormat } from "../../utilities/formatter";
 import { useDeleteBagasi } from "./useDeleteBagasi";
 import { useUpdateBagasi } from "./useUpdateBagasi";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
@@ -15,6 +16,7 @@ const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 const today = new Date();
 
 function FormUpdateBagasi() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { bagasi, isLoading } = useGetAllBagasi();
   const { deleteBagasi, isDeleting } = useDeleteBagasi();
@@ -23,6 +25,12 @@ function FormUpdateBagasi() {
   const { errors, isDirty } = formState;
 
   if (isLoading) return <Spinner />;
+
+  //Cek jika bagasi tsb msh ada
+  if (!bagasi?.find((el) => el._id == id)) {
+    toast.error("Bagasi yang kakak minta tidak tersedia 🙁");
+    return navigate("/user");
+  }
 
   //Destructuring data bagasi dari calling useGetAllBagasi() --start
   const data = bagasi?.map((el) => el).filter((el) => el._id == id);

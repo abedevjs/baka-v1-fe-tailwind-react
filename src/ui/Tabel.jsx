@@ -131,7 +131,8 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {sisa} <span className="text-xs italic">Kg</span>
+            {String(sisa).padStart(2, "0")}{" "}
+            <span className="text-xs italic">Kg</span>
           </td>
           <td scope="row" className="px-6 py-3">
             {currencyFormat(harga)}
@@ -171,7 +172,8 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {sisa} <span className="text-xs italic">Kg</span>
+            {String(sisa).padStart(2, "0")}{" "}
+            <span className="text-xs italic">Kg</span>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -258,7 +260,8 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {sisa} <span className="text-xs italic">Kg</span>
+            {String(sisa).padStart(2, "0")}{" "}
+            <span className="text-xs italic">Kg</span>
           </td>
           <td scope="row" className="px-6 py-3">
             {currencyFormat(harga)}

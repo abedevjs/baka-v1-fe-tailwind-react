@@ -11,7 +11,7 @@ export function useUpdateBagasi() {
     onSuccess: () => {
       toast.success("Bagasi berhasil di update 🤗");
       queryClient.invalidateQueries({ queryKey: ["bagasi"] });
-      navigate(0);
+      navigate("/user");
     },
     onError: (err) => {
       toast.error(err.message);

@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import Notification from "../../ui/Notification";
 import { useGetUser } from "./useGetUser";
 import { useForm } from "react-hook-form";
-import { useUpdateUser } from "./userUpdateUser";
+import { useUpdateUser } from "./useUpdateUser";
 import Spinner from "../../ui/Spinner";
 
 function DataUser() {
@@ -14,10 +14,14 @@ function DataUser() {
   if (isLoading) return <Spinner />;
 
   function onSuccess(data) {
-    // console.log(data.telpon == user.telpon);
-    if (!data) return;
-    if (data.telpon == user.telpon) return;
-
+    // console.log(isNaN(Number(data.telpon)));
+    if (
+      !data.telpon ||
+      data.telpon == user.telpon ||
+      data.telpon == "Belum ada" ||
+      isNaN(Number(data.telpon))
+    )
+      return;
     updateUser(data);
   }
   function onError() {}
@@ -69,7 +73,7 @@ function DataUser() {
               disabled={isUpdating}
               className="p-2 px-2 sm:p-1 sm:px-1 sm:items-end shadow-sm justify-self-center self-center text-xs text-white text-center opacity-80 rounded-md bg-slate-700 duration-300 cursor-pointer hover:opacity-100"
             >
-              {isUpdating ? "Mengirim..." : "Update WhatsApp"}
+              {isUpdating ? "Loading..." : "Update WhatsApp"}
             </button>
           </form>
         </div>{" "}

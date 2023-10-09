@@ -5,6 +5,7 @@ import Spinner from "../../ui/Spinner";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useGetUser } from "../user/useGetUser";
+import { useUpdateUser } from "../user/useUpdateUser";
 import { useCreateBagasi } from "./useCreateBagasi";
 
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
@@ -17,19 +18,42 @@ function FormCreateBagasi() {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors, isLoading } = formState;
   const { user } = useGetUser();
+  const { updateUser, isUpdating } = useUpdateUser();
   const { createBagasi, isCreating } = useCreateBagasi();
 
   if (isLoading) return <Spinner />;
 
+  //Executing createOrder AND updateUser (jika wa nya blm ada) --start
   function onSubmit(data) {
     if (!data) return;
     if (data.dari == data.tujuan) {
       toast.error("Kota asal dan tujuan tidak boleh sama kakak 🙁");
       return;
     }
+    if (isNaN(Number(data.hargaRp)) || !Number(data.hargaRp)) {
+      toast.error("Input harga bagasi dengan angka yg valid ya kak 🙁");
+      return;
+    }
+    if (!user.telpon) {
+      if (
+        !data.telpon ||
+        data.telpon == user.telpon ||
+        data.telpon == "Belum ada" ||
+        isNaN(Number(data.telpon))
+      ) {
+        toast.error("Input nomor WhatsApp dengan angka yang valid ya kak 🙁");
+        return;
+      }
+      updateUser(data);
+    }
+
+    // Menghapus symbol '.' dari data.hargaRp
+    data = { ...data, hargaRp: data.hargaRp.replace(/[^a-zA-Z0-9 ]/g, "") };
+
     createBagasi(data, { onSuccess: () => reset() });
   }
   function onError() {}
+  //Executing createOrder --end
 
   return (
     <>
@@ -305,7 +329,7 @@ function FormCreateBagasi() {
                   id="telpon"
                   {...register("telpon", {
                     required:
-                      "Agar mudah dihubungi, sertakan nomor Wa nya ya kak",
+                      "Agar mudah dihubungi, sertakan nomor Wa nya ya kak 🙁",
                   })}
                   disabled={isCreating}
                   className="text-base sm:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
@@ -392,7 +416,7 @@ function FormCreateBagasi() {
               disabled={isCreating}
               className="p-2 px-4 justify-self-center self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 cursor-pointer hover:bg-primaryBlueBold"
             >
-              {isCreating ? "Mengirim..." : "Jual Bagasi"}
+              {isCreating ? "Loading..." : "Jual Bagasi"}
             </button>
             {errors?.dari?.message && (
               <Notification type="error" text={errors.dari.message} />

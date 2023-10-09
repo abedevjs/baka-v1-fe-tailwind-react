@@ -2,7 +2,6 @@ import axios from "axios";
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 //* www.nama.com/bagasi
-
 export async function apiGetAllBagasi() {
   try {
     const res = await axios.get(`${BAKA_URL}/bagasi`, {
@@ -15,6 +14,7 @@ export async function apiGetAllBagasi() {
   }
 }
 
+//* www.nama.com/bagasi/888
 export async function apiGetOneBagasi(id) {
   try {
     const res = await axios.get(`${BAKA_URL}/bagasi/${id}`, {
@@ -28,6 +28,7 @@ export async function apiGetOneBagasi(id) {
   }
 }
 
+//* www.nama.com/bagasi
 export async function apiCreateBagasi(body) {
   try {
     const res = await axios.post(`${BAKA_URL}/bagasi`, body, {
@@ -45,6 +46,7 @@ export async function apiCreateBagasi(body) {
   }
 }
 
+//* www.nama.com/bagasi/888
 export async function apiUpdateBagasi(id, body) {
   // console.log(id, body);
   try {
@@ -57,6 +59,7 @@ export async function apiUpdateBagasi(id, body) {
   }
 }
 
+//* www.nama.com/bagasi/888
 export async function apiDeleteBagasi(id) {
   try {
     const res = await axios.delete(`${BAKA_URL}/bagasi/${id}`, {
