@@ -44,7 +44,15 @@ function Tabel({ feature, dataObj = [] }) {
       break;
 
     case "userOrder":
-      props = ["Berangkat", "Dari", "Tujuan", "Berat", "Status", "Action"];
+      props = [
+        "Berangkat",
+        "Dari",
+        "Tujuan",
+        "Berat",
+        "Isi",
+        "Status",
+        "Action",
+      ];
       break;
 
     default:
@@ -79,7 +87,8 @@ function Tabel({ feature, dataObj = [] }) {
               dari={el.dari}
               tujuan={el.tujuan}
               sisa={el.availableKg}
-              total={el.total}
+              jumlah={el.jumlahKg}
+              isi={el.isi}
               harga={el.hargaRp}
               status={el.status}
               action={el.action}
@@ -106,7 +115,8 @@ function TabelBody({
   dari,
   tujuan,
   sisa,
-  total,
+  jumlah,
+  isi,
   harga,
   status,
   action,
@@ -187,7 +197,7 @@ function TabelBody({
       {feature == "order" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            tgl brkt bagasi
+            {dateFormat(berangkat)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -202,7 +212,7 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {total} <span className="text-xs italic">Kg</span>
+            {jumlah} <span className="text-xs italic">Kg</span>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -231,7 +241,7 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {total} <span className="text-xs italic">Kg</span>
+            {jumlah} <span className="text-xs italic">Kg</span>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -286,7 +296,7 @@ function TabelBody({
       {feature == "userOrder" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            tgl brkt bagasi
+            {dateFormat(berangkat)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -301,7 +311,10 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {total} <span className="text-xs italic">Kg</span>
+            {jumlah} <span className="text-xs italic">Kg</span>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            {isi}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">

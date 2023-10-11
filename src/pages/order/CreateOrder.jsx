@@ -1,4 +1,4 @@
-import FormCreateOrder from "../../features/order/FormCreateOrder";
+import PageCreateOrder from "../../features/order/PageCreateOrder";
 import ContentWrapper from "../../ui/ContentWrapper";
 import { LinkArrowLeft } from "../../ui/LinkArrow";
 import TextTitle from "../../ui/TextTitle";
@@ -17,7 +17,7 @@ function CreateOrder() {
       <TextTitle icon="bagasi" title="beli bagasi" />
 
       {/* FORM Create Order */}
-      <FormCreateOrder />
+      <PageCreateOrder />
     </ContentWrapper>
   );
 }

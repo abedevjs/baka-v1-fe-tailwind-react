@@ -1,7 +1,8 @@
-import { useGetAllOrder } from "../../pages/order/useGetAllOrder";
+import { useGetAllOrder } from "../order/useGetAllOrder";
 import Pagination from "../../ui/Pagination";
 import Tabel from "../../ui/Tabel";
 import Spinner from "../../ui/Spinner";
+import { useGetAllBagasi } from "../bagasi/useGetAllBagasi";
 
 const orderHero = [
   {
@@ -88,17 +89,24 @@ export function TabelOrderHero() {
 }
 
 export function TabelOrderComplete() {
-  const { order, isLoading } = useGetAllOrder();
+  const { order, isLoading: isLoadingOrder } = useGetAllOrder();
+  const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
 
-  if (isLoading) return <Spinner />;
+  if (isLoadingOrder || isLoadingBagasi) return <Spinner />;
 
-  console.log(order);
+  const orderDetails = order.map((el) => ({
+    jumlahKg: el.jumlahKg,
+    status: el.status,
+    waktuBerangkat: bagasi.find((bag) => bag._id == el.bagasi._id)
+      .waktuBerangkat,
+    dari: bagasi.find((bag) => bag._id == el.bagasi._id).dari,
+    tujuan: bagasi.find((bag) => bag._id == el.bagasi._id).tujuan,
+  }));
 
   return (
     <>
-      <p>sementara desactive cek halaman Tabel Order</p>
-      {/* <Tabel feature="order" dataObj={order} />
-      {order.length > 8 && <Pagination />} */}
+      <Tabel feature="order" dataObj={orderDetails} />
+      {orderDetails.length > 8 && <Pagination />}
     </>
   );
 }

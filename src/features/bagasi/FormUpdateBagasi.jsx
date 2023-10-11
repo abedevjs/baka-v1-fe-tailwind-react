@@ -8,27 +8,44 @@ import { useDeleteBagasi } from "./useDeleteBagasi";
 import { useUpdateBagasi } from "./useUpdateBagasi";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useGetUser } from "../user/useGetUser";
 
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 
-const today = new Date();
+// const today = new Date();
 
 function FormUpdateBagasi() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { bagasi, isLoading } = useGetAllBagasi();
+  const { user, isLoading: isLoadingUser } = useGetUser();
+  const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
   const { deleteBagasi, isDeleting } = useDeleteBagasi();
-  const { updateBagasi, isUpdating } = useUpdateBagasi();
+  const { updateBagasi } = useUpdateBagasi();
   const { register, handleSubmit, formState } = useForm();
   const { errors, isDirty } = formState;
 
-  if (isLoading) return <Spinner />;
+  if (isLoadingBagasi || isLoadingUser) return <Spinner />;
 
   //Cek jika bagasi tsb msh ada
   if (!bagasi?.find((el) => el._id == id)) {
     toast.error("Bagasi yang kakak minta tidak tersedia 🙁");
+    return navigate("/user");
+  }
+
+  //Cek if user is owner,
+  // console.log(user);
+  // console.log(bagasi);
+  // console.log(user?.bagasi?.length);
+  // console.log(user?.bagasi?.map((obj) => obj?._id));
+  // console.log(!user?.bagasi?.map((obj) => obj?._id)?.includes(id));
+  //! Guard clause ini msh lemah, jika halaman di refresh user justru keluar dari page update-order/:id, seharusnya stay
+  if (
+    user?.bagasi?.length == 0 ||
+    !user?.bagasi?.map((obj) => obj?._id)?.includes(id)
+  ) {
+    toast.error("Kakak bukan pemilik bagasi ini 🙁");
     return navigate("/user");
   }
 
@@ -454,11 +471,13 @@ function FormUpdateBagasi() {
       </div>{" "}
       {/* JUAL BAGASI Wrapper end */}
       {/* Link Delete Account */}
-      <div className="w-1/4 sm:w-full mb-2 p-2 px-2 mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 cursor-pointer hover:opacity-80">
-        <button onClick={handleDelete} disabled={isDeleting}>
-          {isDeleting ? "Menghapus..." : "Hapus Bagasi"}
-        </button>
-      </div>
+      <button
+        onClick={handleDelete}
+        disabled={isDeleting}
+        className="w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 cursor-pointer hover:opacity-80"
+      >
+        {isDeleting ? "Menghapus..." : "Hapus Bagasi"}
+      </button>
     </>
   );
 }

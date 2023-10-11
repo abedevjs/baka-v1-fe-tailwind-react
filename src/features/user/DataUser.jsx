@@ -13,6 +13,7 @@ function DataUser() {
 
   if (isLoading) return <Spinner />;
 
+  //Executing updateUser --START
   function onSuccess(data) {
     // console.log(isNaN(Number(data.telpon)));
     if (
@@ -25,10 +26,7 @@ function DataUser() {
     updateUser(data);
   }
   function onError() {}
-
-  // const queryClient = useQueryClient();
-  // const { data: test } = queryClient.getQueryData("user");
-  // console.log(test);
+  //Executing updateUser --END
 
   return (
     <>

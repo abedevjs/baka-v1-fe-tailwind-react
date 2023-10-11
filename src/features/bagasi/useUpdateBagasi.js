@@ -15,12 +15,6 @@ export function useUpdateBagasi() {
     },
     onError: (err) => {
       toast.error(err.message);
-      if (
-        err.message ==
-        "Kakak bukan pemilik bagasi ini 🙁. Akses di tolak ya Kak"
-      ) {
-        navigate("/user");
-      }
     },
   });
 

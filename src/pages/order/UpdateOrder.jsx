@@ -1,4 +1,4 @@
-import FormUpdateOrder from "../../features/order/FormUpdateOrder";
+import PageUpdateOrder from "../../features/order/PageUpdateOrder";
 import ContentWrapper from "../../ui/ContentWrapper";
 import { LinkArrowLeft } from "../../ui/LinkArrow";
 import TextTitle from "../../ui/TextTitle";
@@ -16,8 +16,8 @@ function UpdateOrder() {
       {/* Text Title */}
       <TextTitle icon="order" title="update order" />
 
-      {/* FORM Update Order */}
-      <FormUpdateOrder />
+      {/* Page Update Order */}
+      <PageUpdateOrder />
     </ContentWrapper>
   );
 }

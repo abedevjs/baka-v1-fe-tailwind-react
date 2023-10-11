@@ -1,11 +1,15 @@
 import { useGetUser } from "../features/user/useGetUser";
 import { cutWords } from "../utilities/formatter";
+import Spinner from "./Spinner";
 
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 function LogoutBox() {
-  const { user } = useGetUser();
+  const { user, isLoading: isLoadingUser } = useGetUser();
   const { nama, provider, image } = user;
+
+  if (isLoadingUser) return <Spinner />;
+
   function handleClick() {
     window.open(`${BAKA_URL}/auth/logout`, "_self");
   }

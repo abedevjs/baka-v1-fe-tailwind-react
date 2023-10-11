@@ -1,35 +1,46 @@
 Router yg blm dikerjakan
 - updateBagasi ✅
-- getAllOrder
+- getAllOrder ✅
 - createOrder via bagasi ID ✅
-- updateOrder
-- deleteOrder
+- updateOrder ✅
+- deleteOrder ✅
 - updateUser ✅
 - deleteUser
 - uploadDokumen
 
 
 URGENT (before launching)
-🔴 kenapa react query fetching terus state nya? foto dalam logout box blm bisa di persist
-    ✅ refetchOnWindowFocus: false, di app.js
-🔴 compare the dates. Traveler cant createBagasi if waktuBerangkat is before today
-    ✅ min={new Date(waktuBerangkat).toISOString().split("T")[0]}
-🔴 Compare dates user ga bisa misalnya brkt tgl 6 oktober tiba tgl 1 oktober. Atau hari ini tgl 6okt berangkat tgl 5okt
-    ✅ min={new Date(waktuBerangkat).toISOString().split("T")[0]}
-🔴 Bermasalah saat google oauth via mobile
-🔴 http://localhost:5173/update-bagasi/6520c445605079bd9f88da99 hanya user owner yg boleh masuk ke halaman tersebut
-🔴 Toaster nya di edit ya, gagal begrond merah, sukses begrond hijau. FOnt nya juga di sesuaikan antara desktop dan mobile
-🔴 Design n Style halaman /login
-🔴 Pagination
-🔴 Content tulisan di /faq, /rules, /about, form instruksi
-🔴 di formcreateorder beratKg dan totalHargaRp di set dynamically
-🔴 Dihalaman updateBagasi, user bisa lihat list order dr bagasi tsb
-🔴 Styling date picker ke bhs indonesia
-🔴 klo sdh login, page /login tdk bs di akses kembali
-🔴 http://localhost:5173/update-bagasi/65211311181bc5d96ab2b39b klo id nya invalid, dy error. idealnya masuk ke /notFound
-🔴 perbaiki posisi box wa dan catatan, di form create bagasi, tukar posisi
-🔴 setelah user createBagasi/createOrder barulah muncul formupload dokumen tertera dari-tujuan tiket yg di expect atau jumlah pembayaran yg di expect
-❓ knp ya userUpdate(data.telpon) di /createBagasi bisa, tp userUpdate(data) di /user tidak bisa?
+    Functionality
+    🔴 kenapa react query fetching terus state nya? foto dalam logout box blm bisa di persist
+        ✅ refetchOnWindowFocus: false, di app.js
+    🔴 compare the dates. Traveler cant createBagasi if waktuBerangkat is before today
+        ✅ min={new Date(waktuBerangkat).toISOString().split("T")[0]}
+    🔴 Compare dates user ga bisa misalnya brkt tgl 6 oktober tiba tgl 1 oktober. Atau hari ini tgl 6okt berangkat tgl 5okt
+        ✅ min={new Date(waktuBerangkat).toISOString().split("T")[0]}
+    🔴 check if user is owner di formUpdateBagasi, pageUpdateOrder,
+        ✅ Sudah buat guard clause...tapi...baca pesan dibawah
+        ❗//! Guard clause ini msh lemah, jika halaman di refresh user justru keluar dari page update-order/:id, seharusnya stay
+    🔴 di formcreateorder beratKg dan totalHargaRp di set dynamically
+        ✅ sudah dibuat kan parent-children component dan useEffect()
+    🔴 Bermasalah saat google oauth via mobile
+    🔴 Pagination
+    🔴 Content tulisan di /faq, /rules, /about, form instruksi
+    🔴 Dihalaman updateBagasi, user bisa lihat list order dr bagasi tsb
+    🔴 klo sdh login, page /login tdk bs di akses kembali
+    🔴 setelah user createBagasi/createOrder barulah muncul formupload dokumen tertera dari-tujuan tiket yg di expect atau jumlah pembayaran yg di expect
+    ❓ knp ya userUpdate(data.telpon) di /createBagasi bisa, tp userUpdate(data) di /user tidak bisa?
+    🔴 Tabel hero, order hero
+    
+    UI
+    🔴 Styling date picker ke bhs indonesia
+    🔴 Toaster nya di edit ya, gagal begrond merah, sukses begrond hijau. Font nya juga di sesuaikan antara desktop dan mobile
+    🔴 Design n Style halaman /login
+    🔴 Pagination
+    🔴 Content tulisan di /faq, /rules, /about, form instruksi
+    🔴 Dihalaman updateBagasi, user bisa lihat list order dr bagasi tsb
+    🔴 perbaiki posisi box wa dan catatan, di form create bagasi, tukar posisi
+    🔴 setelah user createBagasi/createOrder barulah muncul formupload dokumen tertera dari-tujuan tiket yg di expect atau jumlah pembayaran yg di expect
+
 
 SUNNAH (while the app has been launched)
 🔴 User bisa update nama. Lakukan ini jg di backend
@@ -37,6 +48,6 @@ SUNNAH (while the app has been launched)
 🔴 Filtering n Sorting di bagasi dan order list. tanggal datang-tiba (asc-desc), harga (lowest-highest) alphabet(a-z)
 🔴 klo user sudah order bagasi yg sm tp blm bayar, setelah gagal navigate ke update order di bagasi tsb
 🔴 klo user sudah create bagasi tp ternyata sdh ada 3 bagasi aktif, setelah gagal navigate ke area user
-🔴 option2 di form akan kita buatkan ui (reusable) sendiri
+🔴 option2 di form akan kita buatkan ui (reusable) sendiri, dan component lain yg bs di reusable kan
 ❓ Perlukah mengekspos nama traveler/jastiper?
 

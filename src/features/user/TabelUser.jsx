@@ -4,6 +4,7 @@ import Tabel from "../../ui/Tabel";
 import Spinner from "../../ui/Spinner";
 import { Link } from "react-router-dom";
 import { useGetUser } from "./useGetUser";
+import { useGetAllBagasi } from "../bagasi/useGetAllBagasi";
 
 const bagasiComplete = [
   {
@@ -83,11 +84,27 @@ export function TabelUserBagasi() {
 }
 
 export function TabelUserOrder() {
+  const { user, isLoading: isLoadingUser } = useGetUser();
+  const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
+
+  if (isLoadingUser || isLoadingBagasi) return <Spinner />;
+
+  const orderDetail = user?.order?.map((el) => ({
+    _id: el._id,
+    jumlahKg: el.jumlahKg,
+    isi: el.isi,
+    status: el.status,
+    waktuBerangkat: bagasi?.find((bag) => bag._id == el.bagasi._id)
+      .waktuBerangkat,
+    dari: bagasi?.find((bag) => bag._id == el.bagasi._id).dari,
+    tujuan: bagasi?.find((bag) => bag._id == el.bagasi._id).tujuan,
+  }));
+
   return (
     <>
-      <Tabel feature="userOrder" dataObj={orderComplete} />
-      {orderComplete.length > 5 && <Pagination />}
-      {orderComplete.length == 0 && (
+      <Tabel feature="userOrder" dataObj={orderDetail} />
+      {orderDetail?.length > 5 && <Pagination />}
+      {orderDetail?.length == 0 && (
         <>
           <>
             {/* NO ORDER Content */}
