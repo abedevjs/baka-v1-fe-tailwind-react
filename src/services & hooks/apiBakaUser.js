@@ -13,6 +13,30 @@ export async function apiGetUser() {
   }
 }
 
+export async function apiGetUserOrder() {
+  try {
+    const res = await axios.get(`${BAKA_URL}/user/profil`, {
+      withCredentials: true,
+    });
+    // console.log(res.data?.data?.user?.order);
+    return res.data?.data?.user?.order;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
+
+export async function apiGetUserBagasi() {
+  try {
+    const res = await axios.get(`${BAKA_URL}/user/profil`, {
+      withCredentials: true,
+    });
+    // console.log(res.data?.data?.user?.bagasi);
+    return res.data?.data?.user?.bagasi;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
+
 export async function apiUpdateUser(body) {
   try {
     const res = await axios.patch(`${BAKA_URL}/user/update`, body, {

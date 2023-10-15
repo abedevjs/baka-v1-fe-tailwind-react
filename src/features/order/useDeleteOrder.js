@@ -6,11 +6,11 @@ import { apiDeleteOrder } from "../../services & hooks/apiBakaOrder";
 export function useDeleteOrder() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { mutate: deleteOrder, isDeleting } = useMutation({
+  const { mutate: deleteOrder, isLoading: isDeleting } = useMutation({
     mutationFn: (id) => apiDeleteOrder(id),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["order", "userOrder"] });
       toast.success("Order berhasil dihapus 🤝");
-      queryClient.invalidateQueries({ queryKey: ["order"] });
       navigate("/user");
     },
     onError: (err) => {

@@ -9,8 +9,8 @@ export function useUpdateBagasi() {
   const { mutate: updateBagasi, isLoading: isUpdating } = useMutation({
     mutationFn: ({ id, body }) => apiUpdateBagasi(id, body),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["bagasi", "userBagasi"] });
       toast.success("Bagasi berhasil di update 🤗");
-      queryClient.invalidateQueries({ queryKey: ["bagasi"] });
       navigate("/user");
     },
     onError: (err) => {

@@ -9,11 +9,10 @@ export function useCreateOrder() {
   const { mutate: createOrder, isLoading: isCreating } = useMutation({
     mutationFn: ({ id, body }) => apiCreateOrder(id, body),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["order", "userOrder"] });
       toast.success(
-        "Order berhasil dibuat, kami tunggu pembayarannya ya kak 🤗"
+        "Permohonan Beli Bagasi berhasil! Silahkan upload Bukti Pembayaran ya kak 🤗"
       );
-      queryClient.invalidateQueries({ queryKey: ["order"] });
-      navigate("/order");
     },
     onError: (err) => {
       toast.error(err.message);

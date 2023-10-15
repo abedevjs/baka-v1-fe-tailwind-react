@@ -1,5 +1,4 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { FormUploadDokumen } from "../../ui/Form";
 import Notification from "../../ui/Notification";
 import Spinner from "../../ui/Spinner";
 import { useGetAllBagasi } from "../bagasi/useGetAllBagasi";
@@ -270,9 +269,14 @@ function PageCreateOrder() {
               {status == "Scheduled"
                 ? "Bagasi sedang dikonfirmasi, coba beberapa saat lagi ya kak 🙁"
                 : ""}
-              {status == "Closed"
+
+              {status == "Closed" && availableKg == 0
+                ? "Bagasi sudah penuh, tunggu bagasi berikut ya kak 🙁"
+                : ""}
+              {status == "Closed" && availableKg > 0
                 ? "Bagasi sudah berangkat, tunggu penerbangan berikut ya kak 🙁"
                 : ""}
+
               {status == "Canceled"
                 ? "Bagasi dibatalkan, cari jadwal bagasi yang lain ya kak 🙁"
                 : ""}

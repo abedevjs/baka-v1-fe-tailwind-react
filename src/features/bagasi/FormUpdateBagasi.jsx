@@ -1,5 +1,5 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { FormUploadDokumen } from "../../ui/Form";
+import { Link, redirect, useParams } from "react-router-dom";
+import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
 import Notification from "../../ui/Notification";
 import { useGetAllBagasi } from "./useGetAllBagasi";
 import Spinner from "../../ui/Spinner";
@@ -9,6 +9,7 @@ import { useUpdateBagasi } from "./useUpdateBagasi";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useGetUser } from "../user/useGetUser";
+import { useGetUserBagasi } from "../user/useGetUserBagasi";
 
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
@@ -17,36 +18,31 @@ const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 // const today = new Date();
 
 function FormUpdateBagasi() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const { user, isLoading: isLoadingUser } = useGetUser();
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
+  const { userBagasi, isLoadingUserBagasi } = useGetUserBagasi();
   const { deleteBagasi, isDeleting } = useDeleteBagasi();
-  const { updateBagasi } = useUpdateBagasi();
+  const { updateBagasi, isUpdating } = useUpdateBagasi();
   const { register, handleSubmit, formState } = useForm();
   const { errors, isDirty } = formState;
 
-  if (isLoadingBagasi || isLoadingUser) return <Spinner />;
+  if (isLoadingBagasi || isLoadingUser || isLoadingUserBagasi)
+    return <Spinner />;
 
   //Cek jika bagasi tsb msh ada
   if (!bagasi?.find((el) => el._id == id)) {
     toast.error("Bagasi yang kakak minta tidak tersedia 🙁");
-    return navigate("/user");
+    return redirect("/user");
   }
 
-  //Cek if user is owner,
-  // console.log(user);
-  // console.log(bagasi);
-  // console.log(user?.bagasi?.length);
-  // console.log(user?.bagasi?.map((obj) => obj?._id));
-  // console.log(!user?.bagasi?.map((obj) => obj?._id)?.includes(id));
-  //! Guard clause ini msh lemah, jika halaman di refresh user justru keluar dari page update-order/:id, seharusnya stay
+  //Cek if user is owner
   if (
-    user?.bagasi?.length == 0 ||
-    !user?.bagasi?.map((obj) => obj?._id)?.includes(id)
+    userBagasi?.length == 0 ||
+    !userBagasi?.map((obj) => obj?._id)?.includes(id)
   ) {
     toast.error("Kakak bukan pemilik bagasi ini 🙁");
-    return navigate("/user");
+    return redirect("/user");
   }
 
   //Destructuring data bagasi dari calling useGetAllBagasi() --start
@@ -66,6 +62,7 @@ function FormUpdateBagasi() {
     netRp,
     balanceRp,
     catatan,
+    dokumen,
   } = data[0];
   //Destructuring data bagasi dari calling useGetAllBagasi() --end
 
@@ -73,24 +70,6 @@ function FormUpdateBagasi() {
   function onSuccess(data) {
     if (!isDirty) return;
     if (!data) return;
-
-    //1. totalbagasi tdk boleh lewat 80kg
-    // console.log(data.availableKg, bookedKg);
-    // console.log(typeof data.availableKg);
-    // if (data.availableKg > MAX_BAGASI_KG)
-    //   return console.log("1. totalbagasi tdk boleh lewat 80kg");
-    //2. total bagasi tdk boleh lebih kecil dari bagasi yg sdh di booking (brrti tdk boleh dibwhnya booking)
-    // if (data.availableKg < bookedKg)
-    //   return console.log(
-    //     "2. total bagasi tdk boleh lebih kecil dari bagasi yg sdh di booking"
-    //   );
-    // data = {
-    //   waktuBerangkat: data.waktuBerangkat,
-    //   waktuTiba: data.waktuTiba,
-    //   catatan: data.catatan,
-    //   availableKg: data.availableKg,
-    //   hargaRp: data.hargaRp,
-    // };
 
     updateBagasi({ id: id, body: data });
   }
@@ -101,6 +80,11 @@ function FormUpdateBagasi() {
 
   //Executing tombol 'Hapus Bagasi'. dari calling useDeleteBagasi() --start
   function handleDelete() {
+    if (bookedKg > 1) {
+      toast.error("Bagasi yang sudah di beli tidak dapat di cancel ya kak 🙁");
+      return;
+    }
+
     deleteBagasi(id);
   }
   //Executing tombol 'Hapus Bagasi'. dari calling useDeleteBagasi() --end
@@ -277,7 +261,7 @@ function FormUpdateBagasi() {
                 </label>
                 <input
                   type="number"
-                  min={MIN_BAGASI_KG}
+                  min={bookedKg > 0 ? bookedKg : MIN_BAGASI_KG}
                   max={MAX_BAGASI_KG}
                   defaultValue={initialKg}
                   id="availableKg"
@@ -460,14 +444,29 @@ function FormUpdateBagasi() {
           {/* Box 12 Tombol */}
           <div className="col-start-1 col-end-5 row-start-7 flex flex-col space-y-2 justify-evenly sm:row-start-[11] sm:col-start-1 sm:col-end-5">
             {/* Tombol Submit */}
-            <div className="p-2 px-4 justify-self-center self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 cursor-pointer hover:bg-primaryBlueBold">
-              <button type="submit">Update Bagasi</button>
-            </div>
+            <button
+              disabled={!isDirty || isUpdating}
+              className={`${
+                !isDirty ? "cursor-not-allowed" : "cursor-pointer"
+              } p-2 px-4 justify-self-center self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 hover:bg-primaryBlueBold`}
+            >
+              {isUpdating ? "Updating..." : "Update Bagasi"}
+            </button>
             {/* Notification Message */}
             {/* <Notification type="success" text="Update bagasi berhasil" /> */}
           </div>
         </form>
-        <FormUploadDokumen />
+
+        {/* FORM UPLOAD DOKUMEN */}
+        {status == "Scheduled" && (
+          <FormUploadDokumen
+            type="update-bagasi"
+            user={user}
+            dari={dari}
+            tujuan={tujuan}
+            dokumen={dokumen}
+          />
+        )}
       </div>{" "}
       {/* JUAL BAGASI Wrapper end */}
       {/* Link Delete Account */}

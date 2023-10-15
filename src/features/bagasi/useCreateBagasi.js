@@ -9,11 +9,11 @@ export function useCreateBagasi() {
   const { mutate: createBagasi, isLoading: isCreating } = useMutation({
     mutationFn: (body) => apiCreateBagasi(body),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["bagasi", "userBagasi"] });
       toast.success(
-        "Permohonan Jual Bagasi kakak sedang di proses oleh tim Baka 🤗"
+        "Permohonan Jual Bagasi berhasil! Silahkan upload Tiket Keberangkatan ya kak 🤗"
       );
-      navigate("/list-bagasi");
-      queryClient.invalidateQueries({ queryKey: ["bagasi"] });
+      // navigate("/user");
     },
     onError: (err) => {
       toast.error(err.message);

@@ -93,6 +93,7 @@ export function TabelUserOrder() {
     _id: el._id,
     jumlahKg: el.jumlahKg,
     isi: el.isi,
+    netRp: el.netRp,
     status: el.status,
     waktuBerangkat: bagasi?.find((bag) => bag._id == el.bagasi._id)
       .waktuBerangkat,

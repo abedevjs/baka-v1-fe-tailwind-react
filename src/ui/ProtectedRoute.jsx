@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useIsAuthenticated } from "../features/authentication/useAuth";
+// import { useIsAuthenticated } from "../features/authentication/useAuth";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
 import { useGetUser } from "../features/user/useGetUser";

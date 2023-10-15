@@ -6,7 +6,9 @@ Router yg blm dikerjakan
 - deleteOrder ✅
 - updateUser ✅
 - deleteUser
-- uploadDokumen
+- admin, updateBagasiStatus ✅
+- admin, activateOrder ✅
+- uploadDokumen ✅
 
 
 URGENT (before launching)
@@ -20,18 +22,27 @@ URGENT (before launching)
     🔴 check if user is owner di formUpdateBagasi, pageUpdateOrder,
         ✅ Sudah buat guard clause...tapi...baca pesan dibawah
         ❗//! Guard clause ini msh lemah, jika halaman di refresh user justru keluar dari page update-order/:id, seharusnya stay
+        ✅ done. sudah stay, tp klo createOrder terus langsung ke /user, ketika klik lihat/edit di order, malah mental ga bisa masuk
     🔴 di formcreateorder beratKg dan totalHargaRp di set dynamically
         ✅ sudah dibuat kan parent-children component dan useEffect()
+    🔴 setelah user createBagasi/createOrder barulah muncul formupload dokumen tertera dari-tujuan tiket yg di expect atau jumlah pembayaran yg di expect
+        ✅ done
     🔴 Bermasalah saat google oauth via mobile
     🔴 Pagination
     🔴 Content tulisan di /faq, /rules, /about, form instruksi
     🔴 Dihalaman updateBagasi, user bisa lihat list order dr bagasi tsb
     🔴 klo sdh login, page /login tdk bs di akses kembali
-    🔴 setelah user createBagasi/createOrder barulah muncul formupload dokumen tertera dari-tujuan tiket yg di expect atau jumlah pembayaran yg di expect
+    
     ❓ knp ya userUpdate(data.telpon) di /createBagasi bisa, tp userUpdate(data) di /user tidak bisa?
-    🔴 Tabel hero, order hero
+    🔴 Tabel hero, order hero pikirin solusinya gmn
     
     UI
+    🔴 Form uploadDokumen di createBagasi dan createOrder dihapus karena paramnya beda, sebagai ganti buat tombol upload di /user. 
+        ✅ tidak jadi, kita tetap ikut protokol backend. solusinya di component uploadDokumen ada prop type untuk tentukan paramId nya apa. Dan form upload muncul setelah user createBagasi atau createOrder
+    🔴 setelah user createBagasi/createOrder barulah muncul formupload dokumen tertera dari-tujuan tiket yg di expect atau jumlah pembayaran yg di expect
+        ✅ done
+    🔴 buat bagasi detail atau order detail di admin/updateBagasiStatus dan order/updateOrderStatus
+        ✅ done
     🔴 Styling date picker ke bhs indonesia
     🔴 Toaster nya di edit ya, gagal begrond merah, sukses begrond hijau. Font nya juga di sesuaikan antara desktop dan mobile
     🔴 Design n Style halaman /login
@@ -39,8 +50,8 @@ URGENT (before launching)
     🔴 Content tulisan di /faq, /rules, /about, form instruksi
     🔴 Dihalaman updateBagasi, user bisa lihat list order dr bagasi tsb
     🔴 perbaiki posisi box wa dan catatan, di form create bagasi, tukar posisi
-    🔴 setelah user createBagasi/createOrder barulah muncul formupload dokumen tertera dari-tujuan tiket yg di expect atau jumlah pembayaran yg di expect
-
+    
+    
 
 SUNNAH (while the app has been launched)
 🔴 User bisa update nama. Lakukan ini jg di backend
@@ -50,4 +61,6 @@ SUNNAH (while the app has been launched)
 🔴 klo user sudah create bagasi tp ternyata sdh ada 3 bagasi aktif, setelah gagal navigate ke area user
 🔴 option2 di form akan kita buatkan ui (reusable) sendiri, dan component lain yg bs di reusable kan
 ❓ Perlukah mengekspos nama traveler/jastiper?
+🔴 Jika Baka sudah jalan, sdh dapat feedback, minta saran dengan fitur baru JASTIP pada customer
+🔴 Idealnya di admin updateBagasiStatus dan admin updateOrderStatus bisa lihat owner.dokumen array. Jadi di backend perlu buat getUser based on his id, terus di query user.dokumen array utk di tampilkan di admin
 

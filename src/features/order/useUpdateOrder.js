@@ -10,8 +10,8 @@ export function useUpdateOrder() {
   const { mutate: updateOrder, isLoading: isUpdating } = useMutation({
     mutationFn: ({ id, body }) => apiUpdateOrder(id, body),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["order", "userOrder"] });
       toast.success("Order berhasil di update 🤗");
-      queryClient.invalidateQueries({ queryKey: ["order"] });
       navigate("/user");
     },
     onError: (err) => {

@@ -21,6 +21,7 @@ import CreateOrder from "./pages/order/CreateOrder";
 import UpdateOrder from "./pages/order/UpdateOrder";
 import AdminBagasiStatus from "./pages/admin/AdminBagasiStatus";
 import AdminOrderStatus from "./pages/admin/AdminOrderStatus";
+import ProtectedAdmin from "./ui/ProtectedAdmin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -102,11 +103,19 @@ function App() {
             />
             <Route
               path="admin/status-bagasi/:id"
-              element={<AdminBagasiStatus />}
+              element={
+                <ProtectedAdmin>
+                  <AdminBagasiStatus />
+                </ProtectedAdmin>
+              }
             />
             <Route
               path="admin/status-order/:id"
-              element={<AdminOrderStatus />}
+              element={
+                <ProtectedAdmin>
+                  <AdminOrderStatus />
+                </ProtectedAdmin>
+              }
             />
             <Route path="about" element={<About />} />
             <Route path="rules" element={<Rules />} />

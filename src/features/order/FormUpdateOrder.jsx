@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 import Notification from "../../ui/Notification";
-import { FormUploadDokumen } from "../../ui/Form";
+import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
 import { useDeleteOrder } from "./useDeleteOrder";
 import { useForm } from "react-hook-form";
 import { useUpdateOrder } from "./useUpdateOrder";
 import { useEffect, useState } from "react";
 import { currencyFormat } from "../../utilities/formatter";
+import toast from "react-hot-toast";
 
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 const ORDER_TAX = import.meta.env.VITE_ORDER_TAX;
 
-function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp }) {
+function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
   //Destructuring Order Detail prop
   const { status, jumlahKg, isi, biayaRp, adminFeeRp, netRp, catatan } =
     orderDetail;
@@ -48,6 +49,13 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp }) {
   function onSuccess(data) {
     if (!isDirty) return;
     if (!data) return;
+
+    if (status == "Ready") {
+      toast.error(
+        "Order kk sudah terbayar. Untuk update, silahkan buat order baru lagi ya kak 🙁"
+      );
+      return;
+    }
 
     updateOrder({ id: id, body: data });
   }
@@ -115,6 +123,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp }) {
               max={availableKg}
               id="jumlahKg"
               {...register("jumlahKg")}
+              disabled={status == "Ready"}
               defaultValue={jumlahBagasi}
               className="w-[50%] text-base lg:text-sm sm:text-xs text-center border-b-2 border-textColor outline-none bg-transparent"
             />
@@ -137,17 +146,15 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp }) {
               name="tujuan"
               id="isi"
               {...register("isi")}
+              disabled={status == "Ready"}
               defaultValue={isi}
               className="p-1 text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
             >
               <option className="text-left text-sm lg:text-xs" value="">
                 Pilih Isi Kiriman
               </option>
-              <option
-                className="text-left text-sm lg:text-xs"
-                value="Makanan & Minuman"
-              >
-                Makanan &amp; Minuman
+              <option className="text-left text-sm lg:text-xs" value="Makanan">
+                Makanan
               </option>
               <option className="text-left text-sm lg:text-xs" value="Pakaian">
                 Pakaian
@@ -287,14 +294,25 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp }) {
             "
           >
             {/* Tombol Submit */}
-            <button className="p-2 px-4 justify-self-center self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 cursor-pointer hover:bg-primaryBlueBold">
+            <button
+              disabled={isUpdating || !isDirty}
+              className={`${
+                !isDirty ? "cursor-not-allowed" : "cursor-pointer"
+              } p-2 px-4 justify-self-center self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 hover:bg-primaryBlueBold`}
+            >
               {isUpdating ? "Mengirim..." : "Update Order"}
             </button>
             {/* Notify Message */}
             {/* <Notification type="error" text="Permintaan gagal" /> */}
           </div>
         </form>
-        <FormUploadDokumen type="order" />
+        {status == "Preparing" && (
+          <FormUploadDokumen
+            type="update-order"
+            user={user}
+            netRp={totalAmount}
+          />
+        )}
       </div>{" "}
       {/* Akhir Order Container */}
       <button

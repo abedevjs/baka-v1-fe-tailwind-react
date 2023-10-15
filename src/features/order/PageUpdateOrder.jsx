@@ -1,6 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { FormUploadDokumen } from "../../ui/Form";
-import Notification from "../../ui/Notification";
+import { redirect, useNavigate, useParams } from "react-router-dom";
 import FormUpdateOrder from "./FormUpdateOrder";
 import { useGetAllBagasi } from "../bagasi/useGetAllBagasi";
 import { useGetUser } from "../user/useGetUser";
@@ -8,6 +6,7 @@ import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
 import { useGetAllOrder } from "./useGetAllOrder";
 import { currencyFormat, dateFormat } from "../../utilities/formatter";
+import { useGetUserOrder } from "../user/useGetUserOrder";
 
 function PageUpdateOrder() {
   const navigate = useNavigate();
@@ -15,23 +14,26 @@ function PageUpdateOrder() {
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
   const { order, isLoading: isLoadingOrder } = useGetAllOrder();
   const { user, isLoading: isLoadingUser } = useGetUser();
+  const { userOrder, isLoadingUserOrder } = useGetUserOrder();
 
-  if (isLoadingOrder || isLoadingBagasi || isLoadingUser) return <Spinner />;
+  if (isLoadingOrder || isLoadingBagasi || isLoadingUser || isLoadingUserOrder)
+    return <Spinner />;
 
   //Cek jika order tsb msh ada
+  //! Guard clause ini msh lemah
   const orderDetail = order?.find((el) => el._id == id);
   if (!orderDetail) {
-    toast.error("Order yang kakak minta tidak tersedia 🙁");
+    // toast.error("Order yang kakak minta tidak tersedia 🙁");
     return navigate("/user");
   }
 
   //Cek if user is owner
-  //! Guard clause ini msh lemah, jika halaman di refresh user justru keluar dari page update-order/:id, seharusnya stay
+  //! Guard clause ini msh lemah
   if (
-    user?.order?.length == 0 ||
-    !user?.order?.map((obj) => obj?._id)?.includes(id)
+    userOrder?.length == 0 ||
+    !userOrder?.map((obj) => obj?._id)?.includes(id)
   ) {
-    toast.error("Kakak bukan pemilik order ini 🙁");
+    // toast.error("Kakak bukan pemilik order ini 🙁");
     return navigate("/user");
   }
 
@@ -292,6 +294,7 @@ function PageUpdateOrder() {
         orderDetail={orderDetail}
         availableKg={availableKg}
         hargaRp={hargaRp}
+        user={user}
       />
     </>
   );

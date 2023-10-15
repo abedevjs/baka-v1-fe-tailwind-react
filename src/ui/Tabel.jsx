@@ -50,6 +50,7 @@ function Tabel({ feature, dataObj = [] }) {
         "Tujuan",
         "Berat",
         "Isi",
+        "Biaya",
         "Status",
         "Action",
       ];
@@ -90,6 +91,7 @@ function Tabel({ feature, dataObj = [] }) {
               jumlah={el.jumlahKg}
               isi={el.isi}
               harga={el.hargaRp}
+              netRp={el.netRp}
               status={el.status}
               action={el.action}
             />
@@ -118,6 +120,7 @@ function TabelBody({
   jumlah,
   isi,
   harga,
+  netRp,
   status,
   action,
 }) {
@@ -141,8 +144,10 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {String(sisa).padStart(2, "0")}{" "}
-            <span className="text-xs italic">Kg</span>
+            {!sisa ? "" : String(sisa).padStart(2, "0")}{" "}
+            <span className={`${!sisa ? "text-sm" : "text-xs"} italic`}>
+              {!sisa ? "Full" : "Kg"}
+            </span>
           </td>
           <td scope="row" className="px-6 py-3">
             {currencyFormat(harga)}
@@ -270,8 +275,10 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {String(sisa).padStart(2, "0")}{" "}
-            <span className="text-xs italic">Kg</span>
+            {!sisa ? "" : String(sisa).padStart(2, "0")}{" "}
+            <span className={`${!sisa ? "text-sm" : "text-xs"} italic`}>
+              {!sisa ? "Full" : "Kg"}
+            </span>
           </td>
           <td scope="row" className="px-6 py-3">
             {currencyFormat(harga)}
@@ -315,6 +322,9 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             {isi}
+          </td>
+          <td scope="row" className="px-6 py-3">
+            {currencyFormat(netRp)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
