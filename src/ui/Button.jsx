@@ -13,9 +13,12 @@ export function ButtonYellow({ text = "", destination = "" }) {
 
 export function ButtonRed({ text = "", destination = "" }) {
   return (
-    <div className="w-1/4 sm:w-full mb-2 p-2 px-2 mx-auto text-center text-sm text-white rounded-xl bg-red-500 opacity-80 duration-300 cursor-pointer hover:opacity-100">
-      <Link to={destination}>{text}</Link>
-    </div>
+    <Link
+      to={destination}
+      className="w-1/4 sm:w-full mb-2 p-2 px-2 mx-auto block text-center text-sm text-white rounded-xl bg-red-500 opacity-80 duration-300 cursor-pointer hover:opacity-100"
+    >
+      {text}
+    </Link>
   );
 }
 

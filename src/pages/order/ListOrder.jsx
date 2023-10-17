@@ -10,7 +10,7 @@ function ListOrder() {
   return (
     <ContentWrapper padding="p-6">
       {/* Text Box */}
-      <TextBox subtitle="layanan kami" title="area jastip" />
+      <TextBox subtitle="layanan kami" title="area order" />
 
       {/* Illustration Container */}
       <div
@@ -72,7 +72,7 @@ function ListOrder() {
       </div>
 
       {/* Text Title */}
-      <TextTitle icon="order" title="daftar jastip" />
+      <TextTitle icon="order" title="daftar order" />
 
       {/* Table-Pagination Container */}
       <Wrapper type="table-pagination">
@@ -82,7 +82,7 @@ function ListOrder() {
       <>
         {/* CTA Content */}
         <div className="w-full flex flex-col space-y-2">
-          <span className="text-base self-center">Mau jastip juga?</span>
+          <span className="text-base self-center">Ingin Beli Bagasi?</span>
           <ButtonBlue text="Lihat List Bagasi" destination="/list-bagasi" />
         </div>
       </>

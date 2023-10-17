@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
 import Notification from "../../ui/Notification";
@@ -38,19 +37,27 @@ function FormCreateBagasi() {
 
     //todo Jika kota dari dan kota tujuan sama, reject
     if (data.dari == data.tujuan) {
-      toast.error("Kota asal dan tujuan tidak boleh sama kakak 🙁");
+      toast.error("Kota asal dan tujuan tidak boleh sama kakak");
       return;
     }
 
     //todo Jika Tgl Berangkat setelah Tgl Tiba, reject
     if (Date.parse(data.waktuBerangkat) > Date.parse(data.waktuTiba)) {
-      toast.error("Mohon cek Tgl Berangkat dan Tgl Tiba kak  🙁");
+      toast.error("Mohon cek Tgl Berangkat dan Tgl Tiba kak");
+      return;
+    }
+
+    //todo Jika Tgl Berangkat == Tgl Tiba, reject
+    if (Date.parse(data.waktuBerangkat) == Date.parse(data.waktuTiba)) {
+      toast.error(
+        "Tgl Berangkat dan Tgl Tiba tidak bisa di hari yang sama kak"
+      );
       return;
     }
 
     //todo Jika harga bagasi bukan angka atau ada karakter selain angka
     if (isNaN(Number(data.hargaRp)) || !Number(data.hargaRp)) {
-      toast.error("Input harga bagasi dengan angka yg valid ya kak 🙁");
+      toast.error("Input harga bagasi dengan angka yg valid ya kak");
       return;
     }
 
@@ -62,7 +69,7 @@ function FormCreateBagasi() {
         data.telpon == "Belum ada" ||
         isNaN(Number(data.telpon))
       ) {
-        toast.error("Input nomor WhatsApp dengan angka yang valid ya kak 🙁");
+        toast.error("Input nomor WhatsApp dengan angka yang valid ya kak");
         return;
       }
 
@@ -325,7 +332,7 @@ function FormCreateBagasi() {
                     disabled={isCreating}
                     type="text"
                     minLength={1}
-                    maxLength={7}
+                    maxLength={10}
                     id="hargaRp"
                     {...register("hargaRp", {
                       required: "Tentukan harga bagasi nya dulu ya kak",
@@ -335,10 +342,47 @@ function FormCreateBagasi() {
                 </div>
               </div>
             </div>
-            {/* Box 7 WhatsApp, TOGGLE FLEX / HIDDEN */}
+            {/* Box 5 Catatan Traveler */}
+            <div
+              className="w-full py-4 px-4 col-start-1 col-end-3 row-start-4 flex justify-around bg-bodyBackColor rounded-lg 
+                      lg:col-end-5
+                      sm:p-2 sm:flex-col
+                      "
+            >
+              {/* Icon */}
+              <img
+                src="/svg/comment.svg"
+                className="w-12 sm:w-10 sm:self-center"
+                alt=""
+              />
+              {/* Label + Input Box */}
+              <div className="w-[80%] flex flex-col space-y-2 sm:w-auto">
+                <label
+                  htmlFor="catatan"
+                  className="text-sm text-primaryBlue sm:text-xs"
+                >
+                  Catatan Traveler{" "}
+                  <span className="text-xs text-textColor">
+                    (Pesan untuk pembeli bagasi)
+                  </span>
+                </label>
+                <textarea
+                  name="catatan"
+                  rows={2}
+                  maxLength={MAX_LENGTH_CATATAN}
+                  id="catatan"
+                  {...register("catatan")}
+                  disabled={isCreating}
+                  className="p-2 w-full text-sm sm:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
+                  placeholder="Tidak wajib diisi..."
+                  defaultValue={""}
+                />
+              </div>
+            </div>
+            {/* Box 6 WhatsApp, TOGGLE FLEX / HIDDEN */}
             {!user.telpon && (
               <div
-                className="w-full py-4 px-4 col-start-1 col-end-2 row-start-4 flex justify-around bg-bodyBackColor rounded-lg
+                className="w-full py-4 px-4 col-start-1 col-end-2 row-start-5 flex justify-around bg-bodyBackColor rounded-lg
                       lg:col-end-3
                       sm:p-2 sm:col-end-5 sm:flex-col
                       "
@@ -364,7 +408,7 @@ function FormCreateBagasi() {
                     id="telpon"
                     {...register("telpon", {
                       required:
-                        "Agar mudah dihubungi, sertakan nomor Wa nya ya kak 🙁",
+                        "Agar mudah dihubungi, sertakan nomor Wa nya ya kak",
                     })}
                     disabled={isCreating}
                     className="text-base sm:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
@@ -372,44 +416,8 @@ function FormCreateBagasi() {
                 </div>
               </div>
             )}
-            {/* Box 6 Catatan Traveler */}
-            <div
-              className="w-full py-4 px-4 col-start-1 col-end-3 row-start-5 flex justify-around bg-bodyBackColor rounded-lg 
-                      lg:col-end-5
-                      sm:p-2 sm:flex-col
-                      "
-            >
-              {/* Icon */}
-              <img
-                src="/svg/comment.svg"
-                className="w-12 sm:w-10 sm:self-center"
-                alt=""
-              />
-              {/* Label + Input Box */}
-              <div className="w-[80%] flex flex-col space-y-2 sm:w-auto">
-                <label
-                  htmlFor="catatan"
-                  className="text-sm text-primaryBlue sm:text-xs"
-                >
-                  Catatan Traveler{" "}
-                  <span className="text-xs text-textColor">
-                    (Pesan untuk Jastiper)
-                  </span>
-                </label>
-                <textarea
-                  name="catatan"
-                  rows={2}
-                  maxLength={MAX_LENGTH_CATATAN}
-                  id="catatan"
-                  {...register("catatan")}
-                  disabled={isCreating}
-                  className="p-2 w-full text-sm sm:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
-                  placeholder="Tidak wajib diisi..."
-                  defaultValue={""}
-                />
-              </div>
-            </div>
-            {/* Box 8 Instruksi */}
+
+            {/* Box 7 Instruksi */}
             <div
               className="w-full p-4 col-start-3 col-end-5 row-start-1 row-end-6 flex flex-col justify-between bg-slate-100 rounded-lg 
                           lg:row-start-6 lg:row-end-[9] lg:col-start-1 lg:col-end-5
@@ -441,7 +449,7 @@ function FormCreateBagasi() {
                 </label>
               </div>
             </div>
-            {/* Box 9 Tombol dan Notification */}
+            {/* Box 8 Tombol dan Notification */}
             <div
               className="col-start-1 col-end-5 row-start-6 flex flex-col justify-evenly 
                       lg:row-start-[9] lg:col-start-1 lg:col-end-5 "

@@ -23,7 +23,7 @@ function PageUpdateOrder() {
   //! Guard clause ini msh lemah
   const orderDetail = order?.find((el) => el._id == id);
   if (!orderDetail) {
-    // toast.error("Order yang kakak minta tidak tersedia 🙁");
+    // toast.error("Order yang kakak minta tidak tersedia ");
     return navigate("/user");
   }
 
@@ -33,7 +33,7 @@ function PageUpdateOrder() {
     userOrder?.length == 0 ||
     !userOrder?.map((obj) => obj?._id)?.includes(id)
   ) {
-    // toast.error("Kakak bukan pemilik order ini 🙁");
+    // toast.error("Kakak bukan pemilik order ini ");
     return navigate("/user");
   }
 

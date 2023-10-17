@@ -9,10 +9,10 @@ function DataUser() {
   const { user, isLoading } = useGetUser();
   const { register, handleSubmit, reset } = useForm();
   const { updateUser, isUpdating } = useUpdateUser();
-  const { nama, email } = user;
 
   if (isLoading) return <Spinner />;
 
+  const { nama, email } = user;
   //Executing updateUser --START
   function onSuccess(data) {
     // console.log(isNaN(Number(data.telpon)));

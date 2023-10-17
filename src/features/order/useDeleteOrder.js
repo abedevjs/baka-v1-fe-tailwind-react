@@ -10,7 +10,7 @@ export function useDeleteOrder() {
     mutationFn: (id) => apiDeleteOrder(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["order", "userOrder"] });
-      toast.success("Order berhasil dihapus 🤝");
+      toast.success("Order berhasil dihapus");
       navigate("/user");
     },
     onError: (err) => {

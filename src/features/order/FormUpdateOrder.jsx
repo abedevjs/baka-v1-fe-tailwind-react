@@ -52,7 +52,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
 
     if (status == "Ready") {
       toast.error(
-        "Order kk sudah terbayar. Untuk update, silahkan buat order baru lagi ya kak 🙁"
+        "Order kk sudah terbayar. Untuk update, silahkan buat order baru lagi ya kak"
       );
       return;
     }
@@ -123,7 +123,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
               max={availableKg}
               id="jumlahKg"
               {...register("jumlahKg")}
-              disabled={status == "Ready"}
+              disabled={status !== "Preparing"}
               defaultValue={jumlahBagasi}
               className="w-[50%] text-base lg:text-sm sm:text-xs text-center border-b-2 border-textColor outline-none bg-transparent"
             />
@@ -146,7 +146,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
               name="tujuan"
               id="isi"
               {...register("isi")}
-              disabled={status == "Ready"}
+              disabled={["Delivered", "Canceled"].includes(status)}
               defaultValue={isi}
               className="p-1 text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
             >
@@ -251,6 +251,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
               className="p-2 w-full text-sm lg:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
               placeholder="Tidak wajib diisi..."
               defaultValue={catatan}
+              disabled={["Delivered", "Canceled"].includes(status)}
             />
           </div>
 

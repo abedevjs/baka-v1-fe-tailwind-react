@@ -1,4 +1,4 @@
-import { Link, redirect, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
 import Notification from "../../ui/Notification";
 import { useGetAllBagasi } from "./useGetAllBagasi";
@@ -10,6 +10,9 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useGetUser } from "../user/useGetUser";
 import { useGetUserBagasi } from "../user/useGetUserBagasi";
+import TextTitle from "../../ui/TextTitle";
+import Tabel from "../../ui/Tabel";
+import { useGetAllOrder } from "../order/useGetAllOrder";
 
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
@@ -21,19 +24,21 @@ function FormUpdateBagasi() {
   const { id } = useParams();
   const { user, isLoading: isLoadingUser } = useGetUser();
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
+  const { order, isLoading: isLoadingOrder } = useGetAllOrder();
   const { userBagasi, isLoadingUserBagasi } = useGetUserBagasi();
   const { deleteBagasi, isDeleting } = useDeleteBagasi();
   const { updateBagasi, isUpdating } = useUpdateBagasi();
   const { register, handleSubmit, formState } = useForm();
   const { errors, isDirty } = formState;
+  const navigate = useNavigate();
 
-  if (isLoadingBagasi || isLoadingUser || isLoadingUserBagasi)
+  if (isLoadingBagasi || isLoadingUser || isLoadingUserBagasi || isLoadingOrder)
     return <Spinner />;
 
   //Cek jika bagasi tsb msh ada
   if (!bagasi?.find((el) => el._id == id)) {
-    toast.error("Bagasi yang kakak minta tidak tersedia 🙁");
-    return redirect("/user");
+    // toast.error("Bagasi yang kakak minta tidak tersedia");
+    return navigate("/user");
   }
 
   //Cek if user is owner
@@ -41,8 +46,8 @@ function FormUpdateBagasi() {
     userBagasi?.length == 0 ||
     !userBagasi?.map((obj) => obj?._id)?.includes(id)
   ) {
-    toast.error("Kakak bukan pemilik bagasi ini 🙁");
-    return redirect("/user");
+    // toast.error("Kakak bukan pemilik bagasi ini");
+    return navigate("/user");
   }
 
   //Destructuring data bagasi dari calling useGetAllBagasi() --start
@@ -63,13 +68,41 @@ function FormUpdateBagasi() {
     balanceRp,
     catatan,
     dokumen,
+    order: orderIdArr,
   } = data[0];
   //Destructuring data bagasi dari calling useGetAllBagasi() --end
+
+  // Bagasi Order List --start
+  const bagasiOrderList = orderIdArr.map((ID) => ({
+    jumlahKg: order.find((el) => el._id == ID).jumlahKg,
+    isi: order.find((el) => el._id == ID).isi,
+    biayaRp: order.find((el) => el._id == ID).biayaRp,
+    catatan: order.find((el) => el._id == ID).catatan,
+    status: order.find((el) => el._id == ID).status,
+  }));
+  // Bagasi Order List --end
 
   //Executing update form dari calling useUpdateBagasi() --start
   function onSuccess(data) {
     if (!isDirty) return;
     if (!data) return;
+
+    //todo Jika status 'Closed' tdk bs update
+    if (status == "Closed") {
+      toast.error(
+        "Bagasi ini sudah siap berangkat kak. Silahkan buat Jual-Bagasi yang baru"
+      );
+      return;
+    }
+
+    //todo Jika harga bagasi bukan angka atau ada karakter selain angka
+    if (isNaN(Number(data.hargaRp)) || !Number(data.hargaRp)) {
+      toast.error("Input harga bagasi dengan angka yg valid ya kak");
+      return;
+    }
+
+    //todo Menghapus symbol '.' dari data.hargaRp
+    data = { ...data, hargaRp: data.hargaRp.replace(/[^a-zA-Z0-9 ]/g, "") };
 
     updateBagasi({ id: id, body: data });
   }
@@ -81,7 +114,7 @@ function FormUpdateBagasi() {
   //Executing tombol 'Hapus Bagasi'. dari calling useDeleteBagasi() --start
   function handleDelete() {
     if (bookedKg > 1) {
-      toast.error("Bagasi yang sudah di beli tidak dapat di cancel ya kak 🙁");
+      toast.error("Bagasi yang sudah di beli tidak dapat di cancel ya kak ");
       return;
     }
 
@@ -91,6 +124,29 @@ function FormUpdateBagasi() {
 
   return (
     <>
+      {/* Warning sebelum update */}
+      <div className=" mb-8">
+        <p>Bagasi.status = Closed tidak bisa update atau pun delete.</p>
+        <p>
+          Bagasi.status = Opened. Yes: berat, harga, catatan. No: dari, tujuan,
+          waktuBerangkat, waktuTiba. Boleh delete jika bookedKg = 0.
+        </p>
+        <p>
+          Bagasi.status = Scheduled. Yes: berat, harga, waktuBerangkat,
+          waktuTiba, catatan. No: dari, tujuan. Boleh delete kapan pun
+        </p>
+      </div>
+      {/* Title */}
+      <TextTitle icon="order" title="daftar order" />
+      {bagasiOrderList.length == 0 ? (
+        <div className=" mb-8">
+          <Notification type="error" text="Belum ada Order untuk Bagasi ini" />
+        </div>
+      ) : (
+        <Tabel feature="bagasiOrderList" dataObj={bagasiOrderList} />
+      )}
+      {/* Title */}
+      <TextTitle icon="bagasi" title="update bagasi" />
       {/* JUAL BAGASI Wrapper  */}
       <div className="w-full mb-8 py-8 px-4 mx-auto font-text text-textColor bg-secondaryYellow rounded-lg shadow-md lg:px-0">
         {/* Form Jual Bagasi */}
@@ -214,6 +270,7 @@ function FormUpdateBagasi() {
                   }
                   id="waktuBerangkat"
                   {...register("waktuBerangkat")}
+                  disabled={status !== "Scheduled"}
                   className="text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -231,6 +288,7 @@ function FormUpdateBagasi() {
                   defaultValue={new Date(waktuTiba).toISOString().split("T")[0]}
                   id="waktuTiba"
                   {...register("waktuTiba")}
+                  disabled={status !== "Scheduled"}
                   className="text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -266,6 +324,9 @@ function FormUpdateBagasi() {
                   defaultValue={initialKg}
                   id="availableKg"
                   {...register("availableKg")}
+                  disabled={["Closed", "Completed", "Canceled"].includes(
+                    status
+                  )}
                   className="text-base lg:text-sm sm:text-xs text-center bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -319,6 +380,10 @@ function FormUpdateBagasi() {
                   defaultValue={Intl.NumberFormat("in-ID").format(hargaRp)}
                   id="hargaRp"
                   {...register("hargaRp")}
+                  disabled={
+                    ["Closed", "Completed", "Canceled"].includes(status) ||
+                    isUpdating
+                  }
                   className="w-full text-base lg:text-sm sm:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -394,7 +459,7 @@ function FormUpdateBagasi() {
               >
                 Catatan Traveler{" "}
                 <span className="text-xs text-textColor">
-                  (Pesan untuk Jastiper)
+                  (Pesan untuk pembeli bagasi)
                 </span>
               </label>
               <textarea
@@ -406,6 +471,7 @@ function FormUpdateBagasi() {
                 defaultValue={catatan}
                 id="catatan"
                 {...register("catatan")}
+                disabled={["Closed", "Completed", "Canceled"].includes(status)}
               />
             </div>
           </div>

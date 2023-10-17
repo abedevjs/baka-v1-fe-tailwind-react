@@ -1,4 +1,5 @@
 import { useGetUser } from "../features/user/useGetUser";
+import { useGeolocation } from "../services & hooks/useGeoLocation";
 import { cutWords } from "../utilities/formatter";
 import Spinner from "./Spinner";
 
@@ -6,9 +7,11 @@ const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 function LogoutBox() {
   const { user, isLoading: isLoadingUser } = useGetUser();
-  const { nama, provider, image } = user;
+  const position = useGeolocation();
 
   if (isLoadingUser) return <Spinner />;
+
+  const { nama, provider, image } = user;
 
   function handleClick() {
     window.open(`${BAKA_URL}/auth/logout`, "_self");
@@ -23,9 +26,11 @@ function LogoutBox() {
           alt=""
         />
         <div className=" flex flex-col text-xs text-textColor">
-          <span>{`${!nama ? "Nama User" : cutWords(nama, 2)}`}</span>
-          <span className="italic capitalize">{`${
-            !provider ? "Proses..." : `${provider}`
+          <span className=" font-medium">{`${
+            !nama ? "Nama User" : cutWords(nama, 2)
+          }`}</span>
+          <span className="capitalize font-thin">{`${
+            !position ? "-" : cutWords(position, 1)
           }`}</span>
         </div>
       </div>

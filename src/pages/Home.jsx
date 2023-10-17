@@ -1,10 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import { TabelBagasiHero } from "../features/bagasi/TabelBagasi";
 import { TabelOrderHero } from "../features/order/TabelOrder";
 import ContentWrapper from "../ui/ContentWrapper";
 import { LinkArrowLeft, LinkArrowRight } from "../ui/LinkArrow";
 import TextBox from "../ui/TextBox";
+import { useIsAuthenticated } from "../features/authentication/useAuth";
+import Spinner from "../ui/Spinner";
 
 function Home() {
+  const navigate = useNavigate();
+  const { isAuthenticated, isLoading } = useIsAuthenticated();
+
+  if (isLoading) return <Spinner />;
+
+  if (isAuthenticated) return navigate("/list-bagasi");
+
   return (
     <ContentWrapper>
       {/* Main Content */}
@@ -35,7 +45,7 @@ function Home() {
               <TextBox
                 textColor="text-white"
                 subtitle="layanan kami"
-                title="daftar order jastiper"
+                title="daftar order"
               />
             </div>
             {/* Table Order Visual */}
@@ -69,7 +79,7 @@ function Hero() {
           </h1>
           {/* Subtitle */}
           <span className="text-base">
-            Layanan jual-beli bagasi dan jastip dengan aman melalui aplikasi.
+            Layanan jual-beli Bagasi dengan aman melalui aplikasi.
           </span>
         </div>
         {/* Link Left */}

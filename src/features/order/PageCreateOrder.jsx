@@ -21,7 +21,7 @@ function PageCreateOrder() {
 
   //Cek jika bagasi tsb msh ada
   if (!bagasi?.find((el) => el._id == id)) {
-    toast.error("Bagasi yang kakak minta tidak tersedia 🙁");
+    toast.error("Bagasi yang kakak minta tidak tersedia");
     return navigate("/list-bagasi");
   }
 
@@ -265,22 +265,49 @@ function PageCreateOrder() {
               sm:row-start-[9] sm:row-end-[10] sm:col-start-1 sm:col-end-5
               "
           >
-            <span className="py-1 px-2 text-xs text-white bg-red-500 rounded-lg">
-              {status == "Scheduled"
-                ? "Bagasi sedang dikonfirmasi, coba beberapa saat lagi ya kak 🙁"
-                : ""}
+            {status == "Scheduled" ? (
+              <Notification
+                type="error"
+                text="Bagasi sedang dikonfirmasi, coba beberapa saat lagi ya kak"
+              />
+            ) : (
+              ""
+            )}
 
-              {status == "Closed" && availableKg == 0
-                ? "Bagasi sudah penuh, tunggu bagasi berikut ya kak 🙁"
-                : ""}
-              {status == "Closed" && availableKg > 0
-                ? "Bagasi sudah berangkat, tunggu penerbangan berikut ya kak 🙁"
-                : ""}
+            {status == "Closed" && availableKg == 0 ? (
+              <Notification
+                type="error"
+                text="Bagasi sudah penuh, tunggu bagasi berikut ya kak"
+              />
+            ) : (
+              ""
+            )}
+            {status == "Closed" && availableKg > 0 ? (
+              <Notification
+                type="error"
+                text="Bagasi sudah berangkat, tunggu penerbangan berikut ya kak"
+              />
+            ) : (
+              ""
+            )}
 
-              {status == "Canceled"
-                ? "Bagasi dibatalkan, cari jadwal bagasi yang lain ya kak 🙁"
-                : ""}
-            </span>
+            {status == "Delivered" ? (
+              <Notification
+                type="success"
+                text="Bagasi berhasil di selesaikan. Terima kasih ya kak"
+              />
+            ) : (
+              ""
+            )}
+
+            {status == "Canceled" ? (
+              <Notification
+                type="error"
+                text="Bagasi dibatalkan, cari jadwal bagasi yang lain ya kak"
+              />
+            ) : (
+              ""
+            )}
           </div>
         )}
       </div>{" "}

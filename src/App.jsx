@@ -133,16 +133,27 @@ function App() {
         toastOptions={{
           success: {
             duration: 5000, //5secs
+            style: {
+              borderTop: "4px solid #22c55e",
+            },
+            icon: "🤩",
           },
           error: {
             duration: 10000, //10secs
+            style: {
+              borderTop: "4px solid #f87171",
+            },
+            icon: "😨",
           },
           style: {
             fontSize: "14px",
             maxWidth: "700px",
-            padding: "16px 24px",
-            backgroundColor: "#f7f8fe",
+            padding: "12px 16px",
+            backgroundColor: "#f5f5f5",
             color: "#0b2471",
+            // color: "#475569",
+            fontWeight: "500",
+            borderRadius: "2px",
           },
         }}
       />

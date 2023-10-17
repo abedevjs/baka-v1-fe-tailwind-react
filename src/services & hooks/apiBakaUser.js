@@ -47,3 +47,16 @@ export async function apiUpdateUser(body) {
     throw new Error(error.response.data.message);
   }
 }
+
+//* www.nama.com/user/hapus
+export async function apiDeleteUser() {
+  try {
+    const res = await axios.delete(`${BAKA_URL}/user/hapus`, {
+      withCredentials: true,
+    });
+    // console.log(res.data?.data?.user);
+    return res.data?.data?.user;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}

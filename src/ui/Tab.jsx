@@ -43,7 +43,7 @@ export function Tab({ tabOpen }) {
                 : "tab__buttons"
             } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300 sm:px-14`}
           >
-            <div className=" ">Untuk Jastiper</div>
+            <div className=" ">Untuk Pembeli</div>
           </button>
         </div>
 
@@ -187,7 +187,7 @@ export function ParagrafContent({ contentNumber }) {
             : "paragraf__contents"
         } p-6 space-y-2  sm:mt-2 sm:p-2 sm:space-y-0`}
       >
-        <span className="text-base">Untuk Jastiper yang membeli Bagasi:</span>
+        <span className="text-base">Untuk pembeli Bagasi:</span>
         <p className="p-2 text-base sm:text-sm">Order</p>
       </div>
       {/* Paragraf Container start */}

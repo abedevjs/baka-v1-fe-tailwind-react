@@ -1,4 +1,4 @@
-import { currencyFormat, dateFormat } from "../utilities/formatter";
+import { currencyFormat, cutWords, dateFormat } from "../utilities/formatter";
 import { Link } from "react-router-dom";
 
 function Tabel({ feature, dataObj = [] }) {
@@ -21,6 +21,10 @@ function Tabel({ feature, dataObj = [] }) {
 
     case "bagasiHero":
       props = ["Berangkat", "Dari", "Tujuan", "Sisa", "Status"];
+      break;
+
+    case "bagasiOrderList":
+      props = ["Jumlah", "Isi", "Biaya", "Catatan", "Status"];
       break;
 
     case "order":
@@ -90,8 +94,10 @@ function Tabel({ feature, dataObj = [] }) {
               sisa={el.availableKg}
               jumlah={el.jumlahKg}
               isi={el.isi}
+              biaya={el.biayaRp}
               harga={el.hargaRp}
               netRp={el.netRp}
+              catatan={el.catatan}
               status={el.status}
               action={el.action}
             />
@@ -119,8 +125,10 @@ function TabelBody({
   sisa,
   jumlah,
   isi,
+  biaya,
   harga,
   netRp,
+  catatan,
   status,
   action,
 }) {
@@ -189,6 +197,31 @@ function TabelBody({
           <td scope="row" className="px-6 py-3">
             {String(sisa).padStart(2, "0")}{" "}
             <span className="text-xs italic">Kg</span>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <div className="flex justify-left space-x-2">
+              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
+              <span>{status}</span>
+            </div>
+          </td>
+        </tr>
+      )}
+
+      {feature == "bagasiOrderList" && (
+        <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
+          <td scope="row" className="px-6 py-3">
+            {jumlah} <span className="text-xs italic">Kg</span>
+          </td>
+          <td scope="row" className="px-6 py-3">
+            {isi}
+          </td>
+          <td scope="row" className="px-6 py-3">
+            {currencyFormat(biaya)}
+          </td>
+          <td scope="row" className="px-6 py-3">
+            <span className="text-xs italic">
+              {!catatan ? "(Tidak ada)" : cutWords(catatan, 4)}
+            </span>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">

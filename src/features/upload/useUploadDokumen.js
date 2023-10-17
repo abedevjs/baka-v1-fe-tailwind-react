@@ -13,7 +13,7 @@ export function useUploadDokumen() {
         queryKey: ["user", "bagasi", "order", "userOrder", "userBagasi"],
       });
       toast.success(
-        "Dokumen berhasil di upload. Tim Baka memeriksa dokumen tsb 🤝"
+        "Dokumen berhasil di upload. Tim Baka memeriksa dokumen tsb "
       );
 
       // navigate("/user");

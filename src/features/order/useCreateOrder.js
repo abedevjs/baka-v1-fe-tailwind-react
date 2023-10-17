@@ -11,7 +11,7 @@ export function useCreateOrder() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["order", "userOrder"] });
       toast.success(
-        "Permohonan Beli Bagasi berhasil! Silahkan upload Bukti Pembayaran ya kak 🤗"
+        "Permohonan Beli Bagasi berhasil! Silahkan upload Bukti Pembayaran ya kak"
       );
     },
     onError: (err) => {

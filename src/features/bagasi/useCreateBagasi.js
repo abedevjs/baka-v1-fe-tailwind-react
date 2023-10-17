@@ -11,7 +11,7 @@ export function useCreateBagasi() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bagasi", "userBagasi"] });
       toast.success(
-        "Permohonan Jual Bagasi berhasil! Silahkan upload Tiket Keberangkatan ya kak 🤗"
+        "Permohonan Jual Bagasi berhasil! Silahkan upload Tiket Keberangkatan ya kak "
       );
       // navigate("/user");
     },

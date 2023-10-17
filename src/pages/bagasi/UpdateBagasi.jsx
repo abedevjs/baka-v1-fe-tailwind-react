@@ -15,9 +15,6 @@ function UpdateBagasi() {
         style="mb-8"
       />
 
-      {/* Title */}
-      <TextTitle icon="bagasi" title="update bagasi" />
-
       {/* FORM */}
       <FormUpdateBagasi />
     </ContentWrapper>

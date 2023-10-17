@@ -5,7 +5,7 @@ const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 //* www.nama.com/upload/:id?
 export async function apiUploadDokumen(id, body) {
   try {
-    const res = await axios.patch(`${BAKA_URL}/upload/${id}`, body, {
+    const res = await axios.post(`${BAKA_URL}/upload/${id}`, body, {
       withCredentials: true,
       headers: {
         "Content-Type": "multipart/form-data",

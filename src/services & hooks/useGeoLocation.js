@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
 
+//* https://developers.google.com/maps/documentation/geocoding/requests-reverse-geocoding
 const geoReverseCoding_API_KEY = "AIzaSyDscFpcNCknmJRGYtzvC5Au9z01irx4gRk";
 
 export function useGeolocation() {
   const [location, setLocation] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
 
-  let lat, lng;
+  // let lat, lng;
 
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      lat = pos.coords.latitude;
-      lng = pos.coords.longitude;
-    },
-    (err) => {
-      console.log(err);
-    }
-  );
+  useEffect(function () {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        // lat = pos.coords.latitude;
+        setLat(pos.coords.latitude);
+
+        // lng = pos.coords.longitude;
+        setLng(pos.coords.longitude);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }, []);
 
   useEffect(
     function () {
@@ -26,7 +34,7 @@ export function useGeolocation() {
               !lat ? 0 : lat
             },${
               !lng ? 0 : lng
-            }&result_type=administrative_area_level_1&key=${geoReverseCoding_API_KEY}`
+            }&result_type=administrative_area_level_2&key=${geoReverseCoding_API_KEY}`
           );
 
           const data = await res.json();

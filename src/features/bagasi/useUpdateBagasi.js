@@ -10,7 +10,7 @@ export function useUpdateBagasi() {
     mutationFn: ({ id, body }) => apiUpdateBagasi(id, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bagasi", "userBagasi"] });
-      toast.success("Bagasi berhasil di update 🤗");
+      toast.success("Bagasi berhasil di update");
       navigate("/user");
     },
     onError: (err) => {

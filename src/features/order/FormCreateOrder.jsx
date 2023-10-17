@@ -50,7 +50,7 @@ function FormCreateOrder({ id, hargaRp, availableKg, user }) {
         data.telpon == "Belum ada" ||
         isNaN(Number(data.telpon))
       ) {
-        toast.error("Input nomor WhatsApp dengan angka yang valid ya kak 🙁");
+        toast.error("Input nomor WhatsApp dengan angka yang valid ya kak");
         return;
       }
       updateUser(data);

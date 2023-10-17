@@ -5,7 +5,7 @@ Router yg blm dikerjakan
 - updateOrder ✅
 - deleteOrder ✅
 - updateUser ✅
-- deleteUser
+- deleteUser ✅
 - admin, updateBagasiStatus ✅
 - admin, activateOrder ✅
 - uploadDokumen ✅
@@ -27,12 +27,14 @@ URGENT (before launching)
         ✅ sudah dibuat kan parent-children component dan useEffect()
     🔴 setelah user createBagasi/createOrder barulah muncul formupload dokumen tertera dari-tujuan tiket yg di expect atau jumlah pembayaran yg di expect
         ✅ done
-    🔴 Bermasalah saat google oauth via mobile
-    🔴 Pagination
-    🔴 Content tulisan di /faq, /rules, /about, form instruksi
     🔴 Dihalaman updateBagasi, user bisa lihat list order dr bagasi tsb
+        ✅ done
     🔴 klo sdh login, page /login tdk bs di akses kembali
-    
+        ✅ done
+    🔴 Bermasalah saat google oauth via mobile
+    🔴 Pagination & Sorting
+    🔴 Jarak antara Tgl berangkat dan Tgl Tiba sebaiknya minimal brp hari?
+    🔴 Content tulisan di /faq, /rules, /about, form instruksi
     ❓ knp ya userUpdate(data.telpon) di /createBagasi bisa, tp userUpdate(data) di /user tidak bisa?
     🔴 Tabel hero, order hero pikirin solusinya gmn
     
@@ -43,13 +45,18 @@ URGENT (before launching)
         ✅ done
     🔴 buat bagasi detail atau order detail di admin/updateBagasiStatus dan order/updateOrderStatus
         ✅ done
-    🔴 Styling date picker ke bhs indonesia
-    🔴 Toaster nya di edit ya, gagal begrond merah, sukses begrond hijau. Font nya juga di sesuaikan antara desktop dan mobile
-    🔴 Design n Style halaman /login
-    🔴 Pagination
-    🔴 Content tulisan di /faq, /rules, /about, form instruksi
     🔴 Dihalaman updateBagasi, user bisa lihat list order dr bagasi tsb
+        ✅ done
     🔴 perbaiki posisi box wa dan catatan, di form create bagasi, tukar posisi
+        ✅ done
+    🔴 Toaster nya di edit ya, gagal begrond merah, sukses begrond hijau. Font nya juga di sesuaikan antara desktop dan mobile
+        ✅ done
+    🔴 Design n Style halaman /login
+        ✅ done
+    🔴 Pagination & Sorting
+    🔴 Content tulisan di /faq, /rules, /about, form instruksi
+    🔴 Di updateOrder, klo status == 'Ready', tombol 'Hapus Bagasi' berubah jadi 'Selesai'.
+    🔴 Di updateOrder, tombol 'Selesai' akan otomatis baru bisa di klik di hari TglTiba bagasi.
     
     
 
@@ -63,4 +70,5 @@ SUNNAH (while the app has been launched)
 ❓ Perlukah mengekspos nama traveler/jastiper?
 🔴 Jika Baka sudah jalan, sdh dapat feedback, minta saran dengan fitur baru JASTIP pada customer
 🔴 Idealnya di admin updateBagasiStatus dan admin updateOrderStatus bisa lihat owner.dokumen array. Jadi di backend perlu buat getUser based on his id, terus di query user.dokumen array utk di tampilkan di admin
+🔴 Styling date picker ke bhs indonesia
 

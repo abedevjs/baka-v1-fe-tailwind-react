@@ -32,7 +32,7 @@ export function FormUploadDokumen({
     if (user.dokumen.length >= MAX_DOCUMENT) {
       //* Guard Clause yg ini tdk ada di backend
       toast.error(
-        "Dokumen sebelumnya yg pernah di upload sedang periksa. Hasilnya akan segera kami infokan ya kak 🤗"
+        "Dokumen sebelumnya yg pernah di upload sedang periksa. Hasilnya akan segera kami infokan ya kak "
       );
       return;
     }
@@ -40,7 +40,7 @@ export function FormUploadDokumen({
     //todo jika jual bagasi User must have createBagasi before
     if (type == "bagasi" && user.bagasi.length == 0) {
       toast.error(
-        `Sebelum upload dokumen, isi formulir 'Jual-Bagasi' dulu ya kak 🙁`
+        `Sebelum upload dokumen, isi formulir 'Jual-Bagasi' dulu ya kak`
       );
       return;
     }
@@ -48,20 +48,20 @@ export function FormUploadDokumen({
     //todo jika beli bagasi User must have createOrder before
     if (type == "order" && user.order.length == 0) {
       toast.error(
-        `Sebelum upload dokumen, isi formulir 'Beli-Bagasi' dulu ya kak 🙁`
+        `Sebelum upload dokumen, isi formulir 'Beli-Bagasi' dulu ya kak`
       );
       return;
     }
 
     //todo file type must be ["application/pdf", "image/png", "image/jpg", "image/jpeg"]
     if (!fileType.includes(data.dokumen[0].type)) {
-      toast.error("Upload dokumen dengan tipe PDF atau gambar saja kk 🙁");
+      toast.error("Upload dokumen dengan tipe PDF atau gambar saja kk");
       return;
     }
 
     //todo file must not exceed 5mb
     if (data.dokumen[0].size > MULTER_MAX_UPLOAD) {
-      toast.error("Kapasitas dokumen tidak lebih dari 5mb ya kak 🙁");
+      toast.error("Kapasitas dokumen tidak lebih dari 5mb ya kak");
       return;
     }
 
