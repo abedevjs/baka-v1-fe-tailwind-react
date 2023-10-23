@@ -46,7 +46,7 @@ function Login() {
           <div className="w-full flex space-x-6 justify-center items-center sm:flex-col sm:space-x-0 sm:space-y-2">
             <button
               onClick={() => handleClick("google")}
-              className="py-4 px-6 bg-secondaryYellow rounded-md hover:-translate-y-1 duration-300 sm:py-3"
+              className="py-4 px-6 bg-secondaryYellow rounded-md opacity-80 hover:opacity-100 duration-300 sm:py-3"
             >
               <div className="flex items-center space-x-2 lg:space-x-1 lg:text-center cursor-pointer">
                 <img
@@ -62,7 +62,7 @@ function Login() {
             <span className="text-sm font-thin text-stone-600">atau</span>
             <button
               onClick={() => handleClick("facebook")}
-              className="py-4 px-6 bg-secondaryYellow rounded-md hover:-translate-y-1 duration-300 sm:py-3 sm:hover:translate-y-1"
+              className="py-4 px-6 bg-secondaryYellow rounded-md opacity-80 hover:opacity-100 duration-300 sm:py-3"
             >
               <div className="flex items-center space-x-2 lg:space-x-1 lg:text-center">
                 <img

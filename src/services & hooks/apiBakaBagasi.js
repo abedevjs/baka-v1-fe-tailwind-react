@@ -2,9 +2,12 @@ import axios from "axios";
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 //* www.nama.com/bagasi
-export async function apiGetAllBagasi() {
+export async function apiGetAllBagasi(page, PAGE_SIZE, queryStatus) {
+  const query =
+    page > 0 ? `?page=${page}&limit=${PAGE_SIZE}${queryStatus}` : "";
+
   try {
-    const res = await axios.get(`${BAKA_URL}/bagasi`, {
+    const res = await axios.get(`${BAKA_URL}/bagasi${query}`, {
       withCredentials: true,
     });
     // console.log(res);

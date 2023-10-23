@@ -24,7 +24,7 @@ function Tabel({ feature, dataObj = [] }) {
       break;
 
     case "bagasiOrderList":
-      props = ["Jumlah", "Isi", "Biaya", "Catatan", "Status"];
+      props = ["Jumlah", "Isi", "Biaya", "Catatan", "Atas Nama"];
       break;
 
     case "order":
@@ -69,7 +69,7 @@ function Tabel({ feature, dataObj = [] }) {
   // dataObj.map((el, i) => console.log(el.waktuBerangkat));
 
   return (
-    <div className="overflow-y-auto overflow-x-auto mb-7 shadow-md rounded-xl md:w-[45rem] sm:w-[20rem]">
+    <div className="overflow-y-auto overflow-x-auto mb-6 shadow-md rounded-xl md:w-[45rem] sm:w-[20rem]">
       <table className="w-full max-w-none border-collapse text-sm text-left text-textColor">
         <thead className="text-xs text-gray-700 uppercase bg-secondaryYellow">
           <tr>
@@ -98,6 +98,7 @@ function Tabel({ feature, dataObj = [] }) {
               harga={el.hargaRp}
               netRp={el.netRp}
               catatan={el.catatan}
+              owner={el.owner}
               status={el.status}
               action={el.action}
             />
@@ -129,6 +130,7 @@ function TabelBody({
   harga,
   netRp,
   catatan,
+  owner,
   status,
   action,
 }) {
@@ -137,28 +139,34 @@ function TabelBody({
       {feature == "bagasi" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            {dateFormat(berangkat)}
+            {berangkat && dateFormat(berangkat)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+              {dari && (
+                <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+              )}
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+              {tujuan && (
+                <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+              )}
               <span>{tujuan}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             {!sisa ? "" : String(sisa).padStart(2, "0")}{" "}
             <span className={`${!sisa ? "text-sm" : "text-xs"} italic`}>
-              {!sisa ? "Full" : "Kg"}
+              {sisa === 0 && "Full"}
+              {sisa > 1 && "Kg"}
+              {sisa === "" && ""}
             </span>
           </td>
           <td scope="row" className="px-6 py-3">
-            {currencyFormat(harga)}
+            {harga && currencyFormat(harga)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -167,12 +175,14 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            <Link
-              to={`/create-order/${id}`}
-              className="text-blue-600 hover:underline"
-            >
-              {status == "Opened" ? "BELI" : "Lihat"}
-            </Link>
+            {status && (
+              <Link
+                to={`/create-order/${id}`}
+                className="text-blue-600 hover:underline"
+              >
+                {status == "Opened" ? "BELI" : "Lihat"}
+              </Link>
+            )}
           </td>
         </tr>
       )}
@@ -210,7 +220,9 @@ function TabelBody({
       {feature == "bagasiOrderList" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            {jumlah} <span className="text-xs italic">Kg</span>
+            {jumlah > 0 && jumlah < 10 && String(jumlah).padStart(2, "0")}
+            {jumlah > 10 ? jumlah : ""}{" "}
+            <span className="text-xs italic">Kg</span>
           </td>
           <td scope="row" className="px-6 py-3">
             {isi}
@@ -220,14 +232,11 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <span className="text-xs italic">
-              {!catatan ? "(Tidak ada)" : cutWords(catatan, 4)}
+              {!catatan ? "(Tidak ada)" : `"${cutWords(catatan, 6)}"`}
             </span>
           </td>
           <td scope="row" className="px-6 py-3">
-            <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
-              <span>{status}</span>
-            </div>
+            {cutWords(owner, 2)}
           </td>
         </tr>
       )}
@@ -235,7 +244,7 @@ function TabelBody({
       {feature == "order" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            {dateFormat(berangkat)}
+            {berangkat && dateFormat(berangkat)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -250,7 +259,10 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {jumlah} <span className="text-xs italic">Kg</span>
+            {jumlah === "" && ""}
+            {jumlah > 0 && jumlah < 10 && String(jumlah).padStart(2, "0")}
+            {jumlah > 10 ? jumlah : ""}{" "}
+            <span className="text-xs italic">{jumlah && "Kg"}</span>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">

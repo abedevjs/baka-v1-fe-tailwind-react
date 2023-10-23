@@ -78,7 +78,7 @@ function FormUpdateBagasi() {
     isi: order.find((el) => el._id == ID).isi,
     biayaRp: order.find((el) => el._id == ID).biayaRp,
     catatan: order.find((el) => el._id == ID).catatan,
-    status: order.find((el) => el._id == ID).status,
+    owner: order.find((el) => el._id == ID).owner.nama,
   }));
   // Bagasi Order List --end
 

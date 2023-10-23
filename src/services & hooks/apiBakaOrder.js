@@ -2,12 +2,17 @@ import axios from "axios";
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 //* www.nama.com/order
-export async function apiGetAllOrder() {
+export async function apiGetAllOrder(page, PAGE_SIZE, queryStatus) {
+  const query =
+    page > 0 ? `?page=${page}&limit=${PAGE_SIZE}${queryStatus}` : "";
+
   try {
-    const res = await axios.get(`${BAKA_URL}/order`, {
+    const res = await axios.get(`${BAKA_URL}/order${query}`, {
       withCredentials: true,
     });
-    // console.log(res);
+
+    // if (page > 0) return res?.data;
+
     return res?.data?.data?.order;
   } catch (error) {
     console.log(error);

@@ -5,7 +5,11 @@ import { useGetUser } from "../user/useGetUser";
 import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
 import { useGetAllOrder } from "./useGetAllOrder";
-import { currencyFormat, dateFormat } from "../../utilities/formatter";
+import {
+  currencyFormat,
+  cutWords,
+  dateFormat,
+} from "../../utilities/formatter";
 import { useGetUserOrder } from "../user/useGetUserOrder";
 
 function PageUpdateOrder() {
@@ -52,7 +56,9 @@ function PageUpdateOrder() {
     availableKg,
     hargaRp,
     catatan,
+    owner,
   } = data[0];
+  const { nama, image } = owner;
   // Destructuring Bagasi Detail dari useGetAllBagasi() --end
 
   return (
@@ -61,7 +67,7 @@ function PageUpdateOrder() {
       <div
         className="w-full mb-4 px-4 grid grid-cols-4 grid-rows-3 gap-2 mx-auto 
           lg:px-0
-          sm:grid-rows-8
+          sm:grid-rows-10
           "
       >
         {/* Box 1 Title */}
@@ -77,7 +83,7 @@ function PageUpdateOrder() {
         >
           {/* Icon */}
           <img
-            src="/svg/opened.svg"
+            src={`/svg/${status.toLowerCase()}.svg`}
             className="w-12 h-auto lg:w-10"
             alt="Date"
           />
@@ -242,11 +248,33 @@ function PageUpdateOrder() {
             </span>
           </div>
         </div>
-        {/* Box 7 Catatan Traveler */}
+        {/* Box 7 Nama Traveler */}
+        <div
+          className="
+              w-full py-2 flex items-center justify-around bg-bodyBackColor rounded-lg
+              sm:row-start-7 sm:col-start-1 sm:col-end-5
+              "
+        >
+          {/* Icon */}
+          <img
+            src={`${!image ? "/images/default-user.jpg" : image}`}
+            className="w-12 h-auto rounded-full"
+            alt="Traveler"
+            referrerPolicy="no-referrer"
+          />
+          {/* Content Box Harga */}
+          <div className="flex flex-col space-y-2">
+            <span className="text-sm text-primaryBlue sm:text-xs">
+              Nama Traveler
+            </span>
+            <span className="text-base sm:text-sm">{cutWords(nama, 2)}</span>
+          </div>
+        </div>
+        {/* Box 8 Catatan Traveler */}
         <div
           className="
               w-full py-2 col-start-1 col-end-3 row-start-4 row-end-6 flex justify-around bg-bodyBackColor rounded-lg 
-              sm:px-2 sm:row-start-7 sm:row-end-[9] sm:col-start-1 sm:col-end-5 sm:space-x-4
+              sm:px-2 sm:row-start-[8] sm:row-end-[10] sm:col-start-1 sm:col-end-5 sm:space-x-4
               "
         >
           {/* Icon */}
@@ -274,7 +302,7 @@ function PageUpdateOrder() {
         ) : (
           <div
             className="w-full col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center 
-              sm:row-start-[9] sm:row-end-[10] sm:col-start-1 sm:col-end-5
+              sm:row-start-[11] sm:row-end-[10] sm:col-start-1 sm:col-end-5
               "
           >
             <span className="py-1 px-2 text-xs text-white bg-green-600 rounded-lg">

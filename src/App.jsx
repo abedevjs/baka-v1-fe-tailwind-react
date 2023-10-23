@@ -134,14 +134,15 @@ function App() {
           success: {
             duration: 5000, //5secs
             style: {
-              borderTop: "4px solid #22c55e",
+              borderTop: "3px solid #22c55e",
             },
             icon: "🤩",
           },
           error: {
             duration: 10000, //10secs
             style: {
-              borderTop: "4px solid #f87171",
+              // borderTop: "4px solid #f87171",
+              borderTop: "3px solid #ef4444",
             },
             icon: "😨",
           },
@@ -152,7 +153,7 @@ function App() {
             backgroundColor: "#f5f5f5",
             color: "#0b2471",
             // color: "#475569",
-            fontWeight: "500",
+            // fontWeight: "500",
             borderRadius: "2px",
           },
         }}

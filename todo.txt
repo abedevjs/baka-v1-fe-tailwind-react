@@ -31,12 +31,16 @@ URGENT (before launching)
         ✅ done
     🔴 klo sdh login, page /login tdk bs di akses kembali
         ✅ done
+    🔴 Pagination
+        ✅ done
+    🔴 Filtering (status)
+        ✅ done
     🔴 Bermasalah saat google oauth via mobile
-    🔴 Pagination & Sorting
     🔴 Jarak antara Tgl berangkat dan Tgl Tiba sebaiknya minimal brp hari?
     🔴 Content tulisan di /faq, /rules, /about, form instruksi
     ❓ knp ya userUpdate(data.telpon) di /createBagasi bisa, tp userUpdate(data) di /user tidak bisa?
     🔴 Tabel hero, order hero pikirin solusinya gmn
+    🔴 Di hari H TglTiba Bagasi, tombol 'Selesai' baru bs enabled utk di klik, sebelumnya disabled={date today < waktuBerangkat}.
     
     UI
     🔴 Form uploadDokumen di createBagasi dan createOrder dihapus karena paramnya beda, sebagai ganti buat tombol upload di /user. 
@@ -53,21 +57,26 @@ URGENT (before launching)
         ✅ done
     🔴 Design n Style halaman /login
         ✅ done
-    🔴 Pagination & Sorting
+    🔴 Filtering (status)
+        ✅ done
+    🔴 Pagination
+        ✅ done
     🔴 Content tulisan di /faq, /rules, /about, form instruksi
     🔴 Di updateOrder, klo status == 'Ready', tombol 'Hapus Bagasi' berubah jadi 'Selesai'.
     🔴 Di updateOrder, tombol 'Selesai' akan otomatis baru bisa di klik di hari TglTiba bagasi.
+    🔴 Di hari H TglTiba Bagasi, tombol 'Selesai' baru bs enabled utk di klik, sebelumnya disabled={date today < waktuBerangkat}.
     
     
 
 SUNNAH (while the app has been launched)
+🔴 Perlukah mengekspos nama traveler/jastiper?
+    ✅ Nama traveler di ekspos krn user bebas menentukan kpd siapa dy membeli bagasi, krn barangnya akan di kirim ke pemilik bagasi bukan baka
 🔴 User bisa update nama. Lakukan ini jg di backend
 🔴 Perbaiki spinner glitch saat loading table, contoh ada di /user
 🔴 Filtering n Sorting di bagasi dan order list. tanggal datang-tiba (asc-desc), harga (lowest-highest) alphabet(a-z)
 🔴 klo user sudah order bagasi yg sm tp blm bayar, setelah gagal navigate ke update order di bagasi tsb
 🔴 klo user sudah create bagasi tp ternyata sdh ada 3 bagasi aktif, setelah gagal navigate ke area user
 🔴 option2 di form akan kita buatkan ui (reusable) sendiri, dan component lain yg bs di reusable kan
-❓ Perlukah mengekspos nama traveler/jastiper?
 🔴 Jika Baka sudah jalan, sdh dapat feedback, minta saran dengan fitur baru JASTIP pada customer
 🔴 Idealnya di admin updateBagasiStatus dan admin updateOrderStatus bisa lihat owner.dokumen array. Jadi di backend perlu buat getUser based on his id, terus di query user.dokumen array utk di tampilkan di admin
 🔴 Styling date picker ke bhs indonesia
