@@ -11,6 +11,7 @@ import { useState } from "react";
 
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
+const MAX_LENGTH_ALAMAT = import.meta.env.VITE_MAX_LENGTH_ALAMAT;
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 
 const today = new Date();
@@ -97,18 +98,18 @@ function FormCreateBagasi() {
     <>
       {/* JUAL BAGASI Wrapper  */}
       {showFormBagasi && (
-        <div className="w-full py-8 px-4 mb-8 mx-auto text-textColor bg-secondaryYellow rounded-lg shadow-md lg:px-0">
+        <div className="w-full py-8 px-4 mb-8 mx-auto text-textColor bg-secondaryYellow rounded-lg shadow-md sm:py-4 lg:px-0">
           {/* Form Jual Bagasi */}
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
-            className="px-4 grid grid-cols-4 grid-rows-6 gap-4 font-text lg:grid-rows-8 lg:mb-8 "
+            className="px-4 grid grid-cols-4 grid-rows-5 gap-4 font-text sm:grid-rows-10 lg:mb-8"
           >
             {/* Box 1 Dari - Tujuan */}
-            <div className="w-full py-4 px-4 col-start-1 col-end-3 flex justify-around bg-bodyBackColor rounded-lg  lg:col-end-5 sm:p-2 sm:flex-col ">
+            <div className="w-full py-4 px-4 flex justify-around bg-bodyBackColor rounded-lg sm:p-2 sm:flex-col row-start-1 row-end-1 col-start-1 col-end-3 sm:row-start-1 sm:row-end-2 sm:col-start-1 sm:col-end-5">
               {/* Icon */}
               <img
-                src="/svg/map-marker.svg"
-                className="w-12 sm:w-10 sm:self-center"
+                src="/svg/cityscape.svg"
+                className="w-12 lg:w-10 sm:self-center"
                 alt=""
               />
               {/* Label + Input Box */}
@@ -117,7 +118,7 @@ function FormCreateBagasi() {
                 <div className="flex flex-col justify-evenly">
                   <label
                     htmlFor="dari"
-                    className="text-sm text-primaryBlue sm:text-xs"
+                    className="text-sm text-primaryBlue lg:text-xs"
                   >
                     Dari
                   </label>
@@ -129,31 +130,31 @@ function FormCreateBagasi() {
                     })}
                     onChange={(e) => setKotaDari(e.target.value)}
                     disabled={isCreating}
-                    className="p-1 text-base sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
+                    className="p-1 text-base lg:text-xs bg-transparent border-b-2 border-textColor outline-none"
                   >
-                    <option className="text-left text-sm sm:text-xs" value="">
+                    <option className="text-left text-sm lg:text-xs" value="">
                       Pilih Kota Asal
                     </option>
                     <option
-                      className="text-left text-sm sm:text-xs"
+                      className="text-left text-sm lg:text-xs"
                       value="Jakarta"
                     >
                       Jakarta
                     </option>
                     <option
-                      className="text-left text-sm sm:text-xs"
+                      className="text-left text-sm lg:text-xs"
                       value="Istanbul"
                     >
                       Istanbul
                     </option>
                     <option
-                      className="text-left text-sm sm:text-xs"
+                      className="text-left text-sm lg:text-xs"
                       value="Cairo"
                     >
                       Cairo
                     </option>
                     <option
-                      className="text-left text-sm sm:text-xs"
+                      className="text-left text-sm lg:text-xs"
                       value="Dubai"
                     >
                       Dubai
@@ -165,7 +166,7 @@ function FormCreateBagasi() {
                 <div className="flex flex-col justify-evenly">
                   <label
                     htmlFor="tujuan"
-                    className="text-sm text-primaryBlue sm:text-xs"
+                    className="text-sm text-primaryBlue lg:text-xs"
                   >
                     Tujuan
                   </label>
@@ -177,31 +178,31 @@ function FormCreateBagasi() {
                     })}
                     onChange={(e) => setKotaTujuan(e.target.value)}
                     disabled={isCreating}
-                    className="p-1  sm:text-xs text-base bg-transparent border-b-2 border-textColor outline-none"
+                    className="p-1  lg:text-xs text-base bg-transparent border-b-2 border-textColor outline-none"
                   >
-                    <option className="text-left text-sm sm:text-xs" value="">
+                    <option className="text-left text-sm lg:text-xs" value="">
                       Pilih Kota Tujuan
                     </option>
                     <option
-                      className="text-left text-sm sm:text-xs"
+                      className="text-left text-sm lg:text-xs"
                       value="Jakarta"
                     >
                       Jakarta
                     </option>
                     <option
-                      className="text-left text-sm sm:text-xs"
+                      className="text-left text-sm lg:text-xs"
                       value="Istanbul"
                     >
                       Istanbul
                     </option>
                     <option
-                      className="text-left text-sm sm:text-xs"
+                      className="text-left text-sm lg:text-xs"
                       value="Cairo"
                     >
                       Cairo
                     </option>
                     <option
-                      className="text-left text-sm sm:text-xs"
+                      className="text-left text-sm lg:text-xs"
                       value="Dubai"
                     >
                       Dubai
@@ -210,17 +211,13 @@ function FormCreateBagasi() {
                 </div>
               </div>
             </div>
+
             {/* Box 2 Berangkat - Tiba */}
-            <div
-              className="w-full py-4 px-4 col-start-1 col-end-3 flex justify-around bg-bodyBackColor rounded-lg  
-                      lg:col-end-5
-                      sm:p-2 sm:flex-col
-                      "
-            >
+            <div className="w-full py-4 px-4 flex justify-around bg-bodyBackColor rounded-lg sm:p-2 sm:flex-col row-start-1 row-end-1 col-start-3 col-end-5 sm:row-start-2 sm:row-end-3 sm:col-start-1 sm:col-end-5">
               {/* Icon */}
               <img
                 src="/svg/tear-off-calendar.svg"
-                className="w-12 sm:w-10 sm:self-center"
+                className="w-12 lg:w-10 sm:self-center"
                 alt=""
               />
               {/* Label + Input Box */}
@@ -229,7 +226,7 @@ function FormCreateBagasi() {
                 <div className="flex flex-col justify-evenly">
                   <label
                     htmlFor="waktuBerangkat"
-                    className="text-sm text-primaryBlue sm:text-xs"
+                    className="text-sm text-primaryBlue lg:text-xs"
                   >
                     Tanggal Berangkat
                   </label>
@@ -242,7 +239,7 @@ function FormCreateBagasi() {
                       required: "Tanggal Keberangkatan jangan lupa diisi kak",
                     })}
                     disabled={isCreating}
-                    className="text-base sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
+                    className="text-base lg:text-xs bg-transparent border-b-2 border-textColor outline-none"
                   />
                   {/* <DatePicker /> */}
                 </div>
@@ -251,7 +248,7 @@ function FormCreateBagasi() {
                 <div className="flex flex-col justify-evenly">
                   <label
                     htmlFor="waktuTiba"
-                    className="text-sm text-primaryBlue sm:text-xs"
+                    className="text-sm text-primaryBlue lg:text-xs"
                   >
                     Tanggal Tiba
                   </label>
@@ -264,29 +261,81 @@ function FormCreateBagasi() {
                       required: "Tanggal Kedatangan jangan lupa diisi kak",
                     })}
                     disabled={isCreating}
-                    className="text-base sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
+                    className="text-base lg:text-xs bg-transparent border-b-2 border-textColor outline-none"
                   />
                 </div>
               </div>
             </div>
-            {/* Box 3 Berat */}
-            <div
-              className="w-full py-4 px-4 col-start-1 col-end-2 flex justify-around bg-bodyBackColor rounded-lg  
-                      lg:col-end-3
-                      sm:p-2 sm:flex-col
-                      "
-            >
+
+            {/* Box 3 Alamat Dari */}
+            <div className="w-full py-4 px-4 flex justify-around bg-bodyBackColor rounded-lg sm:p-2 sm:flex-col row-start-2 row-end-2 col-start-1 col-end-3 sm:row-start-3 sm:row-end-4 sm:col-start-1 sm:col-end-5">
+              {/* Icon */}
+              <img
+                src="/svg/map-marker.svg"
+                className="w-12 lg:w-10 sm:self-center"
+                alt=""
+              />
+              {/* Label + Input Box */}
+              <div className="w-[80%] flex flex-col space-y-2 sm:w-auto">
+                <label
+                  htmlFor="noteTravel"
+                  className="text-sm text-primaryBlue lg:text-xs"
+                >
+                  Alamat Kota Asal
+                </label>
+                <textarea
+                  name="noteTravel"
+                  rows={2}
+                  maxLength={MAX_LENGTH_ALAMAT}
+                  required=""
+                  className="p-2 w-full text-sm lg:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
+                  placeholder="Tulis alamat tempat pengiriman bagasi disini"
+                  defaultValue={""}
+                />
+              </div>
+            </div>
+
+            {/* Box 4 Alamat Tujuan */}
+            <div className="w-full py-4 px-4 flex justify-around bg-bodyBackColor rounded-lg sm:p-2 sm:flex-col row-start-2 row-end-2 col-start-3 col-end-5 sm:row-start-4 sm:row-end-5 sm:col-start-1 sm:col-end-5">
+              {/* Icon */}
+              <img
+                src="/svg/map-marker.svg"
+                className="w-12 lg:w-10 sm:self-center"
+                alt=""
+              />
+              {/* Label + Input Box */}
+              <div className="w-[80%] flex flex-col space-y-2 sm:w-auto">
+                <label
+                  htmlFor="noteTravel"
+                  className="text-sm text-primaryBlue lg:text-xs"
+                >
+                  Alamat Kota Tujuan
+                </label>
+                <textarea
+                  name="noteTravel"
+                  rows={2}
+                  maxLength={MAX_LENGTH_ALAMAT}
+                  required=""
+                  className="p-2 w-full text-sm lg:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
+                  placeholder="Tulis alamat tempat pengambilan bagasi disini"
+                  defaultValue={""}
+                />
+              </div>
+            </div>
+
+            {/* Box 5 Berat */}
+            <div className="w-full py-4 px-4 flex justify-around bg-bodyBackColor rounded-lg sm:p-2 sm:flex-col row-start-3 row-end-3 col-start-1 col-end-2 sm:row-start-5 sm:row-end-6 sm:col-start-1 sm:col-end-5">
               {/* Icon */}
               <img
                 src="/svg/weight-kilogram.svg"
-                className="w-12 sm:w-10 sm:self-center"
+                className="w-12 lg:w-10 sm:self-center"
                 alt=""
               />
               {/* Label + Input Box */}
               <div className="w-[50%] flex flex-col justify-evenly sm:w-auto">
                 <label
                   htmlFor="availableKg"
-                  className="text-sm text-primaryBlue sm:text-xs"
+                  className="text-sm text-primaryBlue lg:text-xs"
                 >
                   Berat&nbsp;
                   <span className="text-xs text-textColor">(Kg)</span>{" "}
@@ -300,34 +349,30 @@ function FormCreateBagasi() {
                     required: "Mohon diisi berat bagasi yang akan dijual kak",
                   })}
                   disabled={isCreating}
-                  className="text-base sm:text-xs text-center bg-transparent border-b-2 border-textColor outline-none"
+                  className="text-base lg:text-xs text-center bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
             </div>
-            {/* Box 4 Harga */}
-            <div
-              className="w-full py-4 px-4 col-start-2 col-end-3 flex justify-around bg-bodyBackColor rounded-lg 
-                      lg:col-start-3 lg:col-end-5
-                      sm:p-2 sm:flex-col
-                      "
-            >
+
+            {/* Box 6 Harga */}
+            <div className="w-full py-4 px-4 flex justify-around bg-bodyBackColor rounded-lg sm:p-2 sm:flex-col row-start-3 row-end-3 col-start-2 col-end-3 sm:row-start-6 sm:row-end-7 sm:col-start-1 sm:col-end-5">
               {/* Icon */}
               <img
                 src="/svg/payments-outline-rounded.svg"
-                className="w-12 sm:w-10 sm:self-center"
+                className="w-12 lg:w-10 sm:self-center"
                 alt=""
               />
               {/* Label + Input Box */}
               <div className="w-[50%] flex flex-col justify-evenly sm:w-auto">
                 <label
                   htmlFor="hargaRp"
-                  className="text-sm text-primaryBlue sm:text-xs"
+                  className="text-sm text-primaryBlue lg:text-xs"
                 >
                   Harga&nbsp;
                   <span className="text-xs text-textColor">(@ Kg)</span>
                 </label>
                 <div className="flex space-x-1">
-                  <span className="text-base sm:text-xs">Rp.</span>
+                  <span className="text-base lg:text-xs">Rp.</span>
                   <input
                     disabled={isCreating}
                     type="text"
@@ -337,29 +382,25 @@ function FormCreateBagasi() {
                     {...register("hargaRp", {
                       required: "Tentukan harga bagasi nya dulu ya kak",
                     })}
-                    className="w-full text-base sm:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
+                    className="w-full text-base lg:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
                   />
                 </div>
               </div>
             </div>
-            {/* Box 5 Catatan Traveler */}
-            <div
-              className="w-full py-4 px-4 col-start-1 col-end-3 row-start-4 flex justify-around bg-bodyBackColor rounded-lg 
-                      lg:col-end-5
-                      sm:p-2 sm:flex-col
-                      "
-            >
+
+            {/* Box 7 Catatan Traveler */}
+            <div className="w-full py-4 px-4 flex justify-around bg-bodyBackColor rounded-lg sm:p-2 sm:flex-col row-start-4 row-end-4 col-start-1 col-end-3 sm:row-start-7 sm:row-end-8 sm:col-start-1 sm:col-end-5">
               {/* Icon */}
               <img
                 src="/svg/comment.svg"
-                className="w-12 sm:w-10 sm:self-center"
+                className="w-12 lg:w-10 sm:self-center"
                 alt=""
               />
               {/* Label + Input Box */}
               <div className="w-[80%] flex flex-col space-y-2 sm:w-auto">
                 <label
                   htmlFor="catatan"
-                  className="text-sm text-primaryBlue sm:text-xs"
+                  className="text-sm text-primaryBlue lg:text-xs"
                 >
                   Catatan Traveler{" "}
                   <span className="text-xs text-textColor">
@@ -373,31 +414,27 @@ function FormCreateBagasi() {
                   id="catatan"
                   {...register("catatan")}
                   disabled={isCreating}
-                  className="p-2 w-full text-sm sm:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
+                  className="p-2 w-full text-sm lg:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
                   placeholder="Tidak wajib diisi..."
                   defaultValue={""}
                 />
               </div>
             </div>
-            {/* Box 6 WhatsApp, TOGGLE FLEX / HIDDEN */}
+
+            {/* Box 8 WhatsApp, TOGGLE FLEX / HIDDEN */}
             {!user.telpon && (
-              <div
-                className="w-full py-4 px-4 col-start-1 col-end-2 row-start-5 flex justify-around bg-bodyBackColor rounded-lg
-                      lg:col-end-3
-                      sm:p-2 sm:col-end-5 sm:flex-col
-                      "
-              >
+              <div className="w-full py-4 px-4 flex justify-around bg-bodyBackColor rounded-lg sm:p-2 sm:flex-col row-start-5 row-end-5 col-start-1 col-end-2 sm:row-start-[8] sm:row-end-[9] sm:col-start-1 sm:col-end-5">
                 {/* Icon */}
                 <img
                   src="/svg/baseline-whatsapp.svg"
-                  className="w-12 sm:w-10 sm:self-center"
+                  className="w-12 lg:w-10 sm:self-center"
                   alt=""
                 />
                 {/* Label + Input Box */}
                 <div className="w-[50%] flex flex-col justify-evenly sm:w-auto">
                   <label
                     htmlFor="telpon"
-                    className="text-sm text-primaryBlue sm:text-xs"
+                    className="text-sm text-primaryBlue lg:text-xs"
                   >
                     Nomor&nbsp;WhatsApp{" "}
                   </label>
@@ -411,19 +448,14 @@ function FormCreateBagasi() {
                         "Agar mudah dihubungi, sertakan nomor Wa nya ya kak",
                     })}
                     disabled={isCreating}
-                    className="text-base sm:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
+                    className="text-base lg:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
                   />
                 </div>
               </div>
             )}
 
-            {/* Box 7 Instruksi */}
-            <div
-              className="w-full p-4 col-start-3 col-end-5 row-start-1 row-end-6 flex flex-col justify-between bg-slate-100 rounded-lg 
-                          lg:row-start-6 lg:row-end-[9] lg:col-start-1 lg:col-end-5
-                          sm:p-2
-                          "
-            >
+            {/* Box 9 Instruksi */}
+            <div className="w-full p-4 flex flex-col justify-between bg-primaryBlue text-slate-50 rounded-lg sm:p-2 row-start-3 row-end-5 col-start-3 col-end-5 sm:row-start-[9] sm:row-end-[11] sm:col-start-1 sm:col-end-5">
               {/* Paragraf Pendukung Jual Bagasi */}
               <p className="text-xs">
                 Paragraf instruksi selanjutnya untuk Traveler. Isinya: <br />
@@ -449,11 +481,9 @@ function FormCreateBagasi() {
                 </label>
               </div>
             </div>
-            {/* Box 8 Tombol dan Notification */}
-            <div
-              className="col-start-1 col-end-5 row-start-6 flex flex-col justify-evenly 
-                      lg:row-start-[9] lg:col-start-1 lg:col-end-5 "
-            >
+
+            {/* Box 10 Tombol dan Notification */}
+            <div className="flex flex-col justify-evenly row-start-5 row-end-5 col-start-3 col-end-5 sm:row-start-[11] sm:row-end-[11] sm:col-start-1 sm:col-end-5">
               {/* Tombol Submit */}
               <button
                 disabled={isCreating || !isDirty}

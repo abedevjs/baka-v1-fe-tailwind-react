@@ -13,9 +13,6 @@ function UpdateOrder() {
         style="mb-8"
       />
 
-      {/* Text Title */}
-      <TextTitle icon="order" title="update order" />
-
       {/* Page Update Order */}
       <PageUpdateOrder />
     </ContentWrapper>

@@ -13,9 +13,6 @@ function CreateOrder() {
         style="mb-8"
       />
 
-      {/* Text Title */}
-      <TextTitle icon="bagasi" title="beli bagasi" />
-
       {/* FORM Create Order */}
       <PageCreateOrder />
     </ContentWrapper>

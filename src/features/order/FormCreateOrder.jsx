@@ -241,7 +241,7 @@ function FormCreateOrder({ id, hargaRp, availableKg, user }) {
             </div>
             {/* Box 8 Instruksi */}
             <div
-              className="w-full p-4 col-start-3 col-end-5 row-start-1 row-end-5 flex flex-col justify-between bg-slate-100 rounded-lg
+              className="w-full p-4 col-start-3 col-end-5 row-start-1 row-end-5 flex flex-col justify-between text-slate-50 bg-primaryBlue rounded-lg
           lg:py-1 lg:px-3
           sm:row-start-5 sm:row-end-[9] sm:col-start-1 sm:col-end-5 
           "

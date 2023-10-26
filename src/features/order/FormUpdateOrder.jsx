@@ -258,7 +258,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
           {/* Box 7 Instruksi */}
           <div
             className="
-            w-full p-4 col-start-3 col-end-5 row-start-2 row-end-6 flex flex-col justify-between bg-slate-100 rounded-lg 
+            w-full p-4 col-start-3 col-end-5 row-start-2 row-end-6 flex flex-col justify-between text-slate-50 bg-primaryBlue rounded-lg 
             lg:p-2
             sm:row-start-[6] sm:row-end-[9] sm:col-start-1
             "

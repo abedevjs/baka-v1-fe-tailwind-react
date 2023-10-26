@@ -11,6 +11,7 @@ import {
   dateFormat,
 } from "../../utilities/formatter";
 import { useGetUserOrder } from "../user/useGetUserOrder";
+import TextTitle from "../../ui/TextTitle";
 
 function PageUpdateOrder() {
   const navigate = useNavigate();
@@ -63,73 +64,62 @@ function PageUpdateOrder() {
 
   return (
     <>
+      {/* Title, Status, Maskapai */}
+      <div className="mb-4 flex items-center justify-between sm:flex-col">
+        {/* Title */}
+        <div className=" -mb-8 sm:mb-0 sm:self-start">
+          <TextTitle icon="bagasi" title="bagasi detail" />
+        </div>
+
+        {/* Status n Maskapai */}
+        <div className="w-1/2 flex items-center space-x-2 sm:w-full">
+          {/* Box 2 Status */}
+          <div className="w-full py-2 col-start-3 col-end-4 flex items-center justify-around  bg-bodyBackColor rounded-lg sm:px-2 sm:flex-col sm:space-x-0 sm:space-y-4">
+            {/* Icon */}
+            <img
+              src={`/svg/${status.toLowerCase()}.svg`}
+              className="w-12 h-auto lg:w-10"
+              alt="Date"
+            />
+            {/* Content Box Status */}
+            <div className="flex flex-col space-y-2">
+              <span className="text-sm text-primaryBlue sm:text-xs">
+                Status
+              </span>
+              <span className="text-base sm:text-sm">{status}</span>
+            </div>
+          </div>
+          {/* Box 3 Maskapai */}
+          <div className="w-full py-2 col-start-4 col-end-5 flex items-center justify-around bg-bodyBackColor rounded-lg sm:px-2 sm:flex-col sm:space-x-0 sm:space-y-4">
+            {/* Icon */}
+            <img
+              src="/svg/airlines-rounded.svg"
+              className="w-12 h-auto lg:w-10"
+              alt="Date"
+            />
+            {/* Content Box Status */}
+            <div className="flex flex-col space-y-2">
+              <span className="text-sm text-primaryBlue sm:text-xs">
+                Maskapai
+              </span>
+              <span
+                className={`text-base ${
+                  pesawat == "" ? " text-red-500" : ""
+                } lg:text-sm sm:text-xs`}
+              >
+                {pesawat == "" ? "(Konfirmasi)" : pesawat}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* BAGASI DETAIL Container */}
-      <div
-        className="w-full mb-4 px-4 grid grid-cols-4 grid-rows-3 gap-2 mx-auto 
-          lg:px-0
-          sm:grid-rows-10
-          "
-      >
-        {/* Box 1 Title */}
-        <div className="w-full py-2 col-start-1 col-end-3 flex items-center justify-center bg-bodyBackColor rounded-lg sm:col-end-5">
-          <span className="text-xl capitalize font-title">Detail Bagasi:</span>
-        </div>
-        {/* Box 2 Status */}
-        <div
-          className="
-              w-full py-2 col-start-3 col-end-4 flex items-center justify-around  bg-bodyBackColor rounded-lg
-              sm:col-start-1 sm:col-end-3
-              "
-        >
+      <div className="w-full mb-4 px-4 grid grid-cols-4 grid-rows-4 gap-2 mx-auto lg:px-0 sm:grid-rows-9">
+        {/* Box 1 Dari - Tujuan */}
+        <div className="w-full py-2 col-start-1 col-end-3 flex items-center justify-around bg-bodyBackColor rounded-lg sm:px-2 sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-1 sm:col-start-1 sm:col-end-5">
           {/* Icon */}
           <img
-            src={`/svg/${status.toLowerCase()}.svg`}
-            className="w-12 h-auto lg:w-10"
-            alt="Date"
-          />
-          {/* Content Box Status */}
-          <div className="flex flex-col space-y-2">
-            <span className="text-sm text-primaryBlue sm:text-xs">Status</span>
-            <span className="text-base sm:text-sm">{status}</span>
-          </div>
-        </div>
-        {/* Box 3 Maskapai */}
-        <div
-          className="
-              w-full py-2 col-start-4 col-end-5 flex items-center justify-around bg-bodyBackColor rounded-lg
-              sm:col-start-3 sm:col-end-5
-              "
-        >
-          {/* Icon */}
-          <img
-            src="/svg/airlines-rounded.svg"
-            className="w-12 h-auto lg:w-10"
-            alt="Date"
-          />
-          {/* Content Box Status */}
-          <div className="flex flex-col space-y-2">
-            <span className="text-sm text-primaryBlue sm:text-xs">
-              Maskapai
-            </span>
-            <span
-              className={`text-base ${
-                pesawat == "" ? " text-red-500" : ""
-              } lg:text-sm sm:text-xs`}
-            >
-              {pesawat == "" ? "(Konfirmasi)" : pesawat}
-            </span>
-          </div>
-        </div>
-        {/* Box 3 Dari - Tujuan */}
-        <div
-          className="
-          w-full py-2 col-start-1 col-end-3 flex items-center justify-around bg-bodyBackColor rounded-lg
-          sm:px-2 sm:col-start-1 sm:col-end-5 sm:flex-col
-          "
-        >
-          {/* Icon */}
-          <img
-            src="/svg/map-marker.svg"
+            src="/svg/cityscape.svg"
             className="w-12 h-auto lg:w-10 sm:self-center"
             alt="Marker"
           />
@@ -153,13 +143,8 @@ function PageUpdateOrder() {
             </div>
           </div>
         </div>
-        {/* Box 4 Berangkat - Tiba */}
-        <div
-          className="
-              w-full py-2 col-start-3 col-end-5 flex items-center justify-around bg-bodyBackColor rounded-lg
-              sm:px-2 sm:row-start-4 sm:col-start-1 sm:col-end-5 sm:flex-col
-              "
-        >
+        {/* Box 2 Berangkat - Tiba */}
+        <div className="w-full py-2 row-start-1 col-start-3 col-end-5 flex items-center justify-around bg-bodyBackColor rounded-lg sm:px-2 sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-2 sm:col-start-1 sm:col-end-5">
           {/* Icon */}
           <img
             src="/svg/tear-off-calendar.svg"
@@ -188,13 +173,8 @@ function PageUpdateOrder() {
             </div>
           </div>
         </div>
-        {/* Box 5 Berat - Sisa */}
-        <div
-          className="
-              w-full py-2 col-start-1 col-end-3 flex items-center justify-around bg-bodyBackColor rounded-lg
-              sm:px-2 sm:col-start-1 sm:col-end-5 sm:flex-col
-              "
-        >
+        {/* Box 3 Berat - Sisa */}
+        <div className="w-full py-2 row-start-2 col-start-3 col-end-5 flex items-center justify-around bg-bodyBackColor rounded-lg sm:px-2 sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-3 sm:col-start-1 sm:col-end-5">
           {/* Icon */}
           <img
             src="/svg/weight-kilogram.svg"
@@ -225,13 +205,8 @@ function PageUpdateOrder() {
             </div>
           </div>
         </div>
-        {/* Box 6 Harga */}
-        <div
-          className="
-              w-full py-2 flex items-center justify-around bg-bodyBackColor rounded-lg
-              sm:row-start-6 sm:col-start-1 sm:col-end-5
-              "
-        >
+        {/* Box 4 Harga */}
+        <div className="w-full py-2 row-start-2 col-start-1 col-end-3 flex items-center justify-around bg-bodyBackColor rounded-lg sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-4 sm:col-start-1 sm:col-end-5">
           {/* Icon */}
           <img
             src="/svg/payments-outline-rounded.svg"
@@ -248,13 +223,22 @@ function PageUpdateOrder() {
             </span>
           </div>
         </div>
-        {/* Box 7 Nama Traveler */}
-        <div
-          className="
-              w-full py-2 flex items-center justify-around bg-bodyBackColor rounded-lg
-              sm:row-start-7 sm:col-start-1 sm:col-end-5
-              "
-        >
+        {/* Box 5 Catatan Traveler */}
+        <div className="w-full py-2 px-4 row-start-3 col-start-1 col-end-3 flex items-center space-x-4 bg-bodyBackColor rounded-lg sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-5 sm:col-start-1 sm:col-end-5">
+          {/* Icon */}
+          <img
+            src="/svg/warning-solid.svg"
+            className="w-12 h-auto lg:w-10"
+            alt="Date"
+          />
+          {/* Content Box Dari */}
+          <div className="w-[70%] flex flex-col space-y-2 sm:w-full">
+            <span className="text-xs text-primaryBlue">Catatan Traveler</span>
+            <p className="text-sm sm:text-xs">{catatan ? catatan : "---"}</p>
+          </div>
+        </div>
+        {/* Box 6 Nama Traveler */}
+        <div className="w-full py-2 row-start-3 col-start-3 col-end-4 flex items-center justify-around bg-bodyBackColor rounded-lg sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-6 sm:col-start-1 sm:col-end-5">
           {/* Icon */}
           <img
             src={`${!image ? "/images/default-user.jpg" : image}`}
@@ -270,53 +254,87 @@ function PageUpdateOrder() {
             <span className="text-base sm:text-sm">{cutWords(nama, 2)}</span>
           </div>
         </div>
-        {/* Box 8 Catatan Traveler */}
-        <div
-          className="
-              w-full py-2 col-start-1 col-end-3 row-start-4 row-end-6 flex justify-around bg-bodyBackColor rounded-lg 
-              sm:px-2 sm:row-start-[8] sm:row-end-[10] sm:col-start-1 sm:col-end-5 sm:space-x-4
-              "
-        >
+        {/* Box 7 Telpon Traveler */}
+        <div className="w-full py-2 row-start-3 col-start-4 col-end-5 flex items-center justify-around bg-bodyBackColor rounded-lg sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-7 sm:col-start-1 sm:col-end-5">
           {/* Icon */}
           <img
-            src="/svg/warning-solid.svg"
+            src="/svg/whatsapp-fill.svg"
             className="w-12 h-auto lg:w-10"
-            alt="Date"
+            alt="Price"
           />
-          {/* Content Box Dari */}
-          <div className="w-[70%] flex flex-col space-y-2 sm:w-full">
-            <span className="text-xs text-primaryBlue">Catatan Traveler</span>
-            <p className="text-sm sm:text-xs">{catatan ? catatan : "---"}</p>
+          {/* Content Box Harga */}
+          <div className="flex flex-col space-y-2">
+            <span className="text-sm text-primaryBlue sm:text-xs">
+              WhatsApp Traveler
+            </span>
+            <span className="text-base sm:text-sm">0823114569</span>
           </div>
         </div>
-        {/* Error Message (Jika status bukan 'OPENED') */}
-        {orderDetail.status == "Preparing" ? (
-          <div
-            className="w-full col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center 
-          sm:row-start-[9] sm:row-end-[10] sm:col-start-1 sm:col-end-5"
-          >
-            <span className="py-1 px-2 text-xs text-white bg-green-600 rounded-lg">
-              Bagasi ready. Silahkan di order kak 🤗
+        {/* Box 8 Alamat Dari Traveler */}
+        <div className="w-full py-2 px-4 row-start-4 col-start-1 col-end-3 flex items-center space-x-4 bg-bodyBackColor rounded-lg sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-[8] sm:col-start-1 sm:col-end-5">
+          {/* Icon */}
+          <img
+            src="/svg/map-marker.svg"
+            className="w-12 h-auto lg:w-10"
+            alt="Price"
+          />
+          {/* Content Box Harga */}
+          <div className="flex-1 flex flex-col space-y-2 sm:w-full">
+            <span className="text-sm text-primaryBlue sm:text-xs">
+              Alamat Kota Asal
+            </span>
+            <span className="text-sm sm:text-xs">
+              Jln. Sultan Hasanuddin No. 59 gagjaga gagagasgasgasga
             </span>
           </div>
-        ) : (
-          <div
-            className="w-full col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center 
-              sm:row-start-[11] sm:row-end-[10] sm:col-start-1 sm:col-end-5
-              "
-          >
-            <span className="py-1 px-2 text-xs text-white bg-green-600 rounded-lg">
-              {orderDetail.status == "Ready"
-                ? "Order yang sudah di bayar tidak bisa di update kak. Jika ingin order bagasi yang sama, silahkan buat order baru. 🤗"
-                : ""}
-              {orderDetail.status == "Delivered"
-                ? "Terima kasih telah menggunakan jasa kami 🤗"
-                : ""}
+        </div>
+        {/* Box 9 Alamat Tujuan Traveler */}
+        <div className="w-full p-2 row-start-4 col-start-3 col-end-5 flex items-center space-x-4 bg-bodyBackColor rounded-lg sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-[9] sm:col-start-1 sm:col-end-5">
+          {/* Icon */}
+          <img
+            src="/svg/map-marker.svg"
+            className="w-12 h-auto lg:w-10"
+            alt="Price"
+          />
+          {/* Content Box Harga */}
+          <div className="flex-1 flex flex-col space-y-2 sm:w-full">
+            <span className="text-sm text-primaryBlue sm:text-xs">
+              Alamat Kota Tujuan
+            </span>
+            <span className="text-sm sm:text-xs">
+              Jln. Sultan Hasanuddin No. 59 gagjaga gagagasgasgasga
             </span>
           </div>
-        )}
+        </div>
       </div>{" "}
       {/* Akhir Grid (Bagasi) Container */}
+      {/* Notification Message (Jika status bukan 'OPENED') start--*/}
+      {orderDetail.status == "Preparing" ? (
+        <div
+          className="w-full mb-8 col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center 
+          sm:row-start-[9] sm:row-end-[10] sm:col-start-1 sm:col-end-5"
+        >
+          <span className="py-1 px-2 text-xs text-white bg-green-600 rounded-lg">
+            Bagasi ready. Silahkan di order kak 🤗
+          </span>
+        </div>
+      ) : (
+        <div
+          className="w-full mb-4 col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center 
+              sm:row-start-[11] sm:row-end-[10] sm:col-start-1 sm:col-end-5
+              "
+        >
+          <span className="py-1 px-2 text-xs text-white bg-green-600 rounded-lg">
+            {orderDetail.status == "Ready"
+              ? "Order yang sudah di bayar tidak bisa di update kak. Jika ingin order bagasi yang sama, silahkan buat order baru. 🤗"
+              : ""}
+            {orderDetail.status == "Delivered"
+              ? "Terima kasih telah menggunakan jasa kami 🤗"
+              : ""}
+          </span>
+        </div>
+      )}
+      {/* Notification Message (Jika status bukan 'OPENED') end--*/}
       <FormUpdateOrder
         id={id}
         orderDetail={orderDetail}
