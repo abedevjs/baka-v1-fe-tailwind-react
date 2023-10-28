@@ -10,7 +10,7 @@ export function useDeleteBagasi() {
     mutationFn: (id) => apiDeleteBagasi(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bagasi", "userBagasi"] });
-      toast.success("Bagasi berhasil dihapus 🤝");
+      toast.success("Bagasi berhasil dihapus");
       navigate("/user");
     },
     onError: (err) => {

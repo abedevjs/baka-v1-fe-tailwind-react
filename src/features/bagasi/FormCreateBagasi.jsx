@@ -11,6 +11,7 @@ import { useState } from "react";
 
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
+const MIN_LENGTH_ALAMAT = import.meta.env.VITE_MIN_LENGTH_ALAMAT;
 const MAX_LENGTH_ALAMAT = import.meta.env.VITE_MAX_LENGTH_ALAMAT;
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 
@@ -39,6 +40,14 @@ function FormCreateBagasi() {
     //todo Jika kota dari dan kota tujuan sama, reject
     if (data.dari == data.tujuan) {
       toast.error("Kota asal dan tujuan tidak boleh sama kakak");
+      return;
+    }
+
+    //todo Jika alamatDari dan alamatTujuan sama, reject
+    if (data.alamatDari == data.alamatTujuan) {
+      toast.error(
+        "Alamat Kota Asal dan Alamat Kota Tujuan mohon di cek lagi ya kak"
+      );
       return;
     }
 
@@ -278,16 +287,22 @@ function FormCreateBagasi() {
               {/* Label + Input Box */}
               <div className="w-[80%] flex flex-col space-y-2 sm:w-auto">
                 <label
-                  htmlFor="noteTravel"
+                  htmlFor="alamatDari"
                   className="text-sm text-primaryBlue lg:text-xs"
                 >
                   Alamat Kota Asal
                 </label>
                 <textarea
-                  name="noteTravel"
+                  name="alamatDari"
                   rows={2}
+                  minLength={MIN_LENGTH_ALAMAT}
                   maxLength={MAX_LENGTH_ALAMAT}
-                  required=""
+                  id="alamatDari"
+                  {...register("alamatDari", {
+                    required:
+                      "Tulis alamat kota asal tempat pengiriman barang ya kak",
+                  })}
+                  disabled={isCreating}
                   className="p-2 w-full text-sm lg:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
                   placeholder="Tulis alamat tempat pengiriman bagasi disini"
                   defaultValue={""}
@@ -306,16 +321,21 @@ function FormCreateBagasi() {
               {/* Label + Input Box */}
               <div className="w-[80%] flex flex-col space-y-2 sm:w-auto">
                 <label
-                  htmlFor="noteTravel"
+                  htmlFor="alamatTujuan"
                   className="text-sm text-primaryBlue lg:text-xs"
                 >
                   Alamat Kota Tujuan
                 </label>
                 <textarea
-                  name="noteTravel"
+                  name="alamatTujuan"
                   rows={2}
+                  minLength={MIN_LENGTH_ALAMAT}
                   maxLength={MAX_LENGTH_ALAMAT}
-                  required=""
+                  id="alamatTujuan"
+                  {...register("alamatTujuan", {
+                    required:
+                      "Tulis alamat kota tujuan tempat pengambilan barang ya kak",
+                  })}
                   className="p-2 w-full text-sm lg:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
                   placeholder="Tulis alamat tempat pengambilan bagasi disini"
                   defaultValue={""}
@@ -496,8 +516,14 @@ function FormCreateBagasi() {
               {errors?.dari?.message && (
                 <Notification type="error" text={errors.dari.message} />
               )}
+              {errors?.alamatDari?.message && (
+                <Notification type="error" text={errors.alamatDari.message} />
+              )}
               {errors?.tujuan?.message && (
                 <Notification type="error" text={errors.tujuan.message} />
+              )}
+              {errors?.alamatTujuan?.message && (
+                <Notification type="error" text={errors.alamatTujuan.message} />
               )}
               {errors?.availableKg?.message && (
                 <Notification type="error" text={errors.availableKg.message} />

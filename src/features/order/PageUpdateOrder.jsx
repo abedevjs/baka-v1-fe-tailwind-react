@@ -12,16 +12,24 @@ import {
 } from "../../utilities/formatter";
 import { useGetUserOrder } from "../user/useGetUserOrder";
 import TextTitle from "../../ui/TextTitle";
+import { useGetAllUser } from "../user/useGetAllUser";
 
 function PageUpdateOrder() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
   const { order, isLoading: isLoadingOrder } = useGetAllOrder();
+  const { allUser, isLoadingAllUser } = useGetAllUser();
   const { user, isLoading: isLoadingUser } = useGetUser();
   const { userOrder, isLoadingUserOrder } = useGetUserOrder();
 
-  if (isLoadingOrder || isLoadingBagasi || isLoadingUser || isLoadingUserOrder)
+  if (
+    isLoadingOrder ||
+    isLoadingBagasi ||
+    isLoadingUser ||
+    isLoadingUserOrder ||
+    isLoadingAllUser
+  )
     return <Spinner />;
 
   //Cek jika order tsb msh ada
@@ -48,7 +56,9 @@ function PageUpdateOrder() {
     .filter((el) => el._id == orderDetail.bagasi._id);
   const {
     dari,
+    alamatDari,
     tujuan,
+    alamatTujuan,
     status,
     pesawat,
     waktuBerangkat,
@@ -59,8 +69,16 @@ function PageUpdateOrder() {
     catatan,
     owner,
   } = data[0];
-  const { nama, image } = owner;
+  const { nama, image, telpon } = owner;
   // Destructuring Bagasi Detail dari useGetAllBagasi() --end
+
+  // Destructuring Owner Detail dari useGetAllUser() --start
+  const {
+    nama: namaOwner,
+    image: imageOwner,
+    telpon: telponOwner,
+  } = allUser.find((user) => user._id == owner._id);
+  // Destructuring Owner Detail dari useGetAllUser() --end
 
   return (
     <>
@@ -241,17 +259,19 @@ function PageUpdateOrder() {
         <div className="w-full py-2 row-start-3 col-start-3 col-end-4 flex items-center justify-around bg-bodyBackColor rounded-lg sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-6 sm:col-start-1 sm:col-end-5">
           {/* Icon */}
           <img
-            src={`${!image ? "/images/default-user.jpg" : image}`}
+            src={`${!imageOwner ? "/images/default-user.jpg" : imageOwner}`}
             className="w-12 h-auto rounded-full"
             alt="Traveler"
             referrerPolicy="no-referrer"
           />
-          {/* Content Box Harga */}
+          {/* Content Box Nama Traveler */}
           <div className="flex flex-col space-y-2">
             <span className="text-sm text-primaryBlue sm:text-xs">
               Nama Traveler
             </span>
-            <span className="text-base sm:text-sm">{cutWords(nama, 2)}</span>
+            <span className="text-base sm:text-sm sm:text-center">
+              {cutWords(namaOwner, 2)}
+            </span>
           </div>
         </div>
         {/* Box 7 Telpon Traveler */}
@@ -262,12 +282,16 @@ function PageUpdateOrder() {
             className="w-12 h-auto lg:w-10"
             alt="Price"
           />
-          {/* Content Box Harga */}
+          {/* Content Box Telpon Traveler */}
           <div className="flex flex-col space-y-2">
             <span className="text-sm text-primaryBlue sm:text-xs">
               WhatsApp Traveler
             </span>
-            <span className="text-base sm:text-sm">0823114569</span>
+            <span className="text-base sm:text-sm sm:text-center">
+              {["Preparing", "Canceled"].includes(userOrder[0]?.status)
+                ? "(...)"
+                : telponOwner}
+            </span>
           </div>
         </div>
         {/* Box 8 Alamat Dari Traveler */}
@@ -278,13 +302,15 @@ function PageUpdateOrder() {
             className="w-12 h-auto lg:w-10"
             alt="Price"
           />
-          {/* Content Box Harga */}
-          <div className="flex-1 flex flex-col space-y-2 sm:w-full">
+          {/* Content Box Alamat Dari */}
+          <div className="flex-1 flex flex-col space-y-2 sm:w-full sm:text-center">
             <span className="text-sm text-primaryBlue sm:text-xs">
               Alamat Kota Asal
             </span>
             <span className="text-sm sm:text-xs">
-              Jln. Sultan Hasanuddin No. 59 gagjaga gagagasgasgasga
+              {["Preparing", "Canceled"].includes(userOrder[0]?.status)
+                ? "(...)"
+                : alamatDari}
             </span>
           </div>
         </div>
@@ -296,13 +322,15 @@ function PageUpdateOrder() {
             className="w-12 h-auto lg:w-10"
             alt="Price"
           />
-          {/* Content Box Harga */}
-          <div className="flex-1 flex flex-col space-y-2 sm:w-full">
+          {/* Content Box Alamat Tujuan */}
+          <div className="flex-1 flex flex-col space-y-2 sm:w-full sm:text-center">
             <span className="text-sm text-primaryBlue sm:text-xs">
               Alamat Kota Tujuan
             </span>
             <span className="text-sm sm:text-xs">
-              Jln. Sultan Hasanuddin No. 59 gagjaga gagagasgasgasga
+              {["Preparing", "Canceled"].includes(userOrder[0]?.status)
+                ? "(...)"
+                : alamatTujuan}
             </span>
           </div>
         </div>

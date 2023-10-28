@@ -35,6 +35,8 @@ URGENT (before launching)
         ✅ done
     🔴 Filtering (status)
         ✅ done
+    🔴 Update alamatDari only yes to status [Scheduled, Opened]. Update alamatTujuan only yes to status [Scheduled, Opened, Closed, UnLoaded]
+        ✅ done
     🔴 Bermasalah saat google oauth via mobile
     🔴 Jarak antara Tgl berangkat dan Tgl Tiba sebaiknya minimal brp hari?
     🔴 Content tulisan di /faq, /rules, /about, form instruksi
@@ -62,7 +64,7 @@ URGENT (before launching)
     🔴 Pagination
         ✅ done
     🔴 Content tulisan di /faq, /rules, /about, form instruksi
-    🔴 Di updateOrder, klo status == 'Ready', tombol 'Hapus Bagasi' berubah jadi 'Selesai'.
+    🔴 Di updateOrder, klo status == 'Ready', tombol 'Hapus Order' berubah jadi 'Selesai'.
     🔴 Di updateOrder, tombol 'Selesai' akan otomatis baru bisa di klik di hari TglTiba bagasi.
     🔴 Di hari H TglTiba Bagasi, tombol 'Selesai' baru bs enabled utk di klik, sebelumnya disabled={date today < waktuBerangkat}.
     

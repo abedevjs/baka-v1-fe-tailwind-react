@@ -5,7 +5,7 @@ const bagasiArr = [
   { value: "Scheduled", label: "🔵 Scheduled" },
   { value: "Opened", label: "🟢 Opened" },
   { value: "Closed", label: "🔴 Closed" },
-  { value: "Completed", label: "🟡 Completed" },
+  { value: "Unloaded", label: "🟡 Unloaded" },
   { value: "Canceled", label: "⚫ Canceled" },
 ];
 const orderArr = [

@@ -13,6 +13,19 @@ export async function apiGetUser() {
   }
 }
 
+//* www.nama.com/user/all
+export async function apiGetAllUser() {
+  try {
+    const res = await axios.get(`${BAKA_URL}/user/all`, {
+      withCredentials: true,
+    });
+    // console.log(res.data.data.data);
+    return res.data.data.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
+
 export async function apiGetUserOrder() {
   try {
     const res = await axios.get(`${BAKA_URL}/user/profil`, {

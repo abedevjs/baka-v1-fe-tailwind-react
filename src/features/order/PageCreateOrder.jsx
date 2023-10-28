@@ -8,21 +8,19 @@ import {
   dateFormat,
 } from "../../utilities/formatter";
 import { useGetUser } from "../user/useGetUser";
-import { useForm } from "react-hook-form";
-import { useCreateOrder } from "./useCreateOrder";
-import { useUpdateUser } from "../user/useUpdateUser";
 import toast from "react-hot-toast";
-import { useState } from "react";
 import FormCreateOrder from "./FormCreateOrder";
 import TextTitle from "../../ui/TextTitle";
+import { useGetAllUser } from "../user/useGetAllUser";
 
 function PageCreateOrder() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
+  const { allUser, isLoadingAllUser } = useGetAllUser();
   const { user } = useGetUser();
 
-  if (isLoadingBagasi) return <Spinner />;
+  if (isLoadingBagasi || isLoadingAllUser) return <Spinner />;
 
   //Cek jika bagasi tsb msh ada
   if (!bagasi?.find((el) => el._id == id)) {
@@ -45,8 +43,13 @@ function PageCreateOrder() {
     catatan,
     owner,
   } = data[0];
-  const { nama, image } = owner;
   // Destructuring Bagasi Detail dari useGetAllBagasi() --end
+
+  // Destructuring Owner Detail dari useGetAllUser() --start
+  const { nama: namaOwner, image: imageOwner } = allUser.find(
+    (user) => user._id == owner._id
+  );
+  // Destructuring Owner Detail dari useGetAllUser() --end
 
   return (
     <>
@@ -235,17 +238,19 @@ function PageCreateOrder() {
         <div className="w-full py-2 row-start-3 col-start-3 col-end-4 flex items-center justify-around bg-bodyBackColor rounded-lg sm:flex-col sm:space-x-0 sm:space-y-4 sm:row-start-6 sm:col-start-1 sm:col-end-5">
           {/* Icon */}
           <img
-            src={`${!image ? "/images/default-user.jpg" : image}`}
+            src={`${!imageOwner ? "/images/default-user.jpg" : imageOwner}`}
             className="w-12 h-auto rounded-full"
             alt="Traveler"
             referrerPolicy="no-referrer"
           />
-          {/* Content Box Harga */}
+          {/* Content Box Nama Traveler */}
           <div className="flex flex-col space-y-2">
             <span className="text-sm text-primaryBlue sm:text-xs">
               Nama Traveler
             </span>
-            <span className="text-base sm:text-sm">{cutWords(nama, 2)}</span>
+            <span className="text-base sm:text-sm sm:text-center">
+              {cutWords(namaOwner, 2)}
+            </span>
           </div>
         </div>
         {/* Box 7 Telpon Traveler */}
@@ -256,12 +261,12 @@ function PageCreateOrder() {
             className="w-12 h-auto lg:w-10"
             alt="Price"
           />
-          {/* Content Box Harga */}
+          {/* Content Box Telpon Traveler */}
           <div className="flex flex-col space-y-2">
             <span className="text-sm text-primaryBlue sm:text-xs">
               WhatsApp Traveler
             </span>
-            <span className="text-base sm:text-sm">0823114569</span>
+            <span className="text-base sm:text-sm sm:text-center">(...)</span>
           </div>
         </div>
         {/* Box 8 Alamat Dari Traveler */}
@@ -272,14 +277,12 @@ function PageCreateOrder() {
             className="w-12 h-auto lg:w-10"
             alt="Price"
           />
-          {/* Content Box Harga */}
-          <div className="flex-1 flex flex-col space-y-2 sm:w-full">
+          {/* Content Box Alamat Dari */}
+          <div className="flex-1 flex flex-col space-y-2 sm:w-full sm:text-center">
             <span className="text-sm text-primaryBlue sm:text-xs">
               Alamat Kota Asal
             </span>
-            <span className="text-sm sm:text-xs">
-              Jln. Sultan Hasanuddin No. 59 gagjaga gagagasgasgasga
-            </span>
+            <span className="text-sm sm:text-xs">(...)</span>
           </div>
         </div>
         {/* Box 9 Alamat Tujuan Traveler */}
@@ -290,14 +293,12 @@ function PageCreateOrder() {
             className="w-12 h-auto lg:w-10"
             alt="Price"
           />
-          {/* Content Box Harga */}
-          <div className="flex-1 flex flex-col space-y-2 sm:w-full">
+          {/* Content Box Alamat Tujuan */}
+          <div className="flex-1 flex flex-col space-y-2 sm:w-full sm:text-center">
             <span className="text-sm text-primaryBlue sm:text-xs">
               Alamat Kota Tujuan
             </span>
-            <span className="text-sm sm:text-xs">
-              Jln. Sultan Hasanuddin No. 59 gagjaga gagagasgasgasga
-            </span>
+            <span className="text-sm sm:text-xs">(...)</span>
           </div>
         </div>
       </div>

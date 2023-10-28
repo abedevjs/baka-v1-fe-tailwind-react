@@ -16,6 +16,7 @@ import { useGetAllOrder } from "../order/useGetAllOrder";
 
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
+const MIN_LENGTH_ALAMAT = import.meta.env.VITE_MIN_LENGTH_ALAMAT;
 const MAX_LENGTH_ALAMAT = import.meta.env.VITE_MAX_LENGTH_ALAMAT;
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 
@@ -55,7 +56,9 @@ function FormUpdateBagasi() {
   const data = bagasi?.map((el) => el).filter((el) => el._id == id);
   const {
     dari,
+    alamatDari,
     tujuan,
+    alamatTujuan,
     status,
     pesawat,
     waktuBerangkat,
@@ -88,10 +91,30 @@ function FormUpdateBagasi() {
     if (!isDirty) return;
     if (!data) return;
 
-    //todo Jika status 'Closed' tdk bs update
-    if (status == "Closed") {
+    //todo Jika status 'Canceled' tdk bs update
+    if (status == "Canceled") {
+      toast.error("Status bagasi yang 'Canceled' hanya boleh di hapus kak");
+      return;
+    }
+
+    //todo Jika alamatDari dan alamatTujuan sama, reject
+    if (data.alamatDari == data.alamatTujuan) {
       toast.error(
-        "Bagasi ini sudah siap berangkat kak. Silahkan buat Jual-Bagasi yang baru"
+        "Alamat Kota Asal dan Alamat Kota Tujuan mohon di cek lagi ya kak"
+      );
+      return;
+    }
+
+    //todo Jika Tgl Berangkat setelah Tgl Tiba, reject
+    if (Date.parse(data.waktuBerangkat) > Date.parse(data.waktuTiba)) {
+      toast.error("Mohon cek Tgl Berangkat dan Tgl Tiba kak");
+      return;
+    }
+
+    //todo Jika Tgl Berangkat == Tgl Tiba, reject
+    if (Date.parse(data.waktuBerangkat) == Date.parse(data.waktuTiba)) {
+      toast.error(
+        "Tgl Berangkat dan Tgl Tiba tidak bisa di hari yang sama kak"
       );
       return;
     }
@@ -320,18 +343,26 @@ function FormUpdateBagasi() {
             {/* Label + Input Box */}
             <div className="w-[80%] flex flex-col space-y-2">
               <label
-                htmlFor="noteTravel"
+                htmlFor="alamatDari"
                 className="text-sm text-primaryBlue lg:text-xs"
               >
                 Alamat Kota Asal
               </label>
               <textarea
-                name="noteTravel"
+                name="alamatDari"
                 rows={2}
+                minLength={MIN_LENGTH_ALAMAT}
                 maxLength={MAX_LENGTH_ALAMAT}
+                id="alamatDari"
+                {...register("alamatDari")}
+                disabled={
+                  ["Closed", "Unloaded", "Canceled"].includes(status) ||
+                  isUpdating ||
+                  isDeleting
+                }
                 className="p-2 w-full h-full text-sm border-2 border-textColor bg-transparent outline-none rounded-lg sm:text-xs"
                 placeholder="Tulis alamat tempat pengiriman bagasi disini..."
-                defaultValue={""}
+                defaultValue={alamatDari}
               />
             </div>
           </div>
@@ -343,18 +374,22 @@ function FormUpdateBagasi() {
             {/* Label + Input Box */}
             <div className="w-[80%] flex flex-col space-y-2">
               <label
-                htmlFor="noteTravel"
+                htmlFor="alamatTujuan"
                 className="text-sm text-primaryBlue lg:text-xs"
               >
                 Alamat Kota Tujuan
               </label>
               <textarea
-                name="noteTravel"
+                name="alamatTujuan"
                 rows={2}
+                minLength={MIN_LENGTH_ALAMAT}
                 maxLength={MAX_LENGTH_ALAMAT}
+                id="alamatTujuan"
+                {...register("alamatTujuan")}
+                disabled={status == "Canceled" || isUpdating || isDeleting}
                 className="p-2 w-full h-full text-sm border-2 border-textColor bg-transparent outline-none rounded-lg sm:text-xs"
                 placeholder="Tulis alamat tempat pengambilan bagasi disini..."
-                defaultValue={""}
+                defaultValue={alamatTujuan}
               />
             </div>
           </div>
@@ -389,9 +424,7 @@ function FormUpdateBagasi() {
                   defaultValue={initialKg}
                   id="availableKg"
                   {...register("availableKg")}
-                  disabled={["Closed", "Completed", "Canceled"].includes(
-                    status
-                  )}
+                  disabled={["Closed", "Unloaded", "Canceled"].includes(status)}
                   className="text-base lg:text-sm sm:text-xs text-center bg-transparent border-b-2 border-textColor outline-none"
                 />
               </div>
@@ -447,7 +480,7 @@ function FormUpdateBagasi() {
                   id="hargaRp"
                   {...register("hargaRp")}
                   disabled={
-                    ["Closed", "Completed", "Canceled"].includes(status) ||
+                    ["Closed", "Unloaded", "Canceled"].includes(status) ||
                     isUpdating
                   }
                   className="w-full text-base lg:text-sm sm:text-xs text-left bg-transparent border-b-2 border-textColor outline-none"
@@ -525,7 +558,11 @@ function FormUpdateBagasi() {
                 defaultValue={catatan}
                 id="catatan"
                 {...register("catatan")}
-                disabled={["Closed", "Completed", "Canceled"].includes(status)}
+                disabled={
+                  ["Closed", "Unloaded", "Canceled"].includes(status) ||
+                  isUpdating ||
+                  isDeleting
+                }
               />
             </div>
           </div>

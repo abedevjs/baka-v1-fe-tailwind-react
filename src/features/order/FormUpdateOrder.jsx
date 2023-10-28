@@ -143,7 +143,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
               Isi Kiriman
             </label>
             <select
-              name="tujuan"
+              name="isi"
               id="isi"
               {...register("isi")}
               disabled={["Delivered", "Canceled"].includes(status)}

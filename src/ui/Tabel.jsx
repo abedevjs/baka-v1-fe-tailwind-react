@@ -24,7 +24,7 @@ function Tabel({ feature, dataObj = [] }) {
       break;
 
     case "bagasiOrderList":
-      props = ["Jumlah", "Isi", "Biaya", "Catatan", "Atas Nama"];
+      props = ["Jumlah", "Isi", "Biaya", "Catatan", "Pengirim"];
       break;
 
     case "order":
