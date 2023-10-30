@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Notification from "../../ui/Notification";
 import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
 import { useDeleteOrder } from "./useDeleteOrder";
 import { useForm } from "react-hook-form";
@@ -7,11 +6,19 @@ import { useUpdateOrder } from "./useUpdateOrder";
 import { useEffect, useState } from "react";
 import { currencyFormat } from "../../utilities/formatter";
 import toast from "react-hot-toast";
+import { useDeliveredOrder } from "./useDeliveredOrder";
 
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 const ORDER_TAX = import.meta.env.VITE_ORDER_TAX;
 
-function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
+function FormUpdateOrder({
+  id,
+  orderDetail,
+  availableKg,
+  hargaRp,
+  user,
+  waktuTiba,
+}) {
   //Destructuring Order Detail prop
   const { status, jumlahKg, isi, biayaRp, adminFeeRp, netRp, catatan } =
     orderDetail;
@@ -23,7 +30,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
 
   const { updateOrder, isUpdating } = useUpdateOrder();
   const { deleteOrder, isDeleting } = useDeleteOrder();
-
+  const { deliveredOrder, isCompleting } = useDeliveredOrder();
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors, isDirty } = formState;
 
@@ -41,10 +48,6 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
     [hargaRp, jumlahBagasi, jumlahKg]
   );
 
-  function handleDelete() {
-    deleteOrder(id);
-  }
-
   //Executing update order
   function onSuccess(data) {
     if (!isDirty) return;
@@ -60,6 +63,18 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
     updateOrder({ id: id, body: data });
   }
   function onError(err) {}
+
+  //Executing tombol 'Hapus Order'. dari calling useDeleteOrder() --start
+  function handleDelete() {
+    deleteOrder(id);
+  }
+  //Executing tombol 'Hapus Order'. dari calling useDeleteOrder() --end
+
+  //Executing tombol 'Selesai'. dari calling useDeliveredOrder() --start
+  function handleDeliveredOrder() {
+    deliveredOrder(id);
+  }
+  //Executing tombol 'Selesai'. dari calling useDeliveredOrder() --end
 
   return (
     <>
@@ -146,7 +161,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
               name="isi"
               id="isi"
               {...register("isi")}
-              disabled={["Delivered", "Canceled"].includes(status)}
+              disabled={["Ready", "Delivered", "Postponed"].includes(status)}
               defaultValue={isi}
               className="p-1 text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
             >
@@ -159,14 +174,17 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
               <option className="text-left text-sm lg:text-xs" value="Pakaian">
                 Pakaian
               </option>
+              <option className="text-left text-sm lg:text-xs" value="AlasKaki">
+                Alas Kaki
+              </option>
               <option className="text-left text-sm lg:text-xs" value="Buku">
                 Buku
               </option>
               <option
                 className="text-left text-sm lg:text-xs"
-                value="Bumbu Dapur"
+                value="Peralatan"
               >
-                Bumbu Dapur
+                Peralatan
               </option>
               <option
                 className="text-left text-sm lg:text-xs"
@@ -251,7 +269,7 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
               className="p-2 w-full text-sm lg:text-xs border-2 border-textColor bg-transparent outline-none rounded-lg"
               placeholder="Tidak wajib diisi..."
               defaultValue={catatan}
-              disabled={["Delivered", "Canceled"].includes(status)}
+              disabled={["Ready", "Delivered", "Postponed"].includes(status)}
             />
           </div>
 
@@ -316,13 +334,24 @@ function FormUpdateOrder({ id, orderDetail, availableKg, hargaRp, user }) {
         )}
       </div>{" "}
       {/* Akhir Order Container */}
-      <button
-        onClick={handleDelete}
-        className="w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 cursor-pointer hover:opacity-80"
-        disabled={isDeleting}
-      >
-        {isDeleting ? "Menghapus..." : "Hapus Order"}
-      </button>
+      {/* Displaying Tombol Selesai or Tombol Hapus based on status == 'Ready' and Today > waktuTiba */}
+      {status == "Ready" && Date.now() > Date.parse(waktuTiba) ? (
+        <button
+          onClick={handleDeliveredOrder}
+          disabled={isCompleting}
+          className="w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-green-500 duration-300 cursor-pointer hover:opacity-80"
+        >
+          {isCompleting ? "Mengirim..." : "Selesai"}
+        </button>
+      ) : (
+        <button
+          onClick={handleDelete}
+          className="w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 cursor-pointer hover:opacity-80"
+          disabled={isDeleting}
+        >
+          {isDeleting ? "Menghapus..." : "Hapus Order"}
+        </button>
+      )}
     </>
   );
 }

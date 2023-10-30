@@ -50,6 +50,19 @@ export async function apiUpdateOrder(id, body) {
   }
 }
 
+//* www.nama.com/order/888/delivered
+export async function apiDeliveredOrder(id) {
+  try {
+    const res = await axios.patch(`${BAKA_URL}/order/${id}/delivered`, null, {
+      withCredentials: true,
+    });
+
+    return res.data.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
+
 //* www.nama.com/order/888
 export async function apiDeleteOrder(id) {
   try {

@@ -261,7 +261,7 @@ function TabelBody({
           <td scope="row" className="px-6 py-3">
             {jumlah === "" && ""}
             {jumlah > 0 && jumlah < 10 && String(jumlah).padStart(2, "0")}
-            {jumlah > 10 ? jumlah : ""}{" "}
+            {jumlah >= 10 ? jumlah : ""}{" "}
             <span className="text-xs italic">{jumlah && "Kg"}</span>
           </td>
           <td scope="row" className="px-6 py-3">

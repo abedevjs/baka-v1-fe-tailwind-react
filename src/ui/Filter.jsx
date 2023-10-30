@@ -5,15 +5,15 @@ const bagasiArr = [
   { value: "Scheduled", label: "🔵 Scheduled" },
   { value: "Opened", label: "🟢 Opened" },
   { value: "Closed", label: "🔴 Closed" },
-  { value: "Unloaded", label: "🟡 Unloaded" },
+  { value: "Unloaded", label: "🟣 Unloaded" },
   { value: "Canceled", label: "⚫ Canceled" },
 ];
 const orderArr = [
   { value: "", label: "🧳 Semua" },
   { value: "Preparing", label: "🔴 Preparing" },
   { value: "Ready", label: "🟢 Ready" },
-  { value: "Delivered", label: "🟡 Delivered" },
-  { value: "Canceled", label: "⚫ Canceled" },
+  { value: "Delivered", label: "🔵 Delivered" },
+  { value: "Postponed", label: "⚫ Postponed" },
 ];
 
 function Filter({ type, setterStatus }) {

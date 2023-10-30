@@ -345,10 +345,10 @@ function PageCreateOrder() {
             ""
           )}
 
-          {status == "Delivered" ? (
+          {status == "Unloaded" ? (
             <Notification
               type="success"
-              text="Bagasi berhasil di selesaikan. Terima kasih ya kak"
+              text="Misi Bagasi berhasil dan selesai. Terima kasih ya kak"
             />
           ) : (
             ""

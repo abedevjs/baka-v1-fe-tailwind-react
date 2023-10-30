@@ -23,7 +23,7 @@ const bagasiComplete = [
     tujuan: "Istanbul",
     sisa: "50",
     harga: "250000",
-    status: "Canceled",
+    status: "Postponed",
   },
 ];
 

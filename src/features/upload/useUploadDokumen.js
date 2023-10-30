@@ -12,9 +12,7 @@ export function useUploadDokumen() {
       queryClient.invalidateQueries({
         queryKey: ["user", "bagasi", "order", "userOrder", "userBagasi"],
       });
-      toast.success(
-        "Dokumen berhasil di upload. Tim Baka memeriksa dokumen tsb "
-      );
+      toast.success("Dokumen berhasil di upload. Kami validasi dulu ya kak");
 
       // navigate("/user");
     },

@@ -39,7 +39,7 @@ function FormUpdateBagasi() {
 
   //Cek jika bagasi tsb msh ada
   if (!bagasi?.find((el) => el._id == id)) {
-    // toast.error("Bagasi yang kakak minta tidak tersedia");
+    toast.error("Bagasi yang kakak minta tidak tersedia");
     return navigate("/user");
   }
 
@@ -48,7 +48,7 @@ function FormUpdateBagasi() {
     userBagasi?.length == 0 ||
     !userBagasi?.map((obj) => obj?._id)?.includes(id)
   ) {
-    // toast.error("Kakak bukan pemilik bagasi ini");
+    toast.error("Kakak bukan pemilik bagasi ini");
     return navigate("/user");
   }
 
@@ -386,7 +386,11 @@ function FormUpdateBagasi() {
                 maxLength={MAX_LENGTH_ALAMAT}
                 id="alamatTujuan"
                 {...register("alamatTujuan")}
-                disabled={status == "Canceled" || isUpdating || isDeleting}
+                disabled={
+                  ["Closed", "Unloaded", "Canceled"].includes(status) ||
+                  isUpdating ||
+                  isDeleting
+                }
                 className="p-2 w-full h-full text-sm border-2 border-textColor bg-transparent outline-none rounded-lg sm:text-xs"
                 placeholder="Tulis alamat tempat pengambilan bagasi disini..."
                 defaultValue={alamatTujuan}
@@ -628,6 +632,7 @@ function FormUpdateBagasi() {
       </div>{" "}
       {/* JUAL BAGASI Wrapper end */}
       {/* Link Delete Account */}
+      {/* Tombol Delete */}
       <button
         onClick={handleDelete}
         disabled={isDeleting}

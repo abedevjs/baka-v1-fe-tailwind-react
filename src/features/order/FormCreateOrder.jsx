@@ -163,14 +163,20 @@ function FormCreateOrder({ id, hargaRp, availableKg, user }) {
                 >
                   Pakaian
                 </option>
+                <option
+                  className="text-left text-sm lg:text-xs"
+                  value="AlasKaki"
+                >
+                  Alas Kaki
+                </option>
                 <option className="text-left text-sm lg:text-xs" value="Buku">
                   Buku
                 </option>
                 <option
                   className="text-left text-sm lg:text-xs"
-                  value="Bumbu Dapur"
+                  value="Peralatan"
                 >
-                  Bumbu Dapur
+                  Peralatan
                 </option>
                 <option
                   className="text-left text-sm lg:text-xs"

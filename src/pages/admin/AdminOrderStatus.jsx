@@ -65,7 +65,11 @@ function AdminOrderStatus() {
         <p>{`Dokumen: ${currOrder.dokumen}`}</p>
         <p>{`Tagihan: ${currencyFormat(currOrder.netRp)}`}</p>
         <p>{`Owner: ${currOrder.owner.email}`}</p>
-        <p>{`Owner.Dokumen: ${currOrder.owner.dokumen}`}</p>
+        <p>{`Owner.Dokumen: ${
+          currOrder.owner.dokumen.length > 1
+            ? "Cek Array ini"
+            : currOrder.owner.dokumen
+        }`}</p>
       </div>
 
       {/* FORM UPDATE STATUS ORDER */}
@@ -129,7 +133,10 @@ function AdminOrderStatus() {
               "
         >
           {/* Tombol Submit */}
-          <button className="p-2 px-4 self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 cursor-pointer hover:bg-primaryBlueBold">
+          <button
+            disabled={isUpdating}
+            className="p-2 px-4 self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 cursor-pointer hover:bg-primaryBlueBold"
+          >
             {isUpdating ? "Updating..." : "Update Order Status"}
           </button>
           {/* Success Message */}

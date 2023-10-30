@@ -36,7 +36,7 @@ function PageUpdateOrder() {
   //! Guard clause ini msh lemah
   const orderDetail = order?.find((el) => el._id == id);
   if (!orderDetail) {
-    // toast.error("Order yang kakak minta tidak tersedia ");
+    toast.error("Order yang kakak minta tidak tersedia ");
     return navigate("/user");
   }
 
@@ -46,7 +46,7 @@ function PageUpdateOrder() {
     userOrder?.length == 0 ||
     !userOrder?.map((obj) => obj?._id)?.includes(id)
   ) {
-    // toast.error("Kakak bukan pemilik order ini ");
+    toast.error("Kakak bukan pemilik order ini ");
     return navigate("/user");
   }
 
@@ -288,7 +288,7 @@ function PageUpdateOrder() {
               WhatsApp Traveler
             </span>
             <span className="text-base sm:text-sm sm:text-center">
-              {["Preparing", "Canceled"].includes(userOrder[0]?.status)
+              {["Preparing", "Postponed"].includes(userOrder[0]?.status)
                 ? "(...)"
                 : telponOwner}
             </span>
@@ -308,7 +308,7 @@ function PageUpdateOrder() {
               Alamat Kota Asal
             </span>
             <span className="text-sm sm:text-xs">
-              {["Preparing", "Canceled"].includes(userOrder[0]?.status)
+              {["Preparing", "Postponed"].includes(userOrder[0]?.status)
                 ? "(...)"
                 : alamatDari}
             </span>
@@ -328,7 +328,7 @@ function PageUpdateOrder() {
               Alamat Kota Tujuan
             </span>
             <span className="text-sm sm:text-xs">
-              {["Preparing", "Canceled"].includes(userOrder[0]?.status)
+              {["Preparing", "Postponed"].includes(userOrder[0]?.status)
                 ? "(...)"
                 : alamatTujuan}
             </span>
@@ -369,6 +369,7 @@ function PageUpdateOrder() {
         availableKg={availableKg}
         hargaRp={hargaRp}
         user={user}
+        waktuTiba={waktuTiba}
       />
     </>
   );
