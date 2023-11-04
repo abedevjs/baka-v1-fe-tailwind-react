@@ -1,0 +1,33 @@
+export const kotaAsal = [
+  { value: "", label: "Pilih Kota Asal" },
+  { value: "Jakarta", label: "Jakarta" },
+  // { value: "Sydney", label: "Sydney" },
+  // { value: "Bangkok", label: "Bangkok" },
+  // { value: "Guangzhou", label: "Guangzhou" },
+  // { value: "Seoul", label: "Seoul" },
+  { value: "Tokyo", label: "Tokyo" },
+  { value: "Dubai", label: "Dubai" },
+  { value: "Riyadh", label: "Riyadh" },
+  // { value: "Amman", label: "Amman" },
+  { value: "Cairo", label: "Cairo" },
+  { value: "Istanbul", label: "Istanbul" },
+  // { value: "Berlin", label: "Berlin" },
+  // { value: "New York", label: "New York" },
+];
+
+export const kotaTujuan = [
+  { value: "", label: "Pilih Kota Tujuan" },
+  { value: "Jakarta", label: "Jakarta" },
+  // { value: "Sydney", label: "Sydney" },
+  // { value: "Bangkok", label: "Bangkok" },
+  // { value: "Guangzhou", label: "Guangzhou" },
+  // { value: "Seoul", label: "Seoul" },
+  { value: "Tokyo", label: "Tokyo" },
+  { value: "Dubai", label: "Dubai" },
+  { value: "Riyadh", label: "Riyadh" },
+  // { value: "Amman", label: "Amman" },
+  { value: "Cairo", label: "Cairo" },
+  { value: "Istanbul", label: "Istanbul" },
+  { value: "Berlin", label: "Berlin" },
+  // { value: "New York", label: "New York" },
+];

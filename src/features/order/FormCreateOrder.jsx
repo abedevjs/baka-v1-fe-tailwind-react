@@ -7,6 +7,7 @@ import { currencyFormat } from "../../utilities/formatter";
 import { Link } from "react-router-dom";
 import Notification from "../../ui/Notification";
 import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
+import Option from "../../ui/Option";
 
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 const ORDER_TAX = import.meta.env.VITE_ORDER_TAX;
@@ -148,48 +149,10 @@ function FormCreateOrder({ id, hargaRp, availableKg, user }) {
                 disabled={isCreating}
                 className="p-1 text-base lg:text-sm bg-transparent border-b-2 border-textColor outline-none"
               >
-                <option className="text-left text-sm lg:text-xs" value="">
-                  Pilih Isi Kiriman
-                </option>
-                <option
+                <Option
+                  feature="isi-kiriman"
                   className="text-left text-sm lg:text-xs"
-                  value="Makanan"
-                >
-                  Makanan
-                </option>
-                <option
-                  className="text-left text-sm lg:text-xs"
-                  value="Pakaian"
-                >
-                  Pakaian
-                </option>
-                <option
-                  className="text-left text-sm lg:text-xs"
-                  value="AlasKaki"
-                >
-                  Alas Kaki
-                </option>
-                <option className="text-left text-sm lg:text-xs" value="Buku">
-                  Buku
-                </option>
-                <option
-                  className="text-left text-sm lg:text-xs"
-                  value="Peralatan"
-                >
-                  Peralatan
-                </option>
-                <option
-                  className="text-left text-sm lg:text-xs"
-                  value="Elektronik"
-                >
-                  Elektronik
-                </option>
-                <option
-                  className="text-left text-sm lg:text-xs"
-                  value="Lain-lain"
-                >
-                  Lain-lain
-                </option>
+                />
               </select>
             </div>
             {/* Box 5 WA, TOGGLE FLEX / HIDDEN */}

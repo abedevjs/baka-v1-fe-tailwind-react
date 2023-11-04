@@ -193,7 +193,7 @@ function FormUpdateBagasi() {
           >
             {/* Icon */}
             <img
-              src={`/svg/${status.toLowerCase()}.svg`}
+              src={`/svg/${status}.svg`}
               className="w-12 h-auto lg:w-10 sm:w-8"
               alt="Date"
             />
@@ -263,7 +263,7 @@ function FormUpdateBagasi() {
                   Dari
                 </span>
                 <div className="flex space-x-2 text-base lg:text-sm sm:text-xs">
-                  <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+                  <img src={`/svg/${dari}.svg`} alt={dari} />
                   <span>{dari}</span>
                 </div>
               </div>
@@ -273,7 +273,7 @@ function FormUpdateBagasi() {
                   Tujuan
                 </span>
                 <div className="flex space-x-2 text-base lg:text-sm">
-                  <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+                  <img src={`/svg/${tujuan}.svg`} alt={tujuan} />
                   <span>{tujuan}</span>
                 </div>
               </div>

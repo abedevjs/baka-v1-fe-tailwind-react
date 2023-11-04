@@ -8,6 +8,7 @@ import { useGetUser } from "../user/useGetUser";
 import { useUpdateUser } from "../user/useUpdateUser";
 import { useCreateBagasi } from "./useCreateBagasi";
 import { useState } from "react";
+import Option from "../../ui/Option";
 
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
@@ -57,13 +58,13 @@ function FormCreateBagasi() {
       return;
     }
 
-    //todo Jika Tgl Berangkat == Tgl Tiba, reject
-    if (Date.parse(data.waktuBerangkat) == Date.parse(data.waktuTiba)) {
-      toast.error(
-        "Tgl Berangkat dan Tgl Tiba tidak bisa di hari yang sama kak"
-      );
-      return;
-    }
+    // //todo Jika Tgl Berangkat == Tgl Tiba, reject
+    // if (Date.parse(data.waktuBerangkat) == Date.parse(data.waktuTiba)) {
+    //   toast.error(
+    //     "Tgl Berangkat dan Tgl Tiba tidak bisa di hari yang sama kak"
+    //   );
+    //   return;
+    // }
 
     //todo Jika harga bagasi bukan angka atau ada karakter selain angka
     if (isNaN(Number(data.hargaRp)) || !Number(data.hargaRp)) {
@@ -141,33 +142,10 @@ function FormCreateBagasi() {
                     disabled={isCreating}
                     className="p-1 text-base lg:text-xs bg-transparent border-b-2 border-textColor outline-none"
                   >
-                    <option className="text-left text-sm lg:text-xs" value="">
-                      Pilih Kota Asal
-                    </option>
-                    <option
+                    <Option
+                      feature="kota-asal"
                       className="text-left text-sm lg:text-xs"
-                      value="Jakarta"
-                    >
-                      Jakarta
-                    </option>
-                    <option
-                      className="text-left text-sm lg:text-xs"
-                      value="Istanbul"
-                    >
-                      Istanbul
-                    </option>
-                    <option
-                      className="text-left text-sm lg:text-xs"
-                      value="Cairo"
-                    >
-                      Cairo
-                    </option>
-                    <option
-                      className="text-left text-sm lg:text-xs"
-                      value="Dubai"
-                    >
-                      Dubai
-                    </option>
+                    />
                   </select>
                 </div>
 
@@ -189,33 +167,10 @@ function FormCreateBagasi() {
                     disabled={isCreating}
                     className="p-1  lg:text-xs text-base bg-transparent border-b-2 border-textColor outline-none"
                   >
-                    <option className="text-left text-sm lg:text-xs" value="">
-                      Pilih Kota Tujuan
-                    </option>
-                    <option
+                    <Option
+                      feature="kota-tujuan"
                       className="text-left text-sm lg:text-xs"
-                      value="Jakarta"
-                    >
-                      Jakarta
-                    </option>
-                    <option
-                      className="text-left text-sm lg:text-xs"
-                      value="Istanbul"
-                    >
-                      Istanbul
-                    </option>
-                    <option
-                      className="text-left text-sm lg:text-xs"
-                      value="Cairo"
-                    >
-                      Cairo
-                    </option>
-                    <option
-                      className="text-left text-sm lg:text-xs"
-                      value="Dubai"
-                    >
-                      Dubai
-                    </option>
+                    />
                   </select>
                 </div>
               </div>

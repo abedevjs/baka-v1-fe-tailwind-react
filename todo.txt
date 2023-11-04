@@ -41,12 +41,13 @@ URGENT (before launching)
         ✅ status == "Ready" && Date.now() > Date.parse(waktuTiba)
     🔴❓ Di hari H TglTiba Bagasi, tombol 'Selesai' pada halaman updateOrder di UI baru bs enabled utk di klik, sebelumnya disabled={date today < waktuBerangkat}. +3hari setelah TglTiba bagasi, Tombol 'Selesai' otomatis activated (nodeschedule)?
         ✅ done
+    🔴 Tabel hero, order hero pikirin solusinya gmn
+        ✅ done, pake tabelComplete dgn props hero =false
     🔴 Bermasalah saat google oauth via mobile
-    🔴 Sort tabel berdasarkan tanggal brkt
     🔴 Jarak antara Tgl berangkat dan Tgl Tiba sebaiknya minimal brp hari?
+    🔴❓ Minimal input Tgl berangkat sebaiknya minimal jarak brp hari tgl hari ini?
     🔴 Content tulisan di /faq, /rules, /about, form instruksi
     ❓ knp ya userUpdate(data.telpon) di /createBagasi bisa, tp userUpdate(data) di /user tidak bisa?
-    🔴 Tabel hero, order hero pikirin solusinya gmn
     
     UI
     🔴 Form uploadDokumen di createBagasi dan createOrder dihapus karena paramnya beda, sebagai ganti buat tombol upload di /user. 
@@ -67,11 +68,14 @@ URGENT (before launching)
         ✅ done
     🔴 Pagination
         ✅ done
-    🔴 Sort tabel berdasarkan tanggal brkt
-    🔴 Content tulisan di /faq, /rules, /about, form instruksi
     🔴 Di updateOrder, klo status == 'Ready', tombol 'Hapus Order' berubah jadi 'Selesai'.
+        ✅ done
     🔴 Di updateOrder, tombol 'Selesai' akan otomatis baru bisa di klik di hari TglTiba bagasi.
+        ✅ done
     🔴 Di hari H TglTiba Bagasi, tombol 'Selesai' baru bs enabled utk di klik, sebelumnya disabled={date today < waktuBerangkat}.
+        ✅ done
+    🔴❓ Minimal input Tgl berangkat sebaaiknya tgl brp?
+    🔴 Content tulisan di /faq, /rules, /about, form instruksi
     🔴 Beritahukan ke user jika order.status == 'Ready' tdk bs update. Jika ingin update isi dan catatan bisa langsung melalui nomor traveler
     
     
@@ -88,4 +92,5 @@ SUNNAH (while the app has been launched)
 🔴 Jika Baka sudah jalan, sdh dapat feedback, minta saran dengan fitur baru JASTIP pada customer
 🔴 Idealnya di admin updateBagasiStatus dan admin updateOrderStatus bisa lihat owner.dokumen array. Jadi di backend perlu buat getUser based on his id, terus di query user.dokumen array utk di tampilkan di admin
 🔴 Styling date picker ke bhs indonesia
+🔴 Sort tabel berdasarkan tanggal brkt
 

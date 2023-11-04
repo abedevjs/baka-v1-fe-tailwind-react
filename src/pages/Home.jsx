@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { TabelBagasiHero } from "../features/bagasi/TabelBagasi";
-import { TabelOrderHero } from "../features/order/TabelOrder";
+import {
+  TabelBagasiComplete,
+  TabelBagasiHero,
+} from "../features/bagasi/TabelBagasi";
+import {
+  TabelOrderComplete,
+  TabelOrderHero,
+} from "../features/order/TabelOrder";
 import ContentWrapper from "../ui/ContentWrapper";
 import { LinkArrowLeft, LinkArrowRight } from "../ui/LinkArrow";
 import TextBox from "../ui/TextBox";
@@ -37,9 +43,12 @@ function Home() {
               />
             </div>
             {/* Table Bagasi Visual  */}
-            <TabelBagasiHero />
+            <TabelBagasiComplete hero={true} />
             {/* Link */}
-            <LinkArrowRight text="Lihat Semua Bagasi" />
+            <LinkArrowRight
+              destination="/list-bagasi"
+              text="Lihat Semua List Bagasi"
+            />
             {/* Text Box */}
             <div className="mt-12 mb-8 text-center mx-auto">
               <TextBox
@@ -49,10 +58,13 @@ function Home() {
               />
             </div>
             {/* Table Order Visual */}
-            <TabelOrderHero />
+            <TabelOrderComplete hero={true} />
             {/* Link */}
 
-            <LinkArrowRight text="Lihat Semua Order" />
+            <LinkArrowRight
+              destination="/order"
+              text="Lihat Semua List Order"
+            />
           </div>
           {/* SVG WaveDown */}
           <div className="svgDown h-[10rem]" />
@@ -83,7 +95,7 @@ function Hero() {
           </span>
         </div>
         {/* Link Left */}
-        <LinkArrowLeft text="Kepoin caranya" />
+        <LinkArrowLeft destination="/rules" text="Kepoin caranya" />
       </div>
       {/* Hero Illustration */}
       <img

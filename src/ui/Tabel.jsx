@@ -143,17 +143,13 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              {dari && (
-                <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
-              )}
+              {dari && <img src={`/svg/${dari}.svg`} alt={dari} />}
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              {tujuan && (
-                <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
-              )}
+              {tujuan && <img src={`/svg/${tujuan}.svg`} alt={tujuan} />}
               <span>{tujuan}</span>
             </div>
           </td>
@@ -170,7 +166,7 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
+              <img src={`/svg/${status}.svg`} alt={status} />
               <span>{status}</span>
             </div>
           </td>
@@ -190,17 +186,17 @@ function TabelBody({
       {feature == "bagasiHero" && (
         <tr className="bg-bodyBackColor hover:opacity-90 duration-300">
           <td scope="row" className="px-6 py-3">
-            {dateFormat(berangkat)}
+            {berangkat && dateFormat(berangkat)}
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+              {dari && <img src={`/svg/${dari}.svg`} alt={dari} />}
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+              {tujuan && <img src={`/svg/${tujuan}.svg`} alt={tujuan} />}
               <span>{tujuan}</span>
             </div>
           </td>
@@ -210,7 +206,7 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
+              <img src={`/svg/${status}.svg`} alt={status} />
               <span>{status}</span>
             </div>
           </td>
@@ -248,13 +244,13 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+              <img src={`/svg/${dari}.svg`} alt={dari} />
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+              <img src={`/svg/${tujuan}.svg`} alt={tujuan} />
               <span>{tujuan}</span>
             </div>
           </td>
@@ -266,7 +262,7 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
+              <img src={`/svg/${status}.svg`} alt={status} />
               <span>{status}</span>
             </div>
           </td>
@@ -280,13 +276,13 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+              <img src={`/svg/${dari}.svg`} alt={dari} />
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+              <img src={`/svg/${tujuan}.svg`} alt={tujuan} />
               <span>{tujuan}</span>
             </div>
           </td>
@@ -295,7 +291,7 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt={tujuan} />
+              <img src={`/svg/${status}.svg`} alt={tujuan} />
               <span>{status}</span>
             </div>
           </td>
@@ -309,13 +305,13 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+              <img src={`/svg/${dari}.svg`} alt={dari} />
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+              <img src={`/svg/${tujuan}.svg`} alt={tujuan} />
               <span>{tujuan}</span>
             </div>
           </td>
@@ -330,7 +326,7 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
+              <img src={`/svg/${status}.svg`} alt={status} />
               <span>{status}</span>
             </div>
           </td>
@@ -352,13 +348,13 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${dari.toLowerCase()}.svg`} alt={dari} />
+              <img src={`/svg/${dari}.svg`} alt={dari} />
               <span>{dari}</span>
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${tujuan.toLowerCase()}.svg`} alt={tujuan} />
+              <img src={`/svg/${tujuan}.svg`} alt={tujuan} />
               <span>{tujuan}</span>
             </div>
           </td>
@@ -373,7 +369,7 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
-              <img src={`/svg/${status.toLowerCase()}.svg`} alt={status} />
+              <img src={`/svg/${status}.svg`} alt={status} />
               <span>{status}</span>
             </div>
           </td>

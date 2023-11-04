@@ -8,6 +8,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiGetAllOrder } from "../../services & hooks/apiBakaOrder";
 import { useState } from "react";
 const PAGE_SIZE = import.meta.env.VITE_PAGE_SIZE;
+const heroLimit = 5;
 
 const orderHero = [
   {
@@ -93,7 +94,7 @@ export function TabelOrderHero() {
   );
 }
 
-export function TabelOrderComplete() {
+export function TabelOrderComplete({ hero = false }) {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState("");
   const queryClient = useQueryClient();
@@ -101,28 +102,29 @@ export function TabelOrderComplete() {
   const { order, isLoading: isLoadingOrder } = useGetAllOrder();
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
 
+  const limitResult = hero ? heroLimit : PAGE_SIZE;
   const queryStatus = status ? `&status=${status}` : "";
 
   const { data: newData, isLoading: isLoadingBagasiQuery } = useQuery({
     queryKey: ["orderQuery", page, status],
-    queryFn: () => apiGetAllOrder(page, PAGE_SIZE, queryStatus),
+    queryFn: () => apiGetAllOrder(page, limitResult, queryStatus),
   });
 
   if (isLoadingOrder || isLoadingBagasi || isLoadingBagasiQuery)
     return <Spinner />;
 
   //PRE-FETCHING
-  const pageCount = Math.ceil(Number(bagasi?.length) / PAGE_SIZE); // 17/10 = 1.7 dibulatkan ke 2
+  const pageCount = Math.ceil(Number(bagasi?.length) / limitResult); // 17/10 = 1.7 dibulatkan ke 2
   if (page < pageCount) {
     queryClient.prefetchQuery({
       queryKey: ["orderQuery", page + 1, status],
-      queryFn: () => apiGetAllOrder(page + 1, PAGE_SIZE, queryStatus),
+      queryFn: () => apiGetAllOrder(page + 1, limitResult, queryStatus),
     });
   }
   if (page > 1) {
     queryClient.prefetchQuery({
       queryKey: ["orderQuery", page - 1, status],
-      queryFn: () => apiGetAllOrder(page - 1, PAGE_SIZE, queryStatus),
+      queryFn: () => apiGetAllOrder(page - 1, limitResult, queryStatus),
     });
   }
 
@@ -149,9 +151,9 @@ export function TabelOrderComplete() {
 
   return (
     <>
-      <Filter type="order" setterStatus={setStatus} />
+      {!hero ? <Filter type="order" setterStatus={setStatus} /> : ""}
       <Tabel feature="order" dataObj={filteredOrder} />
-      <Pagination count={order?.length} setterPage={setPage} />
+      {!hero ? <Pagination count={order?.length} setterPage={setPage} /> : ""}
     </>
   );
 }

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiGetAllBagasi } from "../../services & hooks/apiBakaBagasi";
 const PAGE_SIZE = import.meta.env.VITE_PAGE_SIZE;
+const heroLimit = 5;
 
 const bagasiHero = [
   {
@@ -98,33 +99,34 @@ export function TabelBagasiHero() {
   return <Tabel feature="bagasiHero" dataObj={bagasiHero} />;
 }
 
-export function TabelBagasiComplete() {
+export function TabelBagasiComplete({ hero = false }) {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState("");
   const queryClient = useQueryClient();
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
 
+  const limitResult = hero ? heroLimit : PAGE_SIZE;
   const queryStatus = status ? `&status=${status}` : "";
 
   const { data: newData, isLoading: isLoadingBagasiQuery } = useQuery({
     queryKey: ["bagasiQuery", page, status],
-    queryFn: () => apiGetAllBagasi(page, PAGE_SIZE, queryStatus),
+    queryFn: () => apiGetAllBagasi(page, limitResult, queryStatus),
   });
 
   if (isLoadingBagasi || isLoadingBagasiQuery) return <Spinner />;
 
   //PRE-FETCHING
-  const pageCount = Math.ceil(Number(bagasi?.length) / PAGE_SIZE); // 17/10 = 1.7 dibulatkan ke 2
+  const pageCount = Math.ceil(Number(bagasi?.length) / limitResult); // 17/10 = 1.7 dibulatkan ke 2
   if (page < pageCount) {
     queryClient.prefetchQuery({
       queryKey: ["bagasiQuery", page + 1, status],
-      queryFn: () => apiGetAllBagasi(page + 1, PAGE_SIZE, queryStatus),
+      queryFn: () => apiGetAllBagasi(page + 1, limitResult, queryStatus),
     });
   }
   if (page > 1) {
     queryClient.prefetchQuery({
       queryKey: ["bagasiQuery", page - 1, status],
-      queryFn: () => apiGetAllBagasi(page - 1, PAGE_SIZE, queryStatus),
+      queryFn: () => apiGetAllBagasi(page - 1, limitResult, queryStatus),
     });
   }
 
@@ -145,9 +147,9 @@ export function TabelBagasiComplete() {
 
   return (
     <>
-      <Filter type="bagasi" setterStatus={setStatus} />
+      {!hero ? <Filter type="bagasi" setterStatus={setStatus} /> : ""}
       <Tabel feature="bagasi" dataObj={filteredBagasi} />
-      <Pagination count={bagasi?.length} setterPage={setPage} />
+      {!hero ? <Pagination count={bagasi?.length} setterPage={setPage} /> : ""}
     </>
   );
 }

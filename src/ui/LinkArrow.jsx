@@ -4,7 +4,7 @@ export function LinkArrowRight({ text = "", destination = "" }) {
   return (
     <div className="flex items-center justify-end">
       <Link
-        destination={destination}
+        to={destination}
         className="flex items-center text-sm text-white hover:translate-x-1 duration-300"
       >
         <span>{text}</span>
