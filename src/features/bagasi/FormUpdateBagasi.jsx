@@ -14,6 +14,7 @@ import TextTitle from "../../ui/TextTitle";
 import Tabel from "../../ui/Tabel";
 import { useGetAllOrder } from "../order/useGetAllOrder";
 
+const BAGASI_TAX = import.meta.env.VITE_BAGASI_TAX;
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
 const MIN_LENGTH_ALAMAT = import.meta.env.VITE_MIN_LENGTH_ALAMAT;
@@ -149,7 +150,7 @@ function FormUpdateBagasi() {
   return (
     <>
       {/* Warning sebelum update */}
-      <div className=" mb-12">
+      {/* <div className=" mb-12">
         <p>Bagasi.status = Closed tidak bisa update atau pun delete.</p>
         <p>
           Bagasi.status = Opened. Yes: berat, harga, catatan. No: dari, tujuan,
@@ -159,7 +160,7 @@ function FormUpdateBagasi() {
           Bagasi.status = Scheduled. Yes: berat, harga, waktuBerangkat,
           waktuTiba, catatan. No: dari, tujuan. Boleh delete kapan pun
         </p>
-      </div>
+      </div> */}
       {/* Title n Bagasi order list */}
       <div className=" mb-12">
         {/* Title */}
@@ -518,7 +519,10 @@ function FormUpdateBagasi() {
               </div>
               <div className="flex flex-col justify-evenly">
                 <span className="text-sm text-primaryBlue lg:text-xs">
-                  Tax <span className="text-xs text-textColor">(5%)</span>
+                  Tax{" "}
+                  <span className="text-xs text-textColor">{`(${
+                    BAGASI_TAX * 100
+                  }%)`}</span>
                 </span>
                 <span className="text-base lg:text-sm sm:text-xs">
                   {currencyFormat(adminFeeRp)}
@@ -578,13 +582,18 @@ function FormUpdateBagasi() {
               "
           >
             {/* Paragraf Pendukung Jual Bagasi */}
-            <p className="text-xs">
-              Paragraf instruksi selanjutnya untuk Traveler. Isinya: <br />
-              1. Tiket akan di periksa. <br />
-              2. Jika valid akan di list. Jika tdk valid minta register lg.{" "}
+            <div className="text-xs">
+              {`Hai kak ${user.nama ? user.nama : "Traveler"} 👋`}, <br />
               <br />
-              3. Alamat Gudang Baka utk mengambil titipan Jastiper.
-            </p>
+              Jangan lupa untuk menyiapkan tiket penerbangan yang valid. Dokumen
+              tersebut dapat di upload melalui formulir upload dokumen dibawah.
+              <br />
+              <br />
+              Data kakak hanya akan kami share pada Jastiper yang berhasil kami
+              verifikasi bukti pembayarannya. <br />
+              <br />
+              Terima kasih 😊
+            </div>
             <div className="flex space-x-2 justify-center">
               <input
                 id="default-checkbox"

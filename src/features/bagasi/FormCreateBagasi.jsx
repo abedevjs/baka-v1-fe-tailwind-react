@@ -10,6 +10,8 @@ import { useCreateBagasi } from "./useCreateBagasi";
 import { useState } from "react";
 import Option from "../../ui/Option";
 
+const MIN_DAYS_BEFORE_DEPART_IN_MS = import.meta.env
+  .VITE_MIN_DAYS_BEFORE_DEPART_IN_MS; // 7 days
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
 const MIN_LENGTH_ALAMAT = import.meta.env.VITE_MIN_LENGTH_ALAMAT;
@@ -17,6 +19,9 @@ const MAX_LENGTH_ALAMAT = import.meta.env.VITE_MAX_LENGTH_ALAMAT;
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 
 const today = new Date();
+const todayPlus7Days = new Date(
+  today.getTime() + Number(MIN_DAYS_BEFORE_DEPART_IN_MS)
+); // today + 7 days later
 
 function FormCreateBagasi() {
   const [showFormBagasi, setShowFormBagasi] = useState(true);
@@ -27,11 +32,13 @@ function FormCreateBagasi() {
 
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors, isLoading, isDirty } = formState;
-  const { user } = useGetUser();
+  const { user, isLoading: isLoadingUser } = useGetUser();
   const { updateUser, isUpdating } = useUpdateUser();
   const { createBagasi, isCreating } = useCreateBagasi();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || isLoadingUser) return <Spinner />;
+
+  const { nama } = user;
 
   //Executing createOrder AND updateUser (jika wa nya blm ada) --start
   function onSubmit(data) {
@@ -196,8 +203,10 @@ function FormCreateBagasi() {
                   </label>
                   <input
                     type="date"
-                    min={new Date(today).toISOString().split("T")[0]}
-                    defaultValue={new Date(today).toISOString().split("T")[0]}
+                    min={new Date(todayPlus7Days).toISOString().split("T")[0]}
+                    defaultValue={
+                      new Date(todayPlus7Days).toISOString().split("T")[0]
+                    }
                     id="waktuBerangkat"
                     {...register("waktuBerangkat", {
                       required: "Tanggal Keberangkatan jangan lupa diisi kak",
@@ -218,8 +227,10 @@ function FormCreateBagasi() {
                   </label>
                   <input
                     type="date"
-                    min={new Date(today).toISOString().split("T")[0]}
-                    defaultValue={new Date(today).toISOString().split("T")[0]}
+                    min={new Date(todayPlus7Days).toISOString().split("T")[0]}
+                    defaultValue={
+                      new Date(todayPlus7Days).toISOString().split("T")[0]
+                    }
                     id="waktuTiba"
                     {...register("waktuTiba", {
                       required: "Tanggal Kedatangan jangan lupa diisi kak",
@@ -432,13 +443,27 @@ function FormCreateBagasi() {
             {/* Box 9 Instruksi */}
             <div className="w-full p-4 flex flex-col justify-between bg-primaryBlue text-slate-50 rounded-lg sm:p-2 row-start-3 row-end-5 col-start-3 col-end-5 sm:row-start-[9] sm:row-end-[11] sm:col-start-1 sm:col-end-5">
               {/* Paragraf Pendukung Jual Bagasi */}
-              <p className="text-xs">
-                Paragraf instruksi selanjutnya untuk Traveler. Isinya: <br />
-                1. Tiket akan di periksa. <br />
-                2. Jika valid akan di list. Jika tdk valid minta register lg.{" "}
+              <div className="text-xs">
+                {`Hai kak ${nama ? nama : "Traveler"} 👋`}, <br />
                 <br />
-                3. Alamat Gudang Baka utk mengambil titipan Jastiper.
-              </p>
+                Jangan lupa untuk menyiapkan tiket penerbangan yang valid.
+                Dokumen tersebut akan di upload setelah formulir ini di kirim.{" "}
+                <br />
+                <br />
+                Data kakak hanya akan kami share pada Jastiper yang berhasil
+                kami verifikasi bukti pembayarannya. <br />
+                <br />
+                Selanjutnya kakak dapat mengontrol atau menghapus Bagasi ini
+                pada halaman{" "}
+                <Link
+                  to="/user"
+                  className=" underline hover:text-primaryBlueBold"
+                >
+                  Area User
+                </Link>
+                . <br /> <br />
+                Terima kasih 😊
+              </div>
               <div className="flex space-x-2 justify-center">
                 <input
                   id="default-checkbox"
@@ -449,7 +474,10 @@ function FormCreateBagasi() {
                 />
                 <label htmlFor="terms" className="text-xs">
                   Dengan ini saya menyatakan setuju dengan{" "}
-                  <Link to="/rules" target="_blank" className="underline">
+                  <Link
+                    to="/rules"
+                    className="underline hover:text-primaryBlueBold"
+                  >
                     Syarat &amp; Ketentuan
                   </Link>{" "}
                   yang berlaku.

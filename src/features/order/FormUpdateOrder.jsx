@@ -11,6 +11,9 @@ import Option from "../../ui/Option";
 
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 const ORDER_TAX = import.meta.env.VITE_ORDER_TAX;
+const ATAS_NAMA = import.meta.env.VITE_REKENING_ATASNAMA;
+const REKENING_NOMOR = import.meta.env.VITE_REKENING_NOMOR;
+const REKENING_BANK = import.meta.env.VITE_REKENING_BANK;
 
 function FormUpdateOrder({
   id,
@@ -199,7 +202,10 @@ function FormUpdateOrder({
               </div>
               <div className="flex flex-col justify-evenly">
                 <span className="text-sm text-primaryBlue lg:text-xs">
-                  Tax <span className="text-xs text-textColor">(3%)</span>
+                  Tax{" "}
+                  <span className="text-xs text-textColor">{`(${
+                    ORDER_TAX * 100
+                  }%)`}</span>
                 </span>
                 <span className="text-base lg:text-sm sm:text-xs">
                   {currencyFormat(taxAmount)}
@@ -247,18 +253,31 @@ function FormUpdateOrder({
 
           {/* Box 7 Instruksi */}
           <div
-            className="
-            w-full p-4 col-start-3 col-end-5 row-start-2 row-end-6 flex flex-col justify-between text-slate-50 bg-primaryBlue rounded-lg 
+            className={`${
+              ["Ready", "Delivered"].includes(status) ? "blur-sm" : ""
+            } w-full p-4 col-start-3 col-end-5 row-start-2 row-end-6 flex flex-col justify-between text-slate-50 bg-primaryBlue rounded-lg 
             lg:p-2
-            sm:row-start-[6] sm:row-end-[9] sm:col-start-1
-            "
+            sm:row-start-[6] sm:row-end-[9] sm:col-start-1`}
           >
-            <p className="text-xs">
-              Pembayaran dilakukan ke alamat: <br />
-              Bank Mandiri <br />
-              No. Rek: 0100000000 <br />
-              Muhammad Akbar
-            </p>
+            <div className="text-xs">
+              {`Hai kak ${user.nama ? user.nama : "Jastiper"} 👋`}, <br />
+              <br />
+              Total Pembelian Bagasi sebesar{" "}
+              <span className=" px-1 text-textColor bg-secondaryYellowTint rounded-sm">
+                {currencyFormat(totalAmount)}
+              </span>
+              <br />
+              Pembayaran melalui rekening Admin Baka:
+              <div className=" w-1/2 my-2 mx-auto py-1 px-2 text-xs text-textColor bg-secondaryYellowTint rounded-md lg:w-3/4 sm:w-full">
+                {ATAS_NAMA} <br /> {REKENING_NOMOR} <br /> {REKENING_BANK}
+              </div>
+              Admin hanya bertanggung jawab atas dana penjualan Bagasi jika
+              transaksi dan pembayaran dilakukan melalui aplikasi Baka.
+              <br />
+              Bukti pembayaran dapat di upload melalui formulir upload dokumen
+              dibawah. <br /> <br />
+              Terima kasih 😊 <br />
+            </div>
             <div className="flex space-x-2 justify-center">
               <input
                 id="default-checkbox"

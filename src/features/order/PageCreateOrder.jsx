@@ -266,7 +266,9 @@ function PageCreateOrder() {
             <span className="text-sm text-primaryBlue sm:text-xs">
               WhatsApp Traveler
             </span>
-            <span className="text-base sm:text-sm sm:text-center">(...)</span>
+            <span className="text-base blur-sm sm:text-sm sm:text-center">
+              00000000000
+            </span>
           </div>
         </div>
         {/* Box 8 Alamat Dari Traveler */}
@@ -282,7 +284,9 @@ function PageCreateOrder() {
             <span className="text-sm text-primaryBlue sm:text-xs">
               Alamat Kota Asal
             </span>
-            <span className="text-sm sm:text-xs">(...)</span>
+            <span className="text-sm blur-sm sm:text-xs">
+              This address is currently censored
+            </span>
           </div>
         </div>
         {/* Box 9 Alamat Tujuan Traveler */}
@@ -298,7 +302,9 @@ function PageCreateOrder() {
             <span className="text-sm text-primaryBlue sm:text-xs">
               Alamat Kota Tujuan
             </span>
-            <span className="text-sm sm:text-xs">(...)</span>
+            <span className="text-sm blur-sm sm:text-xs">
+              This address currently is censored
+            </span>
           </div>
         </div>
       </div>

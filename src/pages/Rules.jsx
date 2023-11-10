@@ -26,8 +26,8 @@ function Rules() {
           {/* Illustration */}
           <div
             className="
-              w-[50%] 
-              lg:self-center
+              w-[30%] 
+              lg:self-center lg:w-[60%]
               sm:w-[80%]
               "
           >

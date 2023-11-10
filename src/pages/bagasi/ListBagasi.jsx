@@ -25,24 +25,25 @@ function ListBagasi() {
           <div className="max-w-xl mb-12 flex flex-col space-y-7 sm:space-y-4 sm:self-center">
             {/* Title */}
             <h2 className=" text-3xl font-title lg:text-2xl sm:text-xl">
-              Kenali tim dibalik layar Baka
+              Pulang kini sudah lebih dekat
             </h2>
             {/* Subtitle */}
             <span className="text-base lg:text-sm">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam
-              illo mollitia odit maxime dolor provident vitae beatae rem
-              consequuntur dolorum. <br />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatem, modi.
+              Penjualan bagasi pesawat bagi warga negara Indonesia di luar
+              negeri yang ingin pulang atau sebaliknya. Dengan kemudahan
+              teknologi, kami memastikan bagasi sampai dengan selamat di tujuan.{" "}
+              <br /> <br />
+              Menggunakan teknologi terkini, kami mempermudah proses pemesanan,
+              pelacakan, dan manajemen perjalanan.
             </span>
           </div>
           {/* Link */}
           <div className="flex justify-start space-x-2 items-center ">
             <a
-              href="#daftar__bagasi"
+              href="#list__bagasi"
               className="text-sm hover:translate-y-1 duration-300"
             >
-              Kenalan dengan tim kami
+              Lihat List Bagasi
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={26}
@@ -82,8 +83,11 @@ function ListBagasi() {
       <TextTitle icon="bagasi" title="jual bagasi" />
 
       {/* Link ke Jual Bagasi */}
-      <div className=" w-fit mx-auto flex flex-col space-y-2">
-        <span>Kakak mau jual bagasi?</span>
+      <div
+        className=" w-fit mx-auto flex flex-col items-center space-y-2"
+        id="list__bagasi"
+      >
+        <span>Ingin jual Bagasi?</span>
         <ButtonBlue
           text="Isi Formulir Jual Bagasi"
           destination="/create-bagasi"

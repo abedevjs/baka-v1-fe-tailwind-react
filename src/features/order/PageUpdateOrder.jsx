@@ -80,6 +80,10 @@ function PageUpdateOrder() {
   } = allUser.find((user) => user._id == owner._id);
   // Destructuring Owner Detail dari useGetAllUser() --end
 
+  // Finding out what the Order.status is --start
+  const orderStatus = userOrder.filter((order) => order._id == id)[0].status;
+  // Finding out what the Order.status is --end
+
   return (
     <>
       {/* Title, Status, Maskapai */}
@@ -287,9 +291,15 @@ function PageUpdateOrder() {
             <span className="text-sm text-primaryBlue sm:text-xs">
               WhatsApp Traveler
             </span>
-            <span className="text-base sm:text-sm sm:text-center">
-              {["Preparing", "Postponed"].includes(userOrder[0]?.status)
-                ? "(...)"
+            <span
+              className={`${
+                ["Preparing", "Postponed"].includes(orderStatus)
+                  ? "blur-sm"
+                  : ""
+              } text-base sm:text-sm sm:text-center`}
+            >
+              {["Preparing", "Postponed"].includes(orderStatus)
+                ? "0000000000"
                 : telponOwner}
             </span>
           </div>
@@ -307,9 +317,15 @@ function PageUpdateOrder() {
             <span className="text-sm text-primaryBlue sm:text-xs">
               Alamat Kota Asal
             </span>
-            <span className="text-sm sm:text-xs">
-              {["Preparing", "Postponed"].includes(userOrder[0]?.status)
-                ? "(...)"
+            <span
+              className={`${
+                ["Preparing", "Postponed"].includes(orderStatus)
+                  ? "blur-sm"
+                  : ""
+              } text-base sm:text-sm sm:text-center`}
+            >
+              {["Preparing", "Postponed"].includes(orderStatus)
+                ? "This address is currently censored"
                 : alamatDari}
             </span>
           </div>
@@ -327,9 +343,15 @@ function PageUpdateOrder() {
             <span className="text-sm text-primaryBlue sm:text-xs">
               Alamat Kota Tujuan
             </span>
-            <span className="text-sm sm:text-xs">
-              {["Preparing", "Postponed"].includes(userOrder[0]?.status)
-                ? "(...)"
+            <span
+              className={`${
+                ["Preparing", "Postponed"].includes(orderStatus)
+                  ? "blur-sm"
+                  : ""
+              } text-base sm:text-sm sm:text-center`}
+            >
+              {["Preparing", "Postponed"].includes(orderStatus)
+                ? "This address is currently censored"
                 : alamatTujuan}
             </span>
           </div>

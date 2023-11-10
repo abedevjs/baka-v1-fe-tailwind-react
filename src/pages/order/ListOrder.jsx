@@ -10,7 +10,7 @@ function ListOrder() {
   return (
     <ContentWrapper padding="p-6">
       {/* Text Box */}
-      <TextBox subtitle="layanan kami" title="area order" />
+      <TextBox subtitle="layanan kami" title="area jastip" />
 
       {/* Illustration Container */}
       <div
@@ -26,24 +26,25 @@ function ListOrder() {
           <div className="max-w-xl mb-12 flex flex-col space-y-7 sm:space-y-4 sm:self-center">
             {/* Title */}
             <h2 className=" text-3xl font-title lg:text-2xl sm:text-xl">
-              Kenali tim dibalik layar Baka
+              Akses mudah ke produk luar negeri
             </h2>
             {/* Subtitle */}
             <span className="text-base lg:text-sm">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam
-              illo mollitia odit maxime dolor provident vitae beatae rem
-              consequuntur dolorum. <br />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatem, modi.
+              Layanan Jastip dengan penuh perhatian dan keamanan, menjaga setiap
+              item yang dititipkan dengan cermat. Ini adalah solusi praktis dan
+              efektif bagi mereka yang menginginkan produk dari luar negeri
+              tanpa harus melakukan perjalanan sendiri. <br /> <br />
+              Ini menjadi penghubung yang efisien antara mereka yang membutuhkan
+              suatu barang khusus dan mereka yang akan pulang ke tanah air.
             </span>
           </div>
           {/* Link */}
           <div className="flex justify-start space-x-2 items-center ">
             <a
-              href="#daftar__bagasi"
+              href="#list__order"
               className="text-sm hover:translate-y-1 duration-300"
             >
-              Kenalan dengan tim kami
+              Lihat Daftar Jastip
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={26}
@@ -81,8 +82,11 @@ function ListOrder() {
 
       <>
         {/* CTA Content */}
-        <div className="w-full flex flex-col space-y-2">
-          <span className="text-base self-center">Ingin Beli Bagasi?</span>
+        <div
+          className="w-full flex flex-col space-y-2 items-center"
+          id="list__order"
+        >
+          <span className="text-base self-center">Ingin Jastip juga?</span>
           <ButtonBlue text="Lihat List Bagasi" destination="/list-bagasi" />
         </div>
       </>

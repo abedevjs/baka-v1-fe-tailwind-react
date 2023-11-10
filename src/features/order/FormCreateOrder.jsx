@@ -11,6 +11,9 @@ import Option from "../../ui/Option";
 
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 const ORDER_TAX = import.meta.env.VITE_ORDER_TAX;
+const ATAS_NAMA = import.meta.env.VITE_REKENING_ATASNAMA;
+const REKENING_NOMOR = import.meta.env.VITE_REKENING_NOMOR;
+const REKENING_BANK = import.meta.env.VITE_REKENING_BANK;
 
 function FormCreateOrder({ id, hargaRp, availableKg, user }) {
   const [totalNet, setTotalNet] = useState(0);
@@ -22,7 +25,7 @@ function FormCreateOrder({ id, hargaRp, availableKg, user }) {
   const { createOrder, isCreating } = useCreateOrder();
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors, isDirty } = formState;
-
+  const { nama } = user;
   //Agar beratKg dan totalHarga ter print dynamically --start
   useEffect(
     function () {
@@ -121,7 +124,9 @@ function FormCreateOrder({ id, hargaRp, availableKg, user }) {
                 className="text-sm text-primaryBlue lg:text-xs"
               >
                 Total Biaya{" "}
-                <span className="text-xs text-textColor">(Incl. Tax 3%) </span>
+                <span className="text-xs text-textColor">{`(Incl. Tax ${
+                  ORDER_TAX * 100
+                }%)`}</span>
               </label>
               <span className="text-base lg:text-sm">
                 {currencyFormat(totalNet)}
@@ -209,18 +214,35 @@ function FormCreateOrder({ id, hargaRp, availableKg, user }) {
               />
             </div>
             {/* Box 8 Instruksi */}
-            <div
-              className="w-full p-4 col-start-3 col-end-5 row-start-1 row-end-5 flex flex-col justify-between text-slate-50 bg-primaryBlue rounded-lg
-          lg:py-1 lg:px-3
-          sm:row-start-5 sm:row-end-[9] sm:col-start-1 sm:col-end-5 
-          "
-            >
-              <p className="text-xs">
-                Pembayaran dilakukan ke alamat: <br />
-                Bank Mandiri <br />
-                No. Rek: 0100000000 <br />
-                Muhammad Akbar
-              </p>
+            <div className="w-full p-4 col-start-3 col-end-5 row-start-1 row-end-5 flex flex-col justify-between text-slate-50 bg-primaryBlue rounded-lg lg:py-1 lg:px-3 sm:row-start-5 sm:row-end-[9] sm:col-start-1 sm:col-end-5">
+              <div className="text-xs">
+                {`Hai kak ${nama ? nama : "Jastiper"} 👋`}, <br />
+                <br />
+                Total Pembelian Bagasi sebesar{" "}
+                <span className=" px-1 text-textColor bg-secondaryYellowTint rounded-sm">
+                  {currencyFormat(totalNet)}
+                </span>
+                <br />
+                Pembayaran melalui rekening Admin Baka:
+                <div className=" w-1/2 my-2 mx-auto py-1 px-2 text-xs text-textColor bg-secondaryYellowTint rounded-md lg:w-3/4 sm:w-full">
+                  {ATAS_NAMA} <br /> {REKENING_NOMOR} <br /> {REKENING_BANK}
+                </div>
+                Admin hanya bertanggung jawab atas dana penjualan Bagasi jika
+                transaksi dan pembayaran dilakukan melalui aplikasi Baka.
+                <br />
+                Bukti pembayaran dapat di upload setelah formulir ini berhasil
+                dikirim. <br /> <br />
+                Selanjutnya kakak dapat mengontrol atau menghapus Order ini pada
+                halaman{" "}
+                <Link
+                  to="/user"
+                  className=" underline hover:text-primaryBlueBold"
+                >
+                  Area User
+                </Link>
+                . <br /> <br />
+                Terima kasih 😊
+              </div>
               <div className="flex space-x-2 justify-center">
                 <input
                   id="default-checkbox"

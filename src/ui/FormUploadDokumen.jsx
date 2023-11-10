@@ -94,21 +94,17 @@ export function FormUploadDokumen({
       <form
         onSubmit={handleSubmit(onSuccess, onError)}
         action=""
-        className="px-4 grid grid-cols-4 grid-rows-2 gap-1 font-text bg-bodyBackColor rounded-lg lg:mx-4 lg:pb-4"
+        className="px-2 grid grid-cols-4 grid-rows-2 gap-1 font-text bg-bodyBackColor rounded-lg lg:mx-4 lg:pb-4"
       >
         {/* Box 1 Upload Instruksi */}
         <div
-          className="w-full p-4 col-start-1 col-end-5 row-start-1 flex flex-col justify-between  
+          className="w-full p-2 col-start-1 col-end-5 row-start-1 flex flex-col justify-between  
                 lg:row-end-[9] lg:col-start-1 lg:col-end-5
                 sm:p-2
                 "
         >
           {/* Paragraf Pendukung Jual Bagasi */}
           <Instruksi type={type} dari={dari} tujuan={tujuan} totalNet={netRp} />
-          {/* Paragraf instruksi selanjutnya untuk Traveler. Isinya: <br />
-          1. Tiket akan di periksa. <br />
-          2. Jika valid akan di list. Jika tdk valid minta register lg. <br />
-          3. Alamat Gudang Baka utk mengambil titipan Jastiper. */}
         </div>
         {/* Box 2 Upload Document */}
         <div
@@ -171,16 +167,51 @@ export function FormUploadDokumen({
 
 function Instruksi({ type = "", dari, tujuan, totalNet, dokumen }) {
   return (
-    <p className="text-sm text-textColor">
-      {type == "create-bagasi" || type == "update-bagasi"
-        ? `Silahkan upload tiket valid penerbangan dari: ${dari}, tujuan: ${tujuan} ya kak 🤗`
-        : ""}
+    <div className="text-sm text-textColor sm:text-xs">
+      {type == "create-bagasi" ? (
+        <InstruksiBagasi type="create-bagasi" dari={dari} tujuan={tujuan} />
+      ) : type == "update-bagasi" ? (
+        <InstruksiBagasi type="update-bagasi" dari={dari} tujuan={tujuan} />
+      ) : (
+        ""
+      )}
 
-      {type == "create-order" || type == "update-order"
-        ? `Silahkan upload bukti pembayaran sebesar ${currencyFormat(
-            totalNet
-          )} ke rekening Baka, Bank Mandiri 12345678954456`
+      {type == "create-order" ? (
+        <InstruksiOrder type="create-order" />
+      ) : type == "update-order" ? (
+        <InstruksiOrder type="update-order" />
+      ) : (
+        ""
+      )}
+    </div>
+  );
+}
+
+function InstruksiBagasi({ type = "", dari, tujuan }) {
+  return (
+    <span className="text-sm text-textColor sm:text-xs">
+      Upload Tiket Penerbangan dengan rute: {dari} - {tujuan}. Bagasi hanya
+      dapat di order setelah verifikasi dokumen penerbangan berhasil.
+      <br /> <br />
+      Proses verifikasi membutuhkan waktu paling lama 24jam.{" "}
+      {type == "create-bagasi"
+        ? "Tiket Penerbangan dapat diupload kembali pada halaman `Area User`."
         : ""}
-    </p>
+    </span>
+  );
+}
+
+function InstruksiOrder({ type = "" }) {
+  return (
+    <span className="text-sm text-textColor sm:text-xs">
+      Data Traveler berupa
+      <i> Nomor WhatsApp, Alamat Kota Asal dan Alamat Kota Tujuan</i> hanya akan
+      di <i>share</i> setelah verifikasi bukti pembayaran berhasil. <br />{" "}
+      <br />
+      Proses verifikasi membutuhkan waktu paling lama 24jam.{" "}
+      {type == "create-order"
+        ? "Bukti pembayaran dapat diupload kembali pada halaman `Area User`."
+        : ""}
+    </span>
   );
 }

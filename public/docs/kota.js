@@ -28,6 +28,6 @@ export const kotaTujuan = [
   // { value: "Amman", label: "Amman" },
   { value: "Cairo", label: "Cairo" },
   { value: "Istanbul", label: "Istanbul" },
-  { value: "Berlin", label: "Berlin" },
+  // { value: "Berlin", label: "Berlin" },
   // { value: "New York", label: "New York" },
 ];

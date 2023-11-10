@@ -12,14 +12,20 @@ import { LinkArrowLeft, LinkArrowRight } from "../ui/LinkArrow";
 import TextBox from "../ui/TextBox";
 import { useIsAuthenticated } from "../features/authentication/useAuth";
 import Spinner from "../ui/Spinner";
+import { useEffect } from "react";
 
 function Home() {
   const navigate = useNavigate();
   const { isAuthenticated, isLoading } = useIsAuthenticated();
 
-  if (isLoading) return <Spinner />;
+  useEffect(
+    function () {
+      if (isAuthenticated) return navigate("/list-bagasi");
+    },
+    [isAuthenticated, navigate]
+  );
 
-  if (isAuthenticated) return navigate("/list-bagasi");
+  if (isLoading) return <Spinner />;
 
   return (
     <ContentWrapper>
@@ -43,7 +49,7 @@ function Home() {
               />
             </div>
             {/* Table Bagasi Visual  */}
-            <TabelBagasiComplete hero={true} />
+            <TabelBagasiComplete complete={false} />
             {/* Link */}
             <LinkArrowRight
               destination="/list-bagasi"
@@ -54,11 +60,11 @@ function Home() {
               <TextBox
                 textColor="text-white"
                 subtitle="layanan kami"
-                title="daftar order"
+                title="daftar order jastiper"
               />
             </div>
             {/* Table Order Visual */}
-            <TabelOrderComplete hero={true} />
+            <TabelOrderComplete complete={false} />
             {/* Link */}
 
             <LinkArrowRight
@@ -83,16 +89,17 @@ function Hero() {
       {/* Hero Title and Link Container */}
       <div className="flex flex-col justify-center">
         {/* Title Box */}
-        <div className="max-w-xl mb-12 flex flex-col space-y-7">
+        <div className=" w-full mb-12 flex flex-col space-y-7">
           {/* Title */}
           <h1 className="text-7xl font-title font-black lg:text-6xl md:text-5xl sm:text-4xl self-center">
             Open Bagasi <br />
             ke luar negeri
           </h1>
           {/* Subtitle */}
-          <span className="text-base">
-            Layanan jual-beli Bagasi dengan aman melalui aplikasi.
-          </span>
+          <p className="text-base px-6 self-center sm:px-2 sm:text-sm">
+            Layanan jual-beli Bagasi dan Jastip. Nikmati kemudahannya melalui
+            Aplikasi kami.
+          </p>
         </div>
         {/* Link Left */}
         <LinkArrowLeft destination="/rules" text="Kepoin caranya" />
@@ -151,7 +158,9 @@ function Advantage() {
               <span className="text-base uppercase">aman</span>
               {/* Sub Text */}
               <span className="text-xs text-left">
-                Kami memeriksa semua isi bagasi sebelum berangkat.
+                Baka menjadi jembatan kepercayaan antara Traveler dan Jastiper,
+                memastikan setiap barang titipan sampai dengan aman dan tepat
+                waktu.
               </span>
             </div>
           </div>
@@ -175,10 +184,11 @@ function Advantage() {
             {/* Text Box */}
             <div className="flex flex-col space-y-1 text-center">
               {/* Main Text */}
-              <span className="text-base uppercase">Nyaman</span>
+              <span className="text-base uppercase">Mudah</span>
               {/* Sub Text */}
               <span className="text-xs text-left">
-                Layanan re-packing agar mudah dibawa.
+                Nikmati kemudahan mengatur pengiriman dan penerimaan barang
+                tanpa harus repot, langsung di ujung jari Anda.
               </span>
             </div>
           </div>
@@ -201,10 +211,12 @@ function Advantage() {
             {/* Text Box */}
             <div className="flex flex-col space-y-1 text-center">
               {/* Main Text */}
-              <span className="text-base uppercase">pasti</span>
+              <span className="text-base uppercase">nyaman</span>
               {/* Sub Text */}
               <span className="text-xs text-left">
-                Lorem ipsum dolor sit amet consectetur.
+                Baka membantu menjembatani perasaan dan kenangan, membuat setiap
+                transaksi di antara Traveler dan Jastiper menjadi momen yang
+                berkesan.
               </span>
             </div>
           </div>

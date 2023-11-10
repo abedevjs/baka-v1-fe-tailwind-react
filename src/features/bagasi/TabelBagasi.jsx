@@ -99,13 +99,13 @@ export function TabelBagasiHero() {
   return <Tabel feature="bagasiHero" dataObj={bagasiHero} />;
 }
 
-export function TabelBagasiComplete({ hero = false }) {
+export function TabelBagasiComplete({ complete = true }) {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState("");
   const queryClient = useQueryClient();
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
 
-  const limitResult = hero ? heroLimit : PAGE_SIZE;
+  const limitResult = complete ? PAGE_SIZE : heroLimit;
   const queryStatus = status ? `&status=${status}` : "";
 
   const { data: newData, isLoading: isLoadingBagasiQuery } = useQuery({
@@ -117,13 +117,13 @@ export function TabelBagasiComplete({ hero = false }) {
 
   //PRE-FETCHING
   const pageCount = Math.ceil(Number(bagasi?.length) / limitResult); // 17/10 = 1.7 dibulatkan ke 2
-  if (page < pageCount) {
+  if (complete && page < pageCount) {
     queryClient.prefetchQuery({
       queryKey: ["bagasiQuery", page + 1, status],
       queryFn: () => apiGetAllBagasi(page + 1, limitResult, queryStatus),
     });
   }
-  if (page > 1) {
+  if (complete && page > 1) {
     queryClient.prefetchQuery({
       queryKey: ["bagasiQuery", page - 1, status],
       queryFn: () => apiGetAllBagasi(page - 1, limitResult, queryStatus),
@@ -147,9 +147,13 @@ export function TabelBagasiComplete({ hero = false }) {
 
   return (
     <>
-      {!hero ? <Filter type="bagasi" setterStatus={setStatus} /> : ""}
+      {complete ? <Filter type="bagasi" setterStatus={setStatus} /> : ""}
       <Tabel feature="bagasi" dataObj={filteredBagasi} />
-      {!hero ? <Pagination count={bagasi?.length} setterPage={setPage} /> : ""}
+      {complete ? (
+        <Pagination count={bagasi?.length} setterPage={setPage} />
+      ) : (
+        ""
+      )}
     </>
   );
 }

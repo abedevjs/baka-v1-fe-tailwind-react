@@ -45,7 +45,7 @@ function User() {
       </Wrapper>
 
       {/* Text Title */}
-      <TextTitle icon="order" title="data order" />
+      <TextTitle icon="order" title="data jastip" />
 
       {/* Wrapper */}
       <Wrapper type="table-pagination">

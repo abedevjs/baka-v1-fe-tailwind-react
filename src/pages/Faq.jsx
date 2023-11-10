@@ -1,4 +1,4 @@
-import { akun, bagasi, order } from "../../public/docs/faq";
+import { user, bagasi, order } from "../../public/docs/faq";
 import Accordion from "../ui/Accordion";
 import ContentWrapper from "../ui/ContentWrapper";
 import { LinkArrowLeft } from "../ui/LinkArrow";
@@ -20,7 +20,7 @@ function Faq() {
         style="mb-12"
       />
 
-      <Accordion title="Akun" data={akun} />
+      <Accordion title="User" data={user} />
       <Accordion title="Bagasi" data={bagasi} />
       <Accordion title="Order" data={order} />
     </ContentWrapper>

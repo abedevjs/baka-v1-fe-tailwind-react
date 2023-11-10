@@ -94,7 +94,7 @@ export function TabelOrderHero() {
   );
 }
 
-export function TabelOrderComplete({ hero = false }) {
+export function TabelOrderComplete({ complete = true }) {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState("");
   const queryClient = useQueryClient();
@@ -102,7 +102,7 @@ export function TabelOrderComplete({ hero = false }) {
   const { order, isLoading: isLoadingOrder } = useGetAllOrder();
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
 
-  const limitResult = hero ? heroLimit : PAGE_SIZE;
+  const limitResult = complete ? PAGE_SIZE : heroLimit;
   const queryStatus = status ? `&status=${status}` : "";
 
   const { data: newData, isLoading: isLoadingBagasiQuery } = useQuery({
@@ -115,13 +115,13 @@ export function TabelOrderComplete({ hero = false }) {
 
   //PRE-FETCHING
   const pageCount = Math.ceil(Number(bagasi?.length) / limitResult); // 17/10 = 1.7 dibulatkan ke 2
-  if (page < pageCount) {
+  if (complete && page < pageCount) {
     queryClient.prefetchQuery({
       queryKey: ["orderQuery", page + 1, status],
       queryFn: () => apiGetAllOrder(page + 1, limitResult, queryStatus),
     });
   }
-  if (page > 1) {
+  if (complete && page > 1) {
     queryClient.prefetchQuery({
       queryKey: ["orderQuery", page - 1, status],
       queryFn: () => apiGetAllOrder(page - 1, limitResult, queryStatus),
@@ -151,9 +151,13 @@ export function TabelOrderComplete({ hero = false }) {
 
   return (
     <>
-      {!hero ? <Filter type="order" setterStatus={setStatus} /> : ""}
+      {complete ? <Filter type="order" setterStatus={setStatus} /> : ""}
       <Tabel feature="order" dataObj={filteredOrder} />
-      {!hero ? <Pagination count={order?.length} setterPage={setPage} /> : ""}
+      {complete ? (
+        <Pagination count={order?.length} setterPage={setPage} />
+      ) : (
+        ""
+      )}
     </>
   );
 }

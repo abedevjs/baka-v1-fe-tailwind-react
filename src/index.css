@@ -30,7 +30,8 @@ nav a.active {
 }
 .tab__buttons--active {
   background-color: #255cff;
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+  box-shadow: 10px 10px lightblue;
 }
 
 .tab__contents {

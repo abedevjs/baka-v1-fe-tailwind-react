@@ -11,7 +11,7 @@ function About() {
         <TextBox
           margin="mt-7"
           subtitle="tentang kami"
-          title="berawal dari mahasiswa"
+          title="Layanan Jual Beli Bagasi Terpercaya"
         />
         {/* About Container */}
         <div
@@ -31,15 +31,17 @@ function About() {
             >
               {/* Title */}
               <h2 className=" text-3xl font-title lg:text-2xl sm:text-xl">
-                Kenali tim dibalik layar Baka
+                Pulang Mudah dengan Baka
               </h2>
               {/* Subtitle */}
               <span className="text-base lg:text-sm">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Quisquam illo mollitia odit maxime dolor provident vitae beatae
-                rem consequuntur dolorum. <br />
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptatem, modi.
+                Baka, berawal dari komunitas pelajar Indonesia di Timur Tengah.
+                Sejak Desember 2023, kami menjadi solusi pengantar bagasi,
+                memudahkan WNI yang ingin pulang atau mengirim barang ke tanah
+                air. <br /> <br />
+                Inovatif, teknologi, dan penuh perhatian, kami hadir untuk
+                membuat setiap perjalanan pulang menjadi pengalaman yang mudah
+                dan tak terlupakan.
               </span>
             </div>
             {/* Link */}
@@ -104,56 +106,6 @@ function About() {
           </div>
           {/* SVG WaveDown */}
           <div className="svgDown h-[10rem]" />
-        </div>
-        {/* Text Box */}
-        <div className="text-textColor text-center mx-auto mb-8">
-          {/* Subtitle */}
-          <h3 className="text-xs tracking-widest font-title uppercase">
-            ~ detail kami ~
-          </h3>
-          {/* Advantage Title */}
-          <h2 className=" text-3xl font-title capitalize sm:text-xl">
-            informasi tentang Baka
-          </h2>
-        </div>
-        {/* Content */}
-        <div className="px-6 mb-16 w-full flex flex-col space-y-2 items-baseline">
-          {/* Nama Perusahaan */}
-          <div
-            className="
-                  flex justify-around 
-                  sm:flex-col
-                  "
-          >
-            <span className="w-60 font-thin text-base capitalize sm:text-lg">
-              nama Perusahaan:
-            </span>
-            <p className="text-base">PT. Surya Citra Mandiri Sejahtera Abadi</p>
-          </div>
-          {/* Alamat Kantor */}
-          <div
-            className="
-                  flex justify-around 
-                  sm:flex-col
-                  "
-          >
-            <span className="w-60 font-thin text-base capitalize sm:text-lg">
-              alamat kantor:
-            </span>
-            <p className="text-base">PT. Surya Citra Mandiri Sejahtera Abadi</p>
-          </div>
-          {/* Alamat Gudang */}
-          <div
-            className="
-                  flex justify-around 
-                  sm:flex-col
-                  "
-          >
-            <span className="w-60 font-thin text-base capitalize sm:text-lg">
-              alamat gudang:
-            </span>
-            <p className="text-base">PT. Surya Citra Mandiri Sejahtera Abadi</p>
-          </div>
         </div>
       </>
     </ContentWrapper>

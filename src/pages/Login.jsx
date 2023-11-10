@@ -59,7 +59,9 @@ function Login() {
                 </span>
               </div>
             </button>
-            <span className="text-sm font-thin text-stone-600">atau</span>
+            <span className="text-sm font-thin text-stone-600 sm:text-xs">
+              atau
+            </span>
             <button
               onClick={() => handleClick("facebook")}
               className="py-4 px-6 bg-secondaryYellow rounded-md opacity-80 hover:opacity-100 duration-300 sm:py-3"
