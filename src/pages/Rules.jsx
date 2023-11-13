@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ContentWrapper from "../ui/ContentWrapper";
-import { ParagrafContent, Tab } from "../ui/Tab";
+import { TabRules, RulesParagrafContent } from "../ui/TabRules";
 import TextBox from "../ui/TextBox";
 
 function Rules() {
@@ -33,10 +33,10 @@ function Rules() {
           >
             <img src="/svg/policy.svg" className="" alt="" />
           </div>
-          <Tab tabOpen={setOpen} />
+          <TabRules tabOpen={setOpen} />
         </div>
         {/* Paragraf Container start */}
-        <ParagrafContent contentNumber={open} />
+        <RulesParagrafContent contentNumber={open} />
         {/* Paragraf Container start */}
       </>
     </ContentWrapper>

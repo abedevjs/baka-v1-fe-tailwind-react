@@ -3,7 +3,7 @@ import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
 import Notification from "../../ui/Notification";
 import { useGetAllBagasi } from "./useGetAllBagasi";
 import Spinner from "../../ui/Spinner";
-import { currencyFormat, dateFormat } from "../../utilities/formatter";
+import { currencyFormat } from "../../utilities/formatter";
 import { useDeleteBagasi } from "./useDeleteBagasi";
 import { useUpdateBagasi } from "./useUpdateBagasi";
 import { useForm } from "react-hook-form";
@@ -14,6 +14,7 @@ import TextTitle from "../../ui/TextTitle";
 import Tabel from "../../ui/Tabel";
 import { useGetAllOrder } from "../order/useGetAllOrder";
 
+const ADMIN = import.meta.env.VITE_ADMIN;
 const BAGASI_TAX = import.meta.env.VITE_BAGASI_TAX;
 const MAX_BAGASI_KG = import.meta.env.VITE_MAX_BAGASI_KG;
 const MIN_BAGASI_KG = import.meta.env.VITE_MIN_BAGASI_KG;
@@ -32,25 +33,28 @@ function FormUpdateBagasi() {
   const { deleteBagasi, isDeleting } = useDeleteBagasi();
   const { updateBagasi, isUpdating } = useUpdateBagasi();
   const { register, handleSubmit, formState } = useForm();
-  const { errors, isDirty } = formState;
+  const { isDirty } = formState;
   const navigate = useNavigate();
 
-  if (isLoadingBagasi || isLoadingUser || isLoadingUserBagasi || isLoadingOrder)
+  // if (isLoadingBagasi || isLoadingUser || isLoadingUserBagasi || isLoadingOrder)
+  if (isLoadingBagasi || isLoadingUser || isLoadingUserBagasi)
     return <Spinner />;
 
-  //Cek jika bagasi tsb msh ada
+  //Check if Bagasi still exists
   if (!bagasi?.find((el) => el._id == id)) {
     toast.error("Bagasi yang kakak minta tidak tersedia");
     return navigate("/user");
   }
 
-  //Cek if user is owner
-  if (
-    userBagasi?.length == 0 ||
-    !userBagasi?.map((obj) => obj?._id)?.includes(id)
-  ) {
-    toast.error("Kakak bukan pemilik bagasi ini");
-    return navigate("/user");
+  //Check if User is owner unless User is Admin
+  if (user?.email !== ADMIN) {
+    if (
+      userBagasi?.length == 0 ||
+      !userBagasi?.map((obj) => obj?._id)?.includes(id)
+    ) {
+      toast.error("Kakak bukan pemilik bagasi ini");
+      return navigate("/user");
+    }
   }
 
   //Destructuring data bagasi dari calling useGetAllBagasi() --start
@@ -79,11 +83,11 @@ function FormUpdateBagasi() {
 
   // Bagasi Order List --start
   const bagasiOrderList = orderIdArr.map((ID) => ({
-    jumlahKg: order.find((el) => el._id == ID).jumlahKg,
-    isi: order.find((el) => el._id == ID).isi,
-    biayaRp: order.find((el) => el._id == ID).biayaRp,
-    catatan: order.find((el) => el._id == ID).catatan,
-    owner: order.find((el) => el._id == ID).owner.nama,
+    jumlahKg: order?.find((el) => el._id == ID).jumlahKg,
+    isi: order?.find((el) => el._id == ID).isi,
+    biayaRp: order?.find((el) => el._id == ID).biayaRp,
+    catatan: order?.find((el) => el._id == ID).catatan,
+    owner: order?.find((el) => el._id == ID).owner.nama,
   }));
   // Bagasi Order List --end
 
@@ -576,10 +580,11 @@ function FormUpdateBagasi() {
           </div>
           {/* Box 9 Instruksi */}
           <div
-            className="
-              w-full p-4 col-start-3 col-end-5 row-start-4 row-end-6 flex flex-col justify-between text-slate-50 bg-primaryBlue rounded-lg 
-              sm:row-start-[9] sm:row-end-[11] sm:col-start-1 sm:col-end-5
-              "
+            className={`${
+              ["Ready", "Closed", "Unloaded"].includes(status) ? "blur-sm" : ""
+            } w-full p-4 col-start-3 col-end-5 row-start-4 row-end-6 flex flex-col justify-between text-slate-50 bg-primaryBlue rounded-lg 
+            sm:row-start-[9] sm:row-end-[11] sm:col-start-1 sm:col-end-5
+            `}
           >
             {/* Paragraf Pendukung Jual Bagasi */}
             <div className="text-xs">
@@ -618,7 +623,7 @@ function FormUpdateBagasi() {
             <button
               disabled={!isDirty || isUpdating}
               className={`${
-                !isDirty ? "cursor-not-allowed" : "cursor-pointer"
+                !isDirty || isUpdating ? "cursor-not-allowed" : "cursor-pointer"
               } p-2 px-4 justify-self-center self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 hover:bg-primaryBlueBold`}
             >
               {isUpdating ? "Updating..." : "Update Bagasi"}
@@ -645,7 +650,9 @@ function FormUpdateBagasi() {
       <button
         onClick={handleDelete}
         disabled={isDeleting}
-        className="w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 cursor-pointer hover:opacity-80"
+        className={`${
+          isDeleting ? "cursor-not-allowed" : "cursor-pointer"
+        } w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 hover:opacity-80`}
       >
         {isDeleting ? "Menghapus..." : "Hapus Bagasi"}
       </button>

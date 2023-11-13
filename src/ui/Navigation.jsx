@@ -17,8 +17,8 @@ function Navigation() {
             svg="luggage-48-filled"
             title="Area Bagasi"
           />
-          <NavList to="/order" svg="cart" title="Area Jastip" />
-          <NavList to="/user" svg="account-card" title="Area User" />
+          <NavList to="/order" svg="suitcase-white" title="Area Jastip" />
+          <NavList to="/user" svg="user-white" title="Area User" />
         </>
       )}
 

@@ -1,8 +1,10 @@
-function Accordion({ title, data }) {
+function Accordion({ title = "", data }) {
   return (
     <div className="max-w-4xl mb-6 mx-auto overflow-hidden space-y-2">
       {/* SubTitle */}
-      <h2 className="text-3xl font-title capitalize sm:text-2xl">{title}</h2>
+      {title && (
+        <h2 className="text-3xl font-title capitalize sm:text-2xl">{title}</h2>
+      )}
       {/* Tab 1 */}
       {data.map((el, i) => (
         <AccordionChild
@@ -20,7 +22,7 @@ function AccordionChild({ index, question, answer }) {
   return (
     <div className="py-1 outline-none group" tabIndex={index + 1}>
       {/* Tab Flex Container */}
-      <div className="flex items-center justify-between p-2 px-6 bg-bodyBackColor group-focus:bg-secondaryYellow rounded-xl transition duration-300 cursor-pointer group ease">
+      <div className="flex items-center justify-between p-2 px-6 bg-bodyBackColor group-focus:bg-secondaryYellow rounded-xl transition duration-300 cursor-pointer group ease hover:bg-secondaryYellow">
         {/* Tab Title */}
         <div className="text-base sm:text-sm">{question}</div>
         {/* Icon Arrow SVG */}

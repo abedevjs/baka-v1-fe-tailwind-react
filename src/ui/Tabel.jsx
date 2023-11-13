@@ -154,7 +154,8 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {!sisa ? "" : String(sisa).padStart(2, "0")}{" "}
+            {/* {!sisa ? "" : String(sisa).padStart(2, "0")}{" "} */}
+            {!sisa ? "" : sisa}{" "}
             <span className={`${!sisa ? "text-sm" : "text-xs"} italic`}>
               {sisa === 0 && "Full"}
               {sisa > 1 && "Kg"}
@@ -201,8 +202,8 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {String(sisa).padStart(2, "0")}{" "}
-            <span className="text-xs italic">Kg</span>
+            {/* {String(sisa).padStart(2, "0")}{" "} */}
+            {sisa} <span className="text-xs italic">Kg</span>
           </td>
           <td scope="row" className="px-6 py-3">
             <div className="flex justify-left space-x-2">
@@ -216,8 +217,9 @@ function TabelBody({
       {feature == "bagasiOrderList" && (
         <tr className="bg-bodyBackColor hover:bg-stone-200 duration-300">
           <td scope="row" className="px-6 py-3">
-            {jumlah > 0 && jumlah < 10 && String(jumlah).padStart(2, "0")}
-            {jumlah > 10 ? jumlah : ""}{" "}
+            {/* {jumlah > 0 && jumlah < 10 && String(jumlah).padStart(2, "0")} */}
+            {jumlah > 0 && jumlah < 10 && jumlah}
+            {jumlah >= 10 ? jumlah : ""}{" "}
             <span className="text-xs italic">Kg</span>
           </td>
           <td scope="row" className="px-6 py-3">
@@ -256,7 +258,8 @@ function TabelBody({
           </td>
           <td scope="row" className="px-6 py-3">
             {jumlah === "" && ""}
-            {jumlah > 0 && jumlah < 10 && String(jumlah).padStart(2, "0")}
+            {/* {jumlah > 0 && jumlah < 10 && String(jumlah).padStart(2, "0")} */}
+            {jumlah > 0 && jumlah < 10 && jumlah}
             {jumlah >= 10 ? jumlah : ""}{" "}
             <span className="text-xs italic">{jumlah && "Kg"}</span>
           </td>
@@ -316,7 +319,8 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {!sisa ? "" : String(sisa).padStart(2, "0")}{" "}
+            {/* {!sisa ? "" : String(sisa).padStart(2, "0")}{" "} */}
+            {!sisa ? "" : sisa}{" "}
             <span className={`${!sisa ? "text-sm" : "text-xs"} italic`}>
               {!sisa ? "Full" : "Kg"}
             </span>
@@ -359,7 +363,11 @@ function TabelBody({
             </div>
           </td>
           <td scope="row" className="px-6 py-3">
-            {jumlah} <span className="text-xs italic">Kg</span>
+            {jumlah === "" && ""}
+            {/* {jumlah > 0 && jumlah < 10 && String(jumlah).padStart(2, "0")} */}
+            {jumlah > 0 && jumlah < 10 && jumlah}
+            {jumlah >= 10 ? jumlah : ""}{" "}
+            <span className="text-xs italic">{jumlah && "Kg"}</span>
           </td>
           <td scope="row" className="px-6 py-3">
             {isi}

@@ -1,16 +1,8 @@
 export const team = [
   {
-    name: "Muhammad Akbar",
-    image: "abe.png",
-    role: "Baka CEO",
-    fb: "monsieurabe",
-    ig: "monsieureabe",
-    wa: "628138256440",
-  },
-  {
     name: "Hans Zimmer",
     image: "dummy1.png",
-    role: "Baka Jakarta",
+    role: "Baka Legal",
     fb: "monsieurabe",
     ig: "monsieureabe",
     wa: "628138256440",
@@ -18,7 +10,15 @@ export const team = [
   {
     name: "Ju Wenjun",
     image: "dummy2.png",
-    role: "Baka Istanbul",
+    role: "Baka Marketing",
+    fb: "monsieurabe",
+    ig: "monsieureabe",
+    wa: "628138256440",
+  },
+  {
+    name: "Muhammad Akbar",
+    image: "abe.png",
+    role: "Baka Finance",
     fb: "monsieurabe",
     ig: "monsieureabe",
     wa: "628138256440",

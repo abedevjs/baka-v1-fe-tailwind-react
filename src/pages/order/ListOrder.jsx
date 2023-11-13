@@ -31,7 +31,7 @@ function ListOrder() {
             {/* Subtitle */}
             <span className="text-base lg:text-sm">
               Layanan Jastip dengan penuh perhatian dan keamanan, menjaga setiap
-              item yang dititipkan dengan cermat. Ini adalah solusi praktis dan
+              item yang dititipkan dengan cermat. Adalah solusi praktis dan
               efektif bagi mereka yang menginginkan produk dari luar negeri
               tanpa harus melakukan perjalanan sendiri. <br /> <br />
               Ini menjadi penghubung yang efisien antara mereka yang membutuhkan
@@ -73,7 +73,7 @@ function ListOrder() {
       </div>
 
       {/* Text Title */}
-      <TextTitle icon="order" title="daftar order" />
+      <TextTitle icon="order" title="daftar jastip" />
 
       {/* Table-Pagination Container */}
       <Wrapper type="table-pagination">

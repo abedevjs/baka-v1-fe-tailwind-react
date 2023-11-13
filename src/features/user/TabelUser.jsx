@@ -6,37 +6,37 @@ import { Link } from "react-router-dom";
 import { useGetUser } from "./useGetUser";
 import { useGetAllBagasi } from "../bagasi/useGetAllBagasi";
 
-const bagasiComplete = [
-  {
-    id: 1,
-    berangkat: "2023-07-10T00:00:00.000+00:00",
-    dari: "Jakarta",
-    tujuan: "Cairo",
-    sisa: "100",
-    harga: "150000",
-    status: "Opened",
-  },
-  {
-    id: 2,
-    berangkat: "2023-07-04T09:48:51.265+00:00",
-    dari: "Dubai",
-    tujuan: "Istanbul",
-    sisa: "50",
-    harga: "250000",
-    status: "Postponed",
-  },
-];
+// const bagasiComplete = [
+//   {
+//     id: 1,
+//     berangkat: "2023-07-10T00:00:00.000+00:00",
+//     dari: "Jakarta",
+//     tujuan: "Cairo",
+//     sisa: "100",
+//     harga: "150000",
+//     status: "Opened",
+//   },
+//   {
+//     id: 2,
+//     berangkat: "2023-07-04T09:48:51.265+00:00",
+//     dari: "Dubai",
+//     tujuan: "Istanbul",
+//     sisa: "50",
+//     harga: "250000",
+//     status: "Postponed",
+//   },
+// ];
 
-const orderComplete = [
-  {
-    id: 1,
-    berangkat: "2023-12-08T00:00:00.000+00:00",
-    dari: "Dubai",
-    tujuan: "Jakarta",
-    total: "05",
-    status: "Preparing",
-  },
-];
+// const orderComplete = [
+//   {
+//     id: 1,
+//     berangkat: "2023-12-08T00:00:00.000+00:00",
+//     dari: "Dubai",
+//     tujuan: "Jakarta",
+//     total: "05",
+//     status: "Preparing",
+//   },
+// ];
 
 export function TabelUserBagasi() {
   const { user, isLoading } = useGetUser();
@@ -87,7 +87,8 @@ export function TabelUserOrder() {
   const { user, isLoading: isLoadingUser } = useGetUser();
   const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
 
-  if (isLoadingUser || isLoadingBagasi) return <Spinner />;
+  // if (isLoadingUser || isLoadingBagasi) return <Spinner />;
+  if (isLoadingUser) return <Spinner />;
 
   const orderDetail = user?.order?.map((el) => ({
     _id: el._id,

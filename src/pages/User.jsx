@@ -54,7 +54,9 @@ function User() {
 
       <button
         onClick={handleDelete}
-        className="w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 cursor-pointer hover:opacity-80"
+        className={`${
+          isDeleting ? "cursor-not-allowed" : "cursor-pointer"
+        } w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 hover:opacity-80`}
       >
         {isDeleting ? "Menghapus data..." : "Hapus Akun Saya"}
       </button>

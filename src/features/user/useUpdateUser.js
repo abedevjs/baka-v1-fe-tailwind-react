@@ -7,7 +7,7 @@ export function useUpdateUser() {
   const { mutate: updateUser, isLoading: isUpdating } = useMutation({
     mutationFn: (body) => apiUpdateUser(body),
     onSuccess: () => {
-      toast.success("Update nomer WhatsApp berhasil");
+      toast.success("Update Data User berhasil");
       queryClient.invalidateQueries(["user"]);
     },
     onError: (err) => toast.error(err.message),

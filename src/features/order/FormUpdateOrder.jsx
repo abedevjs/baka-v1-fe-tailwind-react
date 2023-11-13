@@ -307,7 +307,7 @@ function FormUpdateOrder({
             <button
               disabled={isUpdating || !isDirty}
               className={`${
-                !isDirty ? "cursor-not-allowed" : "cursor-pointer"
+                isUpdating || !isDirty ? "cursor-not-allowed" : "cursor-pointer"
               } p-2 px-4 justify-self-center self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 hover:bg-primaryBlueBold`}
             >
               {isUpdating ? "Mengirim..." : "Update Order"}
@@ -330,14 +330,18 @@ function FormUpdateOrder({
         <button
           onClick={handleDeliveredOrder}
           disabled={isCompleting}
-          className="w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-green-500 duration-300 cursor-pointer hover:opacity-80"
+          className={`${
+            isCompleting ? " cursor-not-allowed" : "cursor-pointer"
+          } w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-green-500 duration-300 hover:opacity-80`}
         >
           {isCompleting ? "Mengirim..." : "Selesai"}
         </button>
       ) : (
         <button
           onClick={handleDelete}
-          className="w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 cursor-pointer hover:opacity-80"
+          className={`${
+            isDeleting ? "cursor-not-allowed" : "cursor-pointer"
+          } w-1/4 sm:w-full mb-2 p-2 px-2 block mx-auto text-center text-sm text-white rounded-xl bg-red-500 duration-300 hover:opacity-80`}
           disabled={isDeleting}
         >
           {isDeleting ? "Menghapus..." : "Hapus Order"}

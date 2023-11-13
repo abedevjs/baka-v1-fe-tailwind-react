@@ -42,6 +42,7 @@ export const user = [
     question: "Bagaimana cara agar akun saya di coret dari daftar Blacklist?",
     answer: "Hubungi Admin di halaman 'HUBUNGI KAMI'.",
   },
+  // { question: "halo?", answer: "yes" },
 ];
 
 export const bagasi = [
@@ -110,6 +111,12 @@ export const bagasi = [
     answer: "Berat minimum 1 Kg, berat maksimal 80 Kg.",
   },
   {
+    question:
+      "Bagaimana jika Bagasi yang saya jual telah melebihi kapasitas (karena saya juga menjual diluar platform Baka)?",
+    answer:
+      "Traveler wajib untuk mematuhi kesepakatan dengan membawa bagasi Jastiper yang sudah memesan lewat Baka. Untuk itu hendaknya Traveler meng-update jumlah Bagasi nya untuk menghindari overload bagasi.",
+  },
+  {
     question: "Apa mata uang yang digunakan dalam transaksi Jual-Beli Bagasi?",
     answer: "Indonesia Rupiah (IDR).",
   },
@@ -151,6 +158,11 @@ export const bagasi = [
       "Harga bagasi bisa diubah selama status Bagasi masih 'Scheduled' dan 'Opened'.",
   },
   {
+    question: "Dimana saya bisa melihat sisa Bagasi dan hasil penjualannya?",
+    answer:
+      "Traveler bisa memantau dan mengontrol (edit/hapus) data Bagasi pada halaman AREA USER selanjutnya pilih Bagasi yang diinginkan.",
+  },
+  {
     question:
       "Pada halaman 'UPDATE BAGASI', apa yang dimaksud dengan 'Balance, Tax dan Net'?",
     answer:
@@ -171,6 +183,12 @@ export const bagasi = [
     question: "Kapan saya akan menerima hasil penjualan bagasi?",
     answer:
       "Traveler akan menerimal hasil penjualan ketika misi bagasi telah selesai dan sukses atau status Bagasi 'Unloaded'.",
+  },
+  {
+    question:
+      "Bagasimana prosedur pembayaran dana penjualan Bagasi kepada Traveler?",
+    answer:
+      "Admin akan mengirimkan dana penjualan Bagasi ke rekening Traveler seperti yang tertera di AREA USER (hendaknya Traveler selalu update Nomor Rekening dan Nama Bank).",
   },
   {
     question: "Mengapa upload dokumen saya gagal?",
@@ -208,11 +226,6 @@ export const bagasi = [
       "Apakah saya bisa tahu siapa saja yang telah membeli bagasi saya?",
     answer:
       "Bagasi kakak bisa dipantau pada halaman 'AREA USER'. Klik 'Edit/Hapus' pada bagasi yang di inginkan. Di halaman itu akan terlihat detail Order pada Bagasi tersebut.",
-  },
-  {
-    question:
-      "Bagasimana prosedur pembayaran dana penjualan Bagasi kepada Traveler?",
-    answer: "Admin akan menghubungi Traveler",
   },
   // { question: "halo?", answer: "yes" },
 ];

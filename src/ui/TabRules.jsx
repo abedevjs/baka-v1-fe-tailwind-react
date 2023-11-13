@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export function Tab({ tabOpen }) {
+export function TabRules({ tabOpen }) {
   const [openTab, setOpenTab] = useState(1);
 
-  function handleClick(e) {
+  function handleToggle(e) {
     // console.log(e.target.tabIndex);
-    if (e.target.tabIndex == -1) e.target.tabIndex = 1;
-    setOpenTab(e.target.tabIndex);
-    tabOpen(e.target.tabIndex);
+    // if (e.target.tabIndex == -1) e.target.tabIndex = 1;
+    setOpenTab(e);
+    tabOpen(e);
   }
 
   return (
@@ -23,56 +23,44 @@ export function Tab({ tabOpen }) {
         <div className="tab_container w-full flex justify-evenly items-center">
           {/* Traveler Button */}
           <button
-            tabIndex={1}
-            onClick={(e) => handleClick(e)}
+            onClick={() => handleToggle(1)}
             className={`${
               openTab == 1
-                ? "tab__buttons tab__buttons--active"
-                : "tab__buttons"
-            } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300 sm:px-8 sm:text-xs`}
+                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold"
+                : "bg-primaryBlueBold"
+            } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300  hover:bg-primaryBlue sm:px-8 sm:text-xs`}
           >
             {/* <a href="#" class="p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition-all duration-300 opacity-100 bg-primaryBlueBold"> */}
             <div className=" ">Untuk Traveler</div>
           </button>
           {/* Jastiper Button */}
           <button
-            tabIndex={2}
-            onClick={(e) => handleClick(e)}
+            onClick={() => handleToggle(2)}
             className={`${
               openTab == 2
-                ? "tab__buttons tab__buttons--active"
-                : "tab__buttons"
-            } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300 sm:px-8 sm:text-xs`}
+                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold"
+                : "bg-primaryBlueBold"
+            } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300  hover:bg-primaryBlue sm:px-8 sm:text-xs`}
           >
             <div className=" ">Untuk Jastiper</div>
           </button>
         </div>
 
-        <TabContent contentNumber={openTab} />
-
-        {/* Link Detail */}
-        {/* <div className="w-full flex justify-center p-1 px-2 text-white cursor-pointer bg-primaryBlue opacity-80 rounded-lg hover:opacity-100 hover:bg-primaryBlueBold transition-all duration-300 ">
-          <Link to="/faq" className="text-lg ">
-            Lihat Tanya-Jawab
-          </Link>
-        </div> */}
-        {/* <ParagrafContent contentNumber={openTab} /> */}
+        <TabRulesContent contentNumber={openTab} />
       </div>
       {/* akhir Steps Box */}
     </>
   );
 }
 
-function TabContent({ contentNumber }) {
+function TabRulesContent({ contentNumber }) {
   return (
     <>
       {/* Steps Content Box Bagasi */}
       {contentNumber == 1 && (
         <div
           className={`${
-            contentNumber == 1
-              ? "tab__contents tab__contents--active"
-              : "tab__contents"
+            contentNumber == 1 ? " flex flex-col self-start" : "hidden"
           } relative space-y-2`}
         >
           {/* Vertical Line */}
@@ -124,9 +112,7 @@ function TabContent({ contentNumber }) {
       {contentNumber == 2 && (
         <div
           className={`${
-            contentNumber == 2
-              ? "tab__contents tab__contents--active"
-              : "tab__contents"
+            contentNumber == 2 ? " flex flex-col self-start" : "hidden"
           } relative space-y-2`}
         >
           {/* Vertical Line */}
@@ -179,15 +165,13 @@ function TabContent({ contentNumber }) {
   );
 }
 
-export function ParagrafContent({ contentNumber }) {
+export function RulesParagrafContent({ contentNumber }) {
   return (
     <>
       {/* Paragraf Container start */}
       <div
         className={`${
-          contentNumber == 1
-            ? "paragraf__contents paragraf__contents--active"
-            : "paragraf__contents"
+          contentNumber == 1 ? " flex flex-col" : "hidden"
         } p-6 space-y-8  mt-2 sm:p-2`}
       >
         <span className=" mb-2 p-2 text-base rounded-md bg-secondaryYellow">
@@ -335,9 +319,7 @@ export function ParagrafContent({ contentNumber }) {
       </div>
       <div
         className={`${
-          contentNumber == 2
-            ? "paragraf__contents paragraf__contents--active"
-            : "paragraf__contents"
+          contentNumber == 2 ? " flex flex-col" : "hidden"
         } p-6 space-y-8  sm:mt-2 sm:p-2 sm:space-y-0`}
       >
         <span className="mb-2 p-2 text-base rounded-md bg-secondaryYellow">

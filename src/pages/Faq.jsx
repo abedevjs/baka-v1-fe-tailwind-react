@@ -1,7 +1,6 @@
-import { user, bagasi, order } from "../../public/docs/faq";
-import Accordion from "../ui/Accordion";
 import ContentWrapper from "../ui/ContentWrapper";
 import { LinkArrowLeft } from "../ui/LinkArrow";
+import TabFaq from "../ui/TabFaq";
 import TextBox from "../ui/TextBox";
 
 function Faq() {
@@ -19,10 +18,8 @@ function Faq() {
         destination="/rules"
         style="mb-12"
       />
-
-      <Accordion title="User" data={user} />
-      <Accordion title="Bagasi" data={bagasi} />
-      <Accordion title="Order" data={order} />
+      {/* FAQ */}
+      <TabFaq />
     </ContentWrapper>
   );
 }

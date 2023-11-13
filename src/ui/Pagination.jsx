@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 
 const PAGE_SIZE = import.meta.env.VITE_PAGE_SIZE;
 
-function Pagination({ count, setterPage }) {
+function Pagination({ count, setterPage, newDataCount }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentPage = !searchParams.get("page")
@@ -32,11 +32,11 @@ function Pagination({ count, setterPage }) {
   return (
     <div className=" w-3/4 mx-auto flex items-center justify-between">
       <div className=" text-xs">
-        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
+        {/* Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
         <span>
           {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
         </span>{" "}
-        of <span>{count}</span> results
+        of <span>{count}</span> results */}
       </div>
       <div className=" text-xs flex space-x-4">
         <button
@@ -53,14 +53,17 @@ function Pagination({ count, setterPage }) {
 
         <button
           onClick={nextPage}
-          disabled={currentPage === pageCount}
+          // disabled={currentPage === pageCount}
+          disabled={newDataCount < PAGE_SIZE}
           className={`${
-            currentPage === pageCount
+            // currentPage === pageCount
+            newDataCount < PAGE_SIZE
               ? "bg-bodyBackColor cursor-not-allowed"
               : "bg-secondaryYellow cursor-pointer"
           } py-1 px-2 rounded-md`}
         >
-          {currentPage === pageCount ? "Stop ⛔" : "Next →"}
+          {/* {currentPage === pageCount ? "Stop ⛔" : "Next →"} */}
+          {newDataCount < PAGE_SIZE ? "Stop ⛔" : "Next →"}
         </button>
       </div>
     </div>

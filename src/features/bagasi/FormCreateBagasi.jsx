@@ -491,7 +491,9 @@ function FormCreateBagasi() {
               <button
                 disabled={isCreating || !isDirty}
                 className={`${
-                  !isDirty ? "cursor-not-allowed" : "cursor-pointer"
+                  isCreating || !isDirty
+                    ? "cursor-not-allowed"
+                    : "cursor-pointer"
                 } p-2 px-4 justify-self-center self-center text-sm text-white text-center rounded-xl bg-primaryBlue duration-300 hover:bg-primaryBlueBold`}
               >
                 {isCreating ? "Loading..." : "Jual Bagasi"}

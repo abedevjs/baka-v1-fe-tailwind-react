@@ -1,12 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import {
-  TabelBagasiComplete,
-  TabelBagasiHero,
-} from "../features/bagasi/TabelBagasi";
-import {
-  TabelOrderComplete,
-  TabelOrderHero,
-} from "../features/order/TabelOrder";
+import { TabelBagasiComplete } from "../features/bagasi/TabelBagasi";
+import { TabelOrderComplete } from "../features/order/TabelOrder";
 import ContentWrapper from "../ui/ContentWrapper";
 import { LinkArrowLeft, LinkArrowRight } from "../ui/LinkArrow";
 import TextBox from "../ui/TextBox";

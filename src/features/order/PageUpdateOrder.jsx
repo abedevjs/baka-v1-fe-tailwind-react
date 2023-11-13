@@ -14,6 +14,8 @@ import { useGetUserOrder } from "../user/useGetUserOrder";
 import TextTitle from "../../ui/TextTitle";
 import { useGetAllUser } from "../user/useGetAllUser";
 
+const ADMIN = import.meta.env.VITE_ADMIN;
+
 function PageUpdateOrder() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -23,16 +25,16 @@ function PageUpdateOrder() {
   const { user, isLoading: isLoadingUser } = useGetUser();
   const { userOrder, isLoadingUserOrder } = useGetUserOrder();
 
-  if (
-    isLoadingOrder ||
-    isLoadingBagasi ||
-    isLoadingUser ||
-    isLoadingUserOrder ||
-    isLoadingAllUser
-  )
-    return <Spinner />;
+  // if (
+  //   isLoadingOrder ||
+  //   isLoadingBagasi ||
+  //   isLoadingUser ||
+  //   isLoadingUserOrder ||
+  //   isLoadingAllUser
+  // )
+  if (isLoadingOrder || isLoadingUser || isLoadingUserOrder) return <Spinner />;
 
-  //Cek jika order tsb msh ada
+  //Check if Order still exists
   //! Guard clause ini msh lemah
   const orderDetail = order?.find((el) => el._id == id);
   if (!orderDetail) {
@@ -40,14 +42,16 @@ function PageUpdateOrder() {
     return navigate("/user");
   }
 
-  //Cek if user is owner
-  //! Guard clause ini msh lemah
-  if (
-    userOrder?.length == 0 ||
-    !userOrder?.map((obj) => obj?._id)?.includes(id)
-  ) {
-    toast.error("Kakak bukan pemilik order ini ");
-    return navigate("/user");
+  //Check if User is owner unless User is Admin
+  if (user?.email !== ADMIN) {
+    //! Guard clause ini msh lemah
+    if (
+      userOrder?.length == 0 ||
+      !userOrder?.map((obj) => obj?._id)?.includes(id)
+    ) {
+      toast.error("Kakak bukan pemilik order ini ");
+      return navigate("/user");
+    }
   }
 
   // Destructuring Bagasi Detail dari useGetAllBagasi() --start
@@ -69,7 +73,6 @@ function PageUpdateOrder() {
     catatan,
     owner,
   } = data[0];
-  const { nama, image, telpon } = owner;
   // Destructuring Bagasi Detail dari useGetAllBagasi() --end
 
   // Destructuring Owner Detail dari useGetAllUser() --start
@@ -81,7 +84,7 @@ function PageUpdateOrder() {
   // Destructuring Owner Detail dari useGetAllUser() --end
 
   // Finding out what the Order.status is --start
-  const orderStatus = userOrder.filter((order) => order._id == id)[0].status;
+  const orderStatus = userOrder?.filter((order) => order._id == id)[0].status;
   // Finding out what the Order.status is --end
 
   return (

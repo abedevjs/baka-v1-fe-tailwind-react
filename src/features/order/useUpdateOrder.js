@@ -12,7 +12,7 @@ export function useUpdateOrder() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["order", "userOrder"] });
       toast.success("Order berhasil di update");
-      navigate("/user");
+      // navigate("/user"); //Sengaja tdk di reload ke /user karena updateOrder available utk order.status  = 'Preparing', dan di bawah form updateOrder ada form uploadDokumen. Jadi setelah updateOrder, User bisa selanjutnya/sekalian uploadDokumen
     },
     onError: (err) => {
       toast.error(err.message);
