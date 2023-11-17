@@ -26,7 +26,7 @@ export function TabRules({ tabOpen }) {
             onClick={() => handleToggle(1)}
             className={`${
               openTab == 1
-                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold"
+                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold sm:shadow-md"
                 : "bg-primaryBlueBold"
             } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300  hover:bg-primaryBlue sm:px-8 sm:text-xs`}
           >
@@ -38,7 +38,7 @@ export function TabRules({ tabOpen }) {
             onClick={() => handleToggle(2)}
             className={`${
               openTab == 2
-                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold"
+                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold sm:shadow-md"
                 : "bg-primaryBlueBold"
             } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300  hover:bg-primaryBlue sm:px-8 sm:text-xs`}
           >
@@ -172,12 +172,11 @@ export function RulesParagrafContent({ contentNumber }) {
       <div
         className={`${
           contentNumber == 1 ? " flex flex-col" : "hidden"
-        } p-6 space-y-8  mt-2 sm:p-2`}
+        } w-full p-6 space-y-8 sm:mt-4 sm:p-2 sm:space-y-4`}
       >
-        <span className=" mb-2 p-2 text-base rounded-md bg-secondaryYellow">
-          Untuk Traveler yang menjual Bagasi:
+        <span className=" p-2 text-base rounded-md bg-secondaryYellow sm:text-sm">
+          Untuk Traveler penjual Bagasi:
         </span>
-        {/* <p className="p-2 text-base sm:text-sm">Bagasi</p> */}
         <ul className=" px-4 text-sm sm:text-xs list-decimal space-y-2 sm:px-0">
           <li>
             Admin tidak bertanggung jawab atas kesalahan dan atau keteledoran
@@ -320,12 +319,11 @@ export function RulesParagrafContent({ contentNumber }) {
       <div
         className={`${
           contentNumber == 2 ? " flex flex-col" : "hidden"
-        } p-6 space-y-8  sm:mt-2 sm:p-2 sm:space-y-0`}
+        } w-full p-6 space-y-8 sm:mt-4 sm:p-2 sm:space-y-4`}
       >
-        <span className="mb-2 p-2 text-base rounded-md bg-secondaryYellow">
+        <span className=" p-2 text-base rounded-md bg-secondaryYellow sm:text-sm">
           Untuk Jastiper pembeli Bagasi:
         </span>
-        {/* <p className="p-2 text-base sm:text-sm">Order</p> */}
         <ul className="px-4 text-sm list-decimal space-y-2 sm:px-0 sm:text-xs">
           <li>
             Admin tidak bertanggung jawab atas kesalahan dan atau keteledoran

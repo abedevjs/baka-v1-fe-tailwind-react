@@ -18,7 +18,7 @@ function Rules() {
         {/* Steps Container */}
         <div
           className="
-          mt-6 flex justify-center space-x-4
+          mt-6 w-full flex justify-center space-x-4
           lg:flex-col lg:space-x-0 lg:space-y-8
           sm:space-y-6
           "
