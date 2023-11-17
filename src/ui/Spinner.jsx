@@ -1,9 +1,10 @@
 import ContentWrapper from "./ContentWrapper";
+import { ProgressBar } from "react-loader-spinner";
 
 function Spinner() {
   return (
     <ContentWrapper>
-      <div className=" h-full w-full flex justify-center items-center">
+      {/* <div className=" h-full w-full flex justify-center items-center">
         <div role="status">
           <svg
             aria-hidden="true"
@@ -22,7 +23,20 @@ function Spinner() {
             />
           </svg>
         </div>
-      </div>
+      </div> */}
+
+      <ProgressBar
+        height={80}
+        width={80}
+        ariaLabel="progress-bar-loading"
+        wrapperStyle={{
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+        wrapperClass="progress-bar-wrapper"
+        borderColor="#255cff"
+        barColor="#f4D03f"
+      />
     </ContentWrapper>
   );
 }

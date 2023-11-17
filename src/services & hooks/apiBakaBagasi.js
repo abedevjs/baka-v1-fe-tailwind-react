@@ -24,7 +24,6 @@ export async function apiGetOneBagasi(id) {
       withCredentials: true,
     });
 
-    // console.log(res?.data?.data?.bagasi);
     return res?.data?.data?.bagasi;
   } catch (error) {
     console.log(error);
@@ -37,11 +36,6 @@ export async function apiCreateBagasi(body) {
     const res = await axios.post(`${BAKA_URL}/bagasi`, body, {
       withCredentials: true,
     });
-    // .then((data) => console.log(data))
-    // .catch((err) => {
-    //   return err?.response?.data?.message;
-    // });
-    // console.log(res);
 
     return res;
   } catch (error) {
@@ -51,7 +45,6 @@ export async function apiCreateBagasi(body) {
 
 //* www.nama.com/bagasi/888
 export async function apiUpdateBagasi(id, body) {
-  // console.log(id, body);
   try {
     const res = await axios.patch(`${BAKA_URL}/bagasi/${id}`, body, {
       withCredentials: true,

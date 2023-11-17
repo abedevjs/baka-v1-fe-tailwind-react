@@ -1,35 +1,34 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Notification from "../../ui/Notification";
+import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
-import { useGetAllBagasi } from "../bagasi/useGetAllBagasi";
 import {
   currencyFormat,
   cutWords,
   dateFormat,
 } from "../../utilities/formatter";
 import { useGetUser } from "../user/useGetUser";
-import toast from "react-hot-toast";
 import FormCreateOrder from "./FormCreateOrder";
 import TextTitle from "../../ui/TextTitle";
 import { useGetAllUser } from "../user/useGetAllUser";
+import { useGetOneBagasi } from "../bagasi/useGetOneBagasi";
+import NotificationCreateOrder from "../../ui/NotificationCreateOrder";
 
 function PageCreateOrder() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
+  const { oneBagasi, isLoadingOneBagasi } = useGetOneBagasi();
   const { allUser, isLoadingAllUser } = useGetAllUser();
   const { user } = useGetUser();
 
-  if (isLoadingBagasi || isLoadingAllUser) return <Spinner />;
+  if (isLoadingOneBagasi || isLoadingAllUser) return <Spinner />;
 
   //Cek jika bagasi tsb msh ada
-  if (!bagasi?.find((el) => el._id == id)) {
+  if (!oneBagasi) {
     toast.error("Bagasi yang kakak minta tidak tersedia");
     return navigate("/list-bagasi");
   }
 
   // Destructuring Bagasi Detail dari useGetAllBagasi() --start
-  const data = bagasi?.map((el) => el).filter((el) => el._id == id);
   const {
     dari,
     tujuan,
@@ -42,7 +41,7 @@ function PageCreateOrder() {
     hargaRp,
     catatan,
     owner,
-  } = data[0];
+  } = oneBagasi;
   // Destructuring Bagasi Detail dari useGetAllBagasi() --end
 
   // Destructuring Owner Detail dari useGetAllUser() --start
@@ -310,76 +309,21 @@ function PageCreateOrder() {
       </div>
       {/* Akhir Grid (Bagasi) Container */}
       {/* Notification Message (Jika status bukan 'OPENED') start--*/}
-      {status == "Opened" ? (
-        <div
-          className="w-full mb-8 col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center 
-          sm:row-start-[11] sm:row-end-[10] sm:col-start-1 sm:col-end-5"
-        >
-          <span className="py-1 px-2 text-xs text-white bg-green-600 rounded-lg">
-            Bagasi ready. Silahkan di order kak 🤗
-          </span>
-        </div>
-      ) : (
-        <div
-          className="w-full mb-4 col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center 
-              sm:row-start-[11] sm:row-end-[10] sm:col-start-1 sm:col-end-5
-              "
-        >
-          {status == "Scheduled" ? (
-            <Notification
-              type="error"
-              text="Bagasi sedang dikonfirmasi, coba beberapa saat lagi ya kak"
-            />
-          ) : (
-            ""
-          )}
 
-          {status == "Closed" && availableKg == 0 ? (
-            <Notification
-              type="error"
-              text="Bagasi sudah penuh, tunggu bagasi berikut ya kak"
-            />
-          ) : (
-            ""
-          )}
-          {status == "Closed" && availableKg > 0 ? (
-            <Notification
-              type="error"
-              text="Bagasi sudah berangkat, tunggu penerbangan berikut ya kak"
-            />
-          ) : (
-            ""
-          )}
-
-          {status == "Unloaded" ? (
-            <Notification
-              type="success"
-              text="Misi Bagasi berhasil dan selesai. Terima kasih ya kak"
-            />
-          ) : (
-            ""
-          )}
-
-          {status == "Canceled" ? (
-            <Notification
-              type="error"
-              text="Bagasi dibatalkan, cari jadwal bagasi yang lain ya kak"
-            />
-          ) : (
-            ""
-          )}
-        </div>
-      )}
+      <div className="w-full mb-8 col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center sm:row-start-[11] sm:row-end-[10] sm:col-start-1 sm:col-end-5">
+        <NotificationCreateOrder
+          bagasiStatus={status}
+          availableKg={availableKg}
+        />
+      </div>
       {/* Notification Message (Jika status bukan 'OPENED') end--*/}
-      {status == "Opened" ? (
+      {status == "Opened" && (
         <FormCreateOrder
           id={id}
           hargaRp={hargaRp}
           availableKg={availableKg}
           user={user}
         />
-      ) : (
-        ""
       )}
     </>
   );

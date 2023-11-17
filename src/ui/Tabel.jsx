@@ -234,7 +234,7 @@ function TabelBody({
             </span>
           </td>
           <td scope="row" className="px-6 py-3">
-            {cutWords(owner, 2)}
+            {cutWords(owner.nama, 2)}
           </td>
         </tr>
       )}

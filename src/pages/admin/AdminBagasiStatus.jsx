@@ -1,30 +1,35 @@
 import { useNavigate, useParams } from "react-router-dom";
-import ContentWrapper from "../../ui/ContentWrapper";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import ContentWrapper from "../../ui/ContentWrapper";
 import { useUpdateStatusBagasi } from "../../features/admin/useUpdateStatusBagasi";
 import Notification from "../../ui/Notification";
-import { useGetAllBagasi } from "../../features/bagasi/useGetAllBagasi";
 import Spinner from "../../ui/Spinner";
-import toast from "react-hot-toast";
-import { useGetUser } from "../../features/user/useGetUser";
+import { useGetOneBagasi } from "../../features/bagasi/useGetOneBagasi";
+import { useGetAllUser } from "../../features/user/useGetAllUser";
 
 function AdminBagasiStatus() {
+  const { id } = useParams();
   const [status, setStatus] = useState("Opened");
-  const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
+  const { allUser, isLoadingAllUser } = useGetAllUser();
+  const { oneBagasi, isLoadingOneBagasi } = useGetOneBagasi();
   const { updateStatusBagasi, isUpdating } = useUpdateStatusBagasi();
   const { register, handleSubmit, formState } = useForm();
-  const { isDirty, errors } = formState;
-  const { id } = useParams();
+  const { errors } = formState;
   const navigate = useNavigate();
 
-  if (isLoadingBagasi) return <Spinner />;
+  if (isLoadingOneBagasi || isLoadingAllUser) return <Spinner />;
 
-  const currBagasi = bagasi.find((el) => el._id == id);
-  if (!currBagasi) {
+  if (!oneBagasi) {
     toast.error("Bagasi ini tidak ada, cek param id");
     return navigate("/list-bagasi");
   }
+
+  // Desctructuring current User data --start
+  const currUser = allUser.filter((user) => user._id === oneBagasi.owner._id);
+  const { nama, email, dokumen: currUserDokumen } = currUser[0];
+  // Desctructuring current User data --end
 
   function handleStatus(e) {
     const val = e.target.value;
@@ -33,7 +38,6 @@ function AdminBagasiStatus() {
 
   //Executing updateStatusBagasi --start
   function onSuccess(data) {
-    // if (!isDirty) return;
     if (!data) return;
 
     updateStatusBagasi({ id: id, body: data });
@@ -65,13 +69,18 @@ function AdminBagasiStatus() {
       {/* Detail Bagasi */}
       <div className=" mb-8">
         <h1 className=" text-lg capitalize text-center">Detail bagasi:</h1>
-        <p className=" text-sm">{`Id: ${currBagasi._id}`}</p>
-        <p className=" text-sm">{`Dari: ${currBagasi.dari}`}</p>
-        <p className=" text-sm">{`Tujuan: ${currBagasi.tujuan}`}</p>
-        <p className=" text-sm">{`Status: ${currBagasi.status}`}</p>
-        <p className=" text-sm">{`Pesawat: ${currBagasi.pesawat}`}</p>
-        <p className=" text-sm">{`Dokumen: ${currBagasi.dokumen}`}</p>
-        <p className=" text-sm">{`Owner: ${currBagasi.owner.email}`}</p>
+        <p className=" text-sm">{`Id: ${oneBagasi._id}`}</p>
+        <p className=" text-sm">{`Dari: ${oneBagasi.dari}`}</p>
+        <p className=" text-sm">{`Tujuan: ${oneBagasi.tujuan}`}</p>
+        <p className=" text-sm">{`Status: ${oneBagasi.status}`}</p>
+        <p className=" text-sm">{`Pesawat: ${oneBagasi.pesawat}`}</p>
+        <p className=" text-sm">{`Owner: ${email ? email : nama}`}</p>
+        <p className=" text-sm">{`Dokumen: ${oneBagasi.dokumen}`}</p>
+        <p className=" text-sm">{`Dokumen: ${
+          currUserDokumen?.length > 1
+            ? `Cek dulu. Dokumen User ini terdiri dari:  ${currUserDokumen.length} dokumen`
+            : currUserDokumen
+        }`}</p>
         {/* <p className=" text-sm">{`Owner.dokumen: ${user.dokumen}`}</p> */}
       </div>
 

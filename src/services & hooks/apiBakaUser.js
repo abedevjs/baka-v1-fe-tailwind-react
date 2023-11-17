@@ -19,7 +19,6 @@ export async function apiGetAllUser() {
     const res = await axios.get(`${BAKA_URL}/user/all`, {
       withCredentials: true,
     });
-    // console.log(res.data.data.data);
     return res.data.data.data;
   } catch (error) {
     throw new Error(error.response.data.message);
@@ -31,7 +30,6 @@ export async function apiGetUserOrder() {
     const res = await axios.get(`${BAKA_URL}/user/profil`, {
       withCredentials: true,
     });
-    // console.log(res.data?.data?.user?.order);
     return res.data?.data?.user?.order;
   } catch (error) {
     throw new Error(error.response.data.message);
@@ -43,7 +41,6 @@ export async function apiGetUserBagasi() {
     const res = await axios.get(`${BAKA_URL}/user/profil`, {
       withCredentials: true,
     });
-    // console.log(res.data?.data?.user?.bagasi);
     return res.data?.data?.user?.bagasi;
   } catch (error) {
     throw new Error(error.response.data.message);
@@ -67,7 +64,6 @@ export async function apiDeleteUser() {
     const res = await axios.delete(`${BAKA_URL}/user/hapus`, {
       withCredentials: true,
     });
-    // console.log(res.data?.data?.user);
     return res.data?.data?.user;
   } catch (error) {
     throw new Error(error.response.data.message);

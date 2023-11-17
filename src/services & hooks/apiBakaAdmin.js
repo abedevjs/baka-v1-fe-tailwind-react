@@ -6,7 +6,6 @@ export async function apiGetAdmin() {
     const res = await axios.get(`${BAKA_URL}/user/profil`, {
       withCredentials: true,
     });
-    // console.log(res.data.data.user.email);
     return res.data?.data?.user?.email;
   } catch (error) {
     throw new Error(error.response.data.message);

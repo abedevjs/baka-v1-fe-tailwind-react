@@ -1,11 +1,11 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
 import { useDeleteOrder } from "./useDeleteOrder";
-import { useForm } from "react-hook-form";
 import { useUpdateOrder } from "./useUpdateOrder";
-import { useEffect, useState } from "react";
 import { currencyFormat } from "../../utilities/formatter";
-import toast from "react-hot-toast";
 import { useDeliveredOrder } from "./useDeliveredOrder";
 import Option from "../../ui/Option";
 
@@ -35,8 +35,8 @@ function FormUpdateOrder({
   const { updateOrder, isUpdating } = useUpdateOrder();
   const { deleteOrder, isDeleting } = useDeleteOrder();
   const { deliveredOrder, isCompleting } = useDeliveredOrder();
-  const { register, handleSubmit, reset, formState } = useForm();
-  const { errors, isDirty } = formState;
+  const { register, handleSubmit, formState } = useForm();
+  const { isDirty } = formState;
 
   //Agar kalkulasi berat bagasi dan biaya2 ter print dynamically di ui --start
   useEffect(

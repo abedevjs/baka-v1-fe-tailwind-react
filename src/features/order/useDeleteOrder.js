@@ -9,7 +9,9 @@ export function useDeleteOrder() {
   const { mutate: deleteOrder, isLoading: isDeleting } = useMutation({
     mutationFn: (id) => apiDeleteOrder(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["order", "userOrder"] });
+      queryClient.invalidateQueries({
+        queryKey: ["allOrder", "oneOrder", "userOrder"],
+      });
       toast.success("Order berhasil dihapus");
       navigate("/user");
     },

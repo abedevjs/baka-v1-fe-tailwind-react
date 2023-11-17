@@ -1,8 +1,8 @@
+import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useUpdateUser } from "../user/useUpdateUser";
 import { useCreateOrder } from "./useCreateOrder";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { currencyFormat } from "../../utilities/formatter";
 import { Link } from "react-router-dom";
 import Notification from "../../ui/Notification";
@@ -26,6 +26,7 @@ function FormCreateOrder({ id, hargaRp, availableKg, user }) {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors, isDirty } = formState;
   const { nama } = user;
+
   //Agar beratKg dan totalHarga ter print dynamically --start
   useEffect(
     function () {

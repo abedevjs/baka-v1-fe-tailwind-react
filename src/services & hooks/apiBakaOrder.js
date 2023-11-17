@@ -19,17 +19,25 @@ export async function apiGetAllOrder(page, limitResult, queryStatus) {
   }
 }
 
+//* www.nama.com/order/:id
+export async function apiGetOneOrder(id) {
+  try {
+    const res = await axios.get(`${BAKA_URL}/order/${id}`, {
+      withCredentials: true,
+    });
+
+    return res?.data?.data?.order;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 //* www.nama.com/bagasi/888/order
 export async function apiCreateOrder(id, body) {
   try {
     const res = await axios.post(`${BAKA_URL}/bagasi/${id}/order`, body, {
       withCredentials: true,
     });
-    // .then((data) => console.log(data))
-    // .catch((err) => {
-    //   return err?.response?.data?.message;
-    // });
-    // console.log(res);
 
     return res;
   } catch (error) {

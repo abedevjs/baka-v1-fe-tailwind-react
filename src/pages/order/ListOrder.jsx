@@ -4,7 +4,6 @@ import ContentWrapper from "../../ui/ContentWrapper";
 import TextBox from "../../ui/TextBox";
 import TextTitle from "../../ui/TextTitle";
 import Wrapper from "../../ui/Wrapper";
-import { Link } from "react-router-dom";
 
 function ListOrder() {
   return (

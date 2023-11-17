@@ -4,7 +4,7 @@ import { TabRules, RulesParagrafContent } from "../ui/TabRules";
 import TextBox from "../ui/TextBox";
 
 function Rules() {
-  const [open, setOpen] = useState(1); //* saya pakai useState di sini karena pargraf content terbuka dgn angka. angka tsb di pass back and forth antara Tab component sebagai child dan Rules component sebagai parent
+  const [open, setOpen] = useState(1); //* saya pakai useState di sini karena pargraf content terbuka dgn angka. angka tsb di pass back and forth antara TabRules sebagai child dan Rules(halaman ini) sebagai parent.
 
   return (
     <ContentWrapper padding="p-6">

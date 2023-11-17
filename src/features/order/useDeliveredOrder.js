@@ -10,7 +10,7 @@ export function useDeliveredOrder() {
     mutationFn: (id) => apiDeliveredOrder(id),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["order", "userOrder", "bagasi", "user"],
+        queryKey: ["allOrder", "userOrder", "allBagasi", "user"],
       });
       toast.success("Order selesai. Terima kasih kak");
       navigate("/user");

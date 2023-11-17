@@ -14,9 +14,7 @@ const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 function User() {
   const { deleteUser, isDeleting } = useDeleteUser();
 
-  // function handleLogout() {
-  //   window.open(`${BAKA_URL}/auth/logout`, "_self");
-  // }
+  //Handle Delete User button
   function handleDelete() {
     deleteUser("", {
       onSuccess: () => {

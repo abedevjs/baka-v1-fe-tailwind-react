@@ -11,7 +11,7 @@ export function useUpdateStatusOrder() {
     mutationFn: ({ id, body }) => apiUpdateStatusOrder(id, body),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["order", "userOrder", "bagasi"],
+        queryKey: ["allOrder", "oneOrder", "userOrder", "allBagasi"],
       });
       toast.success("Done. Cek Database Order");
       navigate("/order");

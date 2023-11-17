@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { redirect, useNavigate } from "react-router-dom";
-import { apiUploadDokumen } from "../../services & hooks/apiBakaUpload";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { apiUploadDokumen } from "../../services & hooks/apiBakaUpload";
 
 export function useUploadDokumen() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ export function useUploadDokumen() {
     mutationFn: ({ id, body }) => apiUploadDokumen(id, body),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["user", "bagasi", "order", "userOrder", "userBagasi"],
+        queryKey: ["user", "allBagasi", "allOrder", "userOrder", "userBagasi"],
       });
       toast.success("Dokumen berhasil di upload. Kami validasi dulu ya kak");
 

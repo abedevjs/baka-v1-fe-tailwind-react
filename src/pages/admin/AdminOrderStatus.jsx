@@ -1,30 +1,37 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 import ContentWrapper from "../../ui/ContentWrapper";
-import { useGetAllOrder } from "../../features/order/useGetAllOrder";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
-import toast from "react-hot-toast";
 import { useUpdateStatusOrder } from "../../features/admin/useUpdateStatusOrder";
-import { useForm } from "react-hook-form";
 import { currencyFormat } from "../../utilities/formatter";
 import Notification from "../../ui/Notification";
+import { useGetOneOrder } from "../../features/order/useGetOneOrder";
+import { useGetAllUser } from "../../features/user/useGetAllUser";
 
 function AdminOrderStatus() {
+  const { id } = useParams();
   const [status, setStatus] = useState("Ready");
-  const { order, isLoading: isLoadingOrder } = useGetAllOrder();
+  const { allUser, isLoadingAllUser } = useGetAllUser();
+  const { oneOrder, isLoadingOneOrder } = useGetOneOrder();
   const { updateStatusOrder, isUpdating } = useUpdateStatusOrder();
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const navigate = useNavigate();
-  const { id } = useParams();
 
-  if (isLoadingOrder) return <Spinner />;
+  if (isLoadingOneOrder || isLoadingAllUser) return <Spinner />;
 
-  const currOrder = order.find((el) => el._id == id);
+  const currOrder = oneOrder;
   if (!currOrder) {
     toast.error("Order ini tidak ada, cek param id");
     return navigate("/order");
   }
+
+  // Desctructuring current User data --start
+  const currUser = allUser.filter((user) => user._id === oneOrder.owner._id);
+  const { dokumen: currUserDokumen } = currUser[0];
+  // Desctructuring current User data --end
 
   function handleStatus(e) {
     const val = e.target.value;
@@ -64,11 +71,13 @@ function AdminOrderStatus() {
         <p>{`Status: ${currOrder.status}`}</p>
         <p>{`Dokumen: ${currOrder.dokumen}`}</p>
         <p>{`Tagihan: ${currencyFormat(currOrder.netRp)}`}</p>
-        <p>{`Owner: ${currOrder.owner.email}`}</p>
-        <p>{`Owner.Dokumen: ${
-          currOrder.owner.dokumen.length > 1
-            ? "Cek Array ini"
-            : currOrder.owner.dokumen
+        <p>{`Owner: ${
+          currOrder.owner.email ? currOrder.owner.email : currOrder.owner.nama
+        }`}</p>
+        <p>{`currUserDokumen.Dokumen: ${
+          currUserDokumen?.length > 1
+            ? `Cek dulu. Dokumen User ini terdiri dari:  ${currUserDokumen.length} dokumen`
+            : currUserDokumen
         }`}</p>
       </div>
 

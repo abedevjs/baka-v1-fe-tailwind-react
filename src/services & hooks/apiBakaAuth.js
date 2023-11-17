@@ -8,10 +8,6 @@ export async function apiIsAuthenticated() {
       withCredentials: true,
     });
 
-    // if (res.data?.isAuthenticated == false)
-    //   toast.success("Terima kasih kak 😊");
-    // else toast.success("Selamat datang kak 😊");
-
     return res.data?.isAuthenticated;
   } catch (error) {
     console.log(error);

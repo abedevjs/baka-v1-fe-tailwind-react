@@ -15,6 +15,11 @@ export const user = [
       "Jika User ingin menjual atau membeli Bagasi, maka User harus memberikan nomor kontak untuk kemudahan komunikasi. Selain itu, User tidak harus memberikan nomor kontak.",
   },
   {
+    question: "Apakah User perlu mengupdate Nomor Rekening dan Nama Bank?",
+    answer:
+      "Jika User ingin menjual atau membeli Bagasi, maka User harus menyediakan Nomor Rekening dan Nama Bank. Karena hasil penjualan Bagasi akan di bayarkan ke rekening Traveler.",
+  },
+  {
     question: "Bagaimana cara update data User?",
     answer:
       "Update data User melalui halaman 'AREA USER'. Untuk sementara User hanya boleh update nomor kontak.",

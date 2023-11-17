@@ -3,17 +3,6 @@ import isiKiriman from "../../public/docs/isiKiriman";
 import namaBank from "../../public/docs/namaBank";
 
 function Option({ feature, className }) {
-  // const data =
-  //   feature == "kota-asal"
-  //     ? kotaAsal
-  //     : feature == "kota-tujuan"
-  //     ? kotaTujuan
-  //     : feature == "isi-kiriman"
-  //     ? isiKiriman
-  //     : feature == "nama-bank"
-  //     ? namaBank
-  //     : [];
-
   let data = [];
   switch (feature) {
     case "kota-asal":

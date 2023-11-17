@@ -1,7 +1,6 @@
 import PageCreateOrder from "../../features/order/PageCreateOrder";
 import ContentWrapper from "../../ui/ContentWrapper";
 import { LinkArrowLeft } from "../../ui/LinkArrow";
-import TextTitle from "../../ui/TextTitle";
 
 function CreateOrder() {
   return (

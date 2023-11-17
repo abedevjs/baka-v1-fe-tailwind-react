@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { TabelBagasiComplete } from "../features/bagasi/TabelBagasi";
 import { TabelOrderComplete } from "../features/order/TabelOrder";
 import ContentWrapper from "../ui/ContentWrapper";
@@ -6,7 +7,6 @@ import { LinkArrowLeft, LinkArrowRight } from "../ui/LinkArrow";
 import TextBox from "../ui/TextBox";
 import { useIsAuthenticated } from "../features/authentication/useAuth";
 import Spinner from "../ui/Spinner";
-import { useEffect } from "react";
 
 function Home() {
   const navigate = useNavigate();

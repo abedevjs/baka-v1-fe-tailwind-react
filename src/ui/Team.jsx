@@ -1,8 +1,4 @@
-import { team } from "../../public/docs/team";
-
 function Team({ data }) {
-  // console.log(team.map((el, i) => el.name));
-  // const names = team.map((el, i) => el.name);
   return (
     <>
       {data.map((el, i) => (

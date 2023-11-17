@@ -1,5 +1,3 @@
-import { useGeolocation } from "../services & hooks/useGeoLocation";
-
 function LogoGreetings() {
   const date = new Date();
   const options = {

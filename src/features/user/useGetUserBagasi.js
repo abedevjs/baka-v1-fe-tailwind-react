@@ -7,6 +7,5 @@ export function useGetUserBagasi() {
     queryFn: apiGetUserBagasi,
   });
 
-  // console.log(userOrder);
   return { userBagasi, isLoadingUserBagasi };
 }

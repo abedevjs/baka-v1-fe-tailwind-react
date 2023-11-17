@@ -1,7 +1,6 @@
 import PageUpdateOrder from "../../features/order/PageUpdateOrder";
 import ContentWrapper from "../../ui/ContentWrapper";
 import { LinkArrowLeft } from "../../ui/LinkArrow";
-import TextTitle from "../../ui/TextTitle";
 
 function UpdateOrder() {
   return (

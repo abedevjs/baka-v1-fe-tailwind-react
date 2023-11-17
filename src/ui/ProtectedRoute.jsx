@@ -14,7 +14,6 @@ function ProtectedRoute({ children }) {
   useEffect(
     function () {
       if (!isAuthenticated && !isLoading) return navigate("/login");
-      //   if (!isAuthenticated && !isLoading) return console.log("not logged in");
     },
     [isAuthenticated, isLoading, navigate]
   );

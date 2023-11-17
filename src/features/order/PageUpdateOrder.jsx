@@ -1,10 +1,9 @@
-import { redirect, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import FormUpdateOrder from "./FormUpdateOrder";
 import { useGetAllBagasi } from "../bagasi/useGetAllBagasi";
 import { useGetUser } from "../user/useGetUser";
 import Spinner from "../../ui/Spinner";
-import toast from "react-hot-toast";
-import { useGetAllOrder } from "./useGetAllOrder";
 import {
   currencyFormat,
   cutWords,
@@ -13,30 +12,31 @@ import {
 import { useGetUserOrder } from "../user/useGetUserOrder";
 import TextTitle from "../../ui/TextTitle";
 import { useGetAllUser } from "../user/useGetAllUser";
+import { useGetOneOrder } from "./useGetOneOrder";
+import NotificationUpdateOrder from "../../ui/NotificationUpdateOrder";
 
 const ADMIN = import.meta.env.VITE_ADMIN;
 
 function PageUpdateOrder() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
-  const { order, isLoading: isLoadingOrder } = useGetAllOrder();
+  const { allBagasi, isLoadingAllBagasi } = useGetAllBagasi();
+  const { oneOrder, isLoadingOneOrder } = useGetOneOrder();
   const { allUser, isLoadingAllUser } = useGetAllUser();
   const { user, isLoading: isLoadingUser } = useGetUser();
   const { userOrder, isLoadingUserOrder } = useGetUserOrder();
 
-  // if (
-  //   isLoadingOrder ||
-  //   isLoadingBagasi ||
-  //   isLoadingUser ||
-  //   isLoadingUserOrder ||
-  //   isLoadingAllUser
-  // )
-  if (isLoadingOrder || isLoadingUser || isLoadingUserOrder) return <Spinner />;
+  if (
+    isLoadingOneOrder ||
+    isLoadingUser ||
+    isLoadingUserOrder ||
+    isLoadingAllBagasi ||
+    isLoadingAllUser
+  )
+    return <Spinner />;
 
   //Check if Order still exists
-  //! Guard clause ini msh lemah
-  const orderDetail = order?.find((el) => el._id == id);
+  const orderDetail = oneOrder;
   if (!orderDetail) {
     toast.error("Order yang kakak minta tidak tersedia ");
     return navigate("/user");
@@ -44,7 +44,6 @@ function PageUpdateOrder() {
 
   //Check if User is owner unless User is Admin
   if (user?.email !== ADMIN) {
-    //! Guard clause ini msh lemah
     if (
       userOrder?.length == 0 ||
       !userOrder?.map((obj) => obj?._id)?.includes(id)
@@ -55,7 +54,7 @@ function PageUpdateOrder() {
   }
 
   // Destructuring Bagasi Detail dari useGetAllBagasi() --start
-  const data = bagasi
+  const data = allBagasi
     ?.map((el) => el)
     .filter((el) => el._id == orderDetail.bagasi._id);
   const {
@@ -84,7 +83,7 @@ function PageUpdateOrder() {
   // Destructuring Owner Detail dari useGetAllUser() --end
 
   // Finding out what the Order.status is --start
-  const orderStatus = userOrder?.filter((order) => order._id == id)[0].status;
+  const orderStatus = oneOrder.status;
   // Finding out what the Order.status is --end
 
   return (
@@ -362,40 +361,23 @@ function PageUpdateOrder() {
       </div>{" "}
       {/* Akhir Grid (Bagasi) Container */}
       {/* Notification Message (Jika status bukan 'OPENED') start--*/}
-      {orderDetail.status == "Preparing" ? (
-        <div
-          className="w-full mb-8 col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center 
-          sm:row-start-[9] sm:row-end-[10] sm:col-start-1 sm:col-end-5"
-        >
-          <span className="py-1 px-2 text-xs text-white bg-green-600 rounded-lg">
-            Bagasi ready. Silahkan di order kak 🤗
-          </span>
-        </div>
-      ) : (
-        <div
-          className="w-full mb-4 col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center 
-              sm:row-start-[11] sm:row-end-[10] sm:col-start-1 sm:col-end-5
-              "
-        >
-          <span className="py-1 px-2 text-xs text-white bg-green-600 rounded-lg">
-            {orderDetail.status == "Ready"
-              ? "Order yang sudah di bayar tidak bisa di update kak. Jika ingin order bagasi yang sama, silahkan buat order baru. 🤗"
-              : ""}
-            {orderDetail.status == "Delivered"
-              ? "Terima kasih telah menggunakan jasa kami 🤗"
-              : ""}
-          </span>
-        </div>
-      )}
+      <div className="w-full mb-8 col-start-3 col-end-5 row-start-4 row-end-6 self-center flex justify-center sm:row-start-[11] sm:row-end-[10] sm:col-start-1 sm:col-end-5">
+        <NotificationUpdateOrder
+          bagasiStatus={status}
+          orderStatus={orderDetail.status}
+        />
+      </div>
       {/* Notification Message (Jika status bukan 'OPENED') end--*/}
-      <FormUpdateOrder
-        id={id}
-        orderDetail={orderDetail}
-        availableKg={availableKg}
-        hargaRp={hargaRp}
-        user={user}
-        waktuTiba={waktuTiba}
-      />
+      {!(status == "Closed" && orderDetail.status == "Preparing") && (
+        <FormUpdateOrder
+          id={id}
+          orderDetail={orderDetail}
+          availableKg={availableKg}
+          hargaRp={hargaRp}
+          user={user}
+          waktuTiba={waktuTiba}
+        />
+      )}
     </>
   );
 }

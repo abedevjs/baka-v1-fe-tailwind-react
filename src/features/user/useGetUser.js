@@ -5,10 +5,6 @@ export function useGetUser() {
   const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: apiGetUser,
-
-    // onSuccess: (data) => {
-    //   queryClient.setQueriesData("user", [...data]);
-    // },
   });
 
   return { user, isLoading };

@@ -11,7 +11,7 @@ function LogoutBox() {
 
   if (isLoadingUser) return <Spinner />;
 
-  const { nama, provider, image } = user;
+  const { nama, image } = user;
 
   function handleClick() {
     window.open(`${BAKA_URL}/auth/logout`, "_self");

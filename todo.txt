@@ -93,6 +93,7 @@ SUNNAH (while the app has been launched)
 🔴 User bisa update nama. Lakukan ini jg di backend
     ✅ done
 🔴 Perbaiki spinner glitch saat loading table, contoh ada di /user
+    ✅ done ganti spinner, pake 3rd party/dependency
 🔴 Filtering n Sorting di bagasi dan order list. tanggal datang-tiba (asc-desc), harga (lowest-highest) alphabet(a-z)
 🔴 klo user sudah order bagasi yg sm tp blm bayar, setelah gagal navigate ke update order di bagasi tsb
 🔴 klo user sudah create bagasi tp ternyata sdh ada 3 bagasi aktif, setelah gagal navigate ke area user

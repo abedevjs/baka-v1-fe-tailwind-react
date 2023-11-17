@@ -2,7 +2,6 @@ import { useGetAllOrder } from "../order/useGetAllOrder";
 import Pagination from "../../ui/Pagination";
 import Tabel from "../../ui/Tabel";
 import Spinner from "../../ui/Spinner";
-import { useGetAllBagasi } from "../bagasi/useGetAllBagasi";
 import Filter from "../../ui/Filter";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiGetAllOrder } from "../../services & hooks/apiBakaOrder";
@@ -27,17 +26,17 @@ export function TabelOrderComplete({ complete = true }) {
   const [status, setStatus] = useState("");
   const queryClient = useQueryClient();
 
-  const { order, isLoading: isLoadingOrder } = useGetAllOrder();
-  const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
+  const { allOrder, isLoadingAllOrder } = useGetAllOrder();
 
+  //Setting filter n page for query allOrder --start
   const limitResult = complete ? PAGE_SIZE : HERO_LIMIT;
   const queryStatus = status ? `&status=${status}` : "";
-
   const { data: newData, isLoading: isLoadingBagasiQuery } = useQuery({
     queryKey: ["orderQuery", page, status],
     queryFn: () => apiGetAllOrder(page, limitResult, queryStatus),
   });
 
+  //Set the page to 1 whenever user switch the filter status
   useEffect(
     function () {
       if (status) {
@@ -46,37 +45,32 @@ export function TabelOrderComplete({ complete = true }) {
         setSearchParams(searchParams);
       }
     },
+
+    //Utk Array Dependency useEffect dibwh ini, sengaja sy tdk masukkan searchParams dan setSearchParams, karena dy error (sdh di tes).
     [status]
   );
+  //Setting filter n page for query allOrder --end
 
-  // if (isLoadingOrder || isLoadingBagasi || isLoadingBagasiQuery)
-  if (isLoadingBagasiQuery) return <Spinner />;
+  if (isLoadingAllOrder || isLoadingBagasiQuery) return <Spinner />;
 
-  //PRE-FETCHING
-  const pageCount = Math.ceil(Number(bagasi?.length) / limitResult); // 17/10 = 1.7 dibulatkan ke 2
-  if (complete && bagasi?.length > PAGE_SIZE && page < pageCount) {
+  //PRE-FETCHING procedure --start
+  const pageCount = Math.ceil(Number(allOrder?.length) / limitResult); // 17/10 = 1.7 dibulatkan ke 2
+  if (complete && allOrder?.length > PAGE_SIZE && page < pageCount) {
     queryClient.prefetchQuery({
       queryKey: ["orderQuery", page + 1, status],
       queryFn: () => apiGetAllOrder(page + 1, limitResult, queryStatus),
     });
   }
-  if (complete && bagasi?.length > PAGE_SIZE && page > 1) {
+  if (complete && allOrder?.length > PAGE_SIZE && page > 1) {
     queryClient.prefetchQuery({
       queryKey: ["orderQuery", page - 1, status],
       queryFn: () => apiGetAllOrder(page - 1, limitResult, queryStatus),
     });
   }
+  //PRE-FETCHING procedure --end
 
-  const orderDetails = newData?.map((el) => ({
-    jumlahKg: el.jumlahKg,
-    status: el.status,
-    waktuBerangkat: bagasi?.find((bag) => bag._id == el.bagasi._id)
-      .waktuBerangkat,
-    dari: bagasi?.find((bag) => bag._id == el.bagasi._id).dari,
-    tujuan: bagasi?.find((bag) => bag._id == el.bagasi._id).tujuan,
-  }));
-
-  let filteredOrder = orderDetails || [];
+  //Make the final array to hold the (filter n page result) newData, to prevent error set it to empty array if (filter n page result) newData is still undefined --start
+  let filteredOrder = newData || [];
   if (filteredOrder.length == 0)
     filteredOrder = [
       {
@@ -87,6 +81,7 @@ export function TabelOrderComplete({ complete = true }) {
         status: "",
       },
     ];
+  //Make the final array to hold the (filter n page result) newData, to prevent error set it to empty array if (filter n page result) newData is still undefined --end
 
   return (
     <>
@@ -94,7 +89,7 @@ export function TabelOrderComplete({ complete = true }) {
       <Tabel feature="order" dataObj={filteredOrder} />
       {complete ? (
         <Pagination
-          count={order?.length}
+          count={allOrder?.length}
           setterPage={setPage}
           newDataCount={newData?.length}
         />

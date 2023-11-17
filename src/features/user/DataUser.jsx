@@ -1,20 +1,16 @@
-import { useQueryClient } from "@tanstack/react-query";
-import Notification from "../../ui/Notification";
-import { useGetUser } from "./useGetUser";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useGetUser } from "./useGetUser";
 import { useUpdateUser } from "./useUpdateUser";
 import Spinner from "../../ui/Spinner";
 import Option from "../../ui/Option";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 function DataUser() {
   const [showOption, setShowOption] = useState(false);
   const { user, isLoading: isLoadingUser } = useGetUser();
-  const { register, handleSubmit, reset, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm();
   const { updateUser, isUpdating } = useUpdateUser();
-  const navigate = useNavigate();
 
   if (isLoadingUser) return <Spinner />;
 
@@ -23,7 +19,25 @@ function DataUser() {
 
   //Executing updateUser --START
   function onSuccess(data) {
-    //todo GuardClause 1. Jika semua data tetap sama, reject
+    //todo GuardClause 1. Jika rekeningNomor tidak di update atau bukan angka
+    if (data.rekeningNomor == "Belum ada" || isNaN(Number(data.rekeningNomor)))
+      return toast.error(
+        "Input nomor rekening dengan angka dan tanpa spasi kak"
+      );
+
+    //todo GuardClause 2. Jika rekeningBank tidak di update
+    if (!data.rekeningBank && !rekeningBank)
+      return toast.error("Mohon pilih Nama Bank nya ya kak");
+
+    //todo GuardClause 3. Jika telpon tidak di update atau bukan angka
+    if (
+      !data.telpon ||
+      data.telpon == "Belum ada" ||
+      isNaN(Number(data.telpon))
+    )
+      return toast.error("Input nomor WhatsApp dengan angka saja ya kak");
+
+    //todo GuardClause 4. Jika semua data tetap sama, reject
     if (
       data.nama == nama &&
       data.telpon == telpon &&
@@ -32,27 +46,10 @@ function DataUser() {
     )
       return;
 
-    //todo GuardClause 2. Jika rekeningNomor tidak di update atau bukan angka
-    if (data.rekeningNomor == "Belum ada" || isNaN(Number(data.rekeningNomor)))
-      return toast.error(
-        "Input nomor rekening dengan angka dan tanpa spasi kak"
-      );
-
-    //todo GuardClause 3. Jika rekeningBank tidak di update
-    // if (!data.rekeningBank && !rekeningBank)
-    //   return toast.error("Mohon pilih Nama Bank nya ya kak");
-
-    //todo GuardClause 4. Jika telpon tidak di update atau bukan angka
-    if (
-      !data.telpon ||
-      data.telpon == "Belum ada" ||
-      isNaN(Number(data.telpon))
-    )
-      return toast.error("Input nomor WhatsApp dengan angka saja ya kak");
-
-    //todo Jika User sudah ada rekeningBank trus otak-atik list bank, trus ngga milih bank (value = ''), data form nya di re-write ke user.rekeningBank
+    //todo GuardClause 5. Jika User sudah ada rekeningBank trus otak-atik list bank, trus ngga milih bank (value = ''), data form nya di re-write ke user.rekeningBank. Sdh di revisi: Sy ganti langsung return aja, biar ga updateBank yang sm ke database.
     if (rekeningBank && !data.rekeningBank) {
-      data = { ...data, rekeningBank: rekeningBank };
+      return;
+      // data = { ...data, rekeningBank: rekeningBank };
     }
 
     //Execute Update User Data
@@ -96,7 +93,9 @@ function DataUser() {
           {/* Box 2 Email */}
           <div className="w-full p-4 col-start-2 flex flex-col bg-secondaryYellowTint rounded-lg sm:row-start-2 sm:col-start-1 sm:col-end-3">
             <span className="text-xs text-primaryBlue">Email</span>
-            <span className="text-sm">{email}</span>
+            <span className="text-sm">
+              {email ? email : "Email tidak tersedia"}
+            </span>
           </div>
           {/* Box 3 Rekening Nomor */}
           <div className="w-full p-4 col-start-1 col-end-2 flex items-center justify-between bg-secondaryYellowTint rounded-lg sm:row-start-3 sm:col-start-1 sm:col-end-3">
@@ -134,7 +133,7 @@ function DataUser() {
                   onClick={handleClick}
                   className="p-1 text-xs text-white text-center opacity-80 rounded-md bg-slate-700 duration-300 cursor-pointer hover:opacity-100"
                 >
-                  Lihat Daftar Bank
+                  {!showOption ? "Lihat" : "Tutup"} Daftar Bank
                 </div>
               </div>
 

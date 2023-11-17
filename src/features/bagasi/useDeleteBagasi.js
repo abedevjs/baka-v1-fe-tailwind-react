@@ -9,7 +9,9 @@ export function useDeleteBagasi() {
   const { mutate: deleteBagasi, isLoading: isDeleting } = useMutation({
     mutationFn: (id) => apiDeleteBagasi(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["bagasi", "userBagasi"] });
+      queryClient.invalidateQueries({
+        queryKey: ["allBagasi", "userBagasi", "oneBagasi"],
+      });
       toast.success("Bagasi berhasil dihapus");
       navigate("/user");
     },

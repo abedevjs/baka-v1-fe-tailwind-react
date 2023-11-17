@@ -1,8 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useUploadDokumen } from "../features/upload/useUploadDokumen";
 import toast from "react-hot-toast";
-import { currencyFormat } from "../utilities/formatter";
+import { useUploadDokumen } from "../features/upload/useUploadDokumen";
 
 const MULTER_MAX_UPLOAD = import.meta.env.VITE_MULTER_MAX_UPLOAD;
 const MAX_DOCUMENT = import.meta.env.VITE_MAX_DOCUMENT;
@@ -18,10 +17,9 @@ export function FormUploadDokumen({
 }) {
   const { id } = useParams();
   const paramId = type == "create-order" || type == "create-bagasi" ? "" : id;
-  // const paramId = id ? id : "";
   const navigate = useNavigate();
   const { uploadDokumen, isUploading } = useUploadDokumen();
-  const { register, handleSubmit, reset, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm();
   const { isDirty } = formState;
 
   //Execute uploadDokumen -- start

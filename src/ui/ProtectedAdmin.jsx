@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useGetAdmin } from "../features/admin/useGetAdmin";
-import { useEffect } from "react";
-import Spinner from "./Spinner";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
+import { useGetAdmin } from "../features/admin/useGetAdmin";
+import Spinner from "./Spinner";
+
 const ADMIN = import.meta.env.VITE_ADMIN;
 
 function ProtectedAdmin({ children }) {

@@ -1,18 +1,17 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
-import Notification from "../../ui/Notification";
-import { useGetAllBagasi } from "./useGetAllBagasi";
 import Spinner from "../../ui/Spinner";
 import { currencyFormat } from "../../utilities/formatter";
 import { useDeleteBagasi } from "./useDeleteBagasi";
 import { useUpdateBagasi } from "./useUpdateBagasi";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { useGetUser } from "../user/useGetUser";
 import { useGetUserBagasi } from "../user/useGetUserBagasi";
 import TextTitle from "../../ui/TextTitle";
 import Tabel from "../../ui/Tabel";
-import { useGetAllOrder } from "../order/useGetAllOrder";
+import { useGetOneBagasi } from "./useGetOneBagasi";
+import NotificationUpdateBagasi from "../../ui/NotificationUpdateBagasi";
 
 const ADMIN = import.meta.env.VITE_ADMIN;
 const BAGASI_TAX = import.meta.env.VITE_BAGASI_TAX;
@@ -22,13 +21,10 @@ const MIN_LENGTH_ALAMAT = import.meta.env.VITE_MIN_LENGTH_ALAMAT;
 const MAX_LENGTH_ALAMAT = import.meta.env.VITE_MAX_LENGTH_ALAMAT;
 const MAX_LENGTH_CATATAN = import.meta.env.VITE_MAX_LENGTH_CATATAN;
 
-// const today = new Date();
-
 function FormUpdateBagasi() {
   const { id } = useParams();
   const { user, isLoading: isLoadingUser } = useGetUser();
-  const { bagasi, isLoading: isLoadingBagasi } = useGetAllBagasi();
-  const { order, isLoading: isLoadingOrder } = useGetAllOrder();
+  const { oneBagasi, isLoadingOneBagasi } = useGetOneBagasi();
   const { userBagasi, isLoadingUserBagasi } = useGetUserBagasi();
   const { deleteBagasi, isDeleting } = useDeleteBagasi();
   const { updateBagasi, isUpdating } = useUpdateBagasi();
@@ -36,12 +32,11 @@ function FormUpdateBagasi() {
   const { isDirty } = formState;
   const navigate = useNavigate();
 
-  // if (isLoadingBagasi || isLoadingUser || isLoadingUserBagasi || isLoadingOrder)
-  if (isLoadingBagasi || isLoadingUser || isLoadingUserBagasi)
+  if (isLoadingOneBagasi || isLoadingUser || isLoadingUserBagasi)
     return <Spinner />;
 
   //Check if Bagasi still exists
-  if (!bagasi?.find((el) => el._id == id)) {
+  if (!oneBagasi) {
     toast.error("Bagasi yang kakak minta tidak tersedia");
     return navigate("/user");
   }
@@ -58,7 +53,6 @@ function FormUpdateBagasi() {
   }
 
   //Destructuring data bagasi dari calling useGetAllBagasi() --start
-  const data = bagasi?.map((el) => el).filter((el) => el._id == id);
   const {
     dari,
     alamatDari,
@@ -77,19 +71,9 @@ function FormUpdateBagasi() {
     balanceRp,
     catatan,
     dokumen,
-    order: orderIdArr,
-  } = data[0];
+    order: bagasiOrderList,
+  } = oneBagasi;
   //Destructuring data bagasi dari calling useGetAllBagasi() --end
-
-  // Bagasi Order List --start
-  const bagasiOrderList = orderIdArr.map((ID) => ({
-    jumlahKg: order?.find((el) => el._id == ID).jumlahKg,
-    isi: order?.find((el) => el._id == ID).isi,
-    biayaRp: order?.find((el) => el._id == ID).biayaRp,
-    catatan: order?.find((el) => el._id == ID).catatan,
-    owner: order?.find((el) => el._id == ID).owner.nama,
-  }));
-  // Bagasi Order List --end
 
   //Executing update form dari calling useUpdateBagasi() --start
   function onSuccess(data) {
@@ -135,9 +119,7 @@ function FormUpdateBagasi() {
 
     updateBagasi({ id: id, body: data });
   }
-  function onError(err) {
-    console.log(err);
-  }
+  function onError(err) {}
   //Executing update form dari calling useUpdateBagasi() --end
 
   //Executing tombol 'Hapus Bagasi'. dari calling useDeleteBagasi() --start
@@ -169,17 +151,15 @@ function FormUpdateBagasi() {
       <div className=" mb-12">
         {/* Title */}
         <TextTitle icon="order" title="daftar order" />
+
         {/* Bagasi order List */}
-        {bagasiOrderList.length == 0 ? (
-          <div className=" mb-8">
-            <Notification
-              type="error"
-              text="Belum ada Order untuk Bagasi ini"
-            />
-          </div>
-        ) : (
-          <Tabel feature="bagasiOrderList" dataObj={bagasiOrderList} />
-        )}
+        <Tabel feature="bagasiOrderList" dataObj={bagasiOrderList} />
+        <div className=" mb-8">
+          <NotificationUpdateBagasi
+            bagasiStatus={status}
+            orderListLength={bagasiOrderList.length}
+          />
+        </div>
       </div>
       {/* Title, Status, Maskapai */}
       <div className=" mb-4 flex items-center justify-between sm:flex-col">
@@ -317,7 +297,9 @@ function FormUpdateBagasi() {
                   id="waktuBerangkat"
                   {...register("waktuBerangkat")}
                   disabled={status !== "Scheduled"}
-                  className="text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
+                  className={`${
+                    status !== "Scheduled" ? "" : "border-b-2 border-textColor"
+                  } text-base lg:text-sm sm:text-xs bg-transparent outline-none`}
                 />
               </div>
               {/* Label + Input Tiba */}
@@ -335,7 +317,9 @@ function FormUpdateBagasi() {
                   id="waktuTiba"
                   {...register("waktuTiba")}
                   disabled={status !== "Scheduled"}
-                  className="text-base lg:text-sm sm:text-xs bg-transparent border-b-2 border-textColor outline-none"
+                  className={`${
+                    status !== "Scheduled" ? "" : "border-b-2 border-textColor"
+                  } text-base lg:text-sm sm:text-xs bg-transparent outline-none`}
                 />
               </div>
             </div>

@@ -7,6 +7,5 @@ export function useGetUserOrder() {
     queryFn: apiGetUserOrder,
   });
 
-  // console.log(userOrder);
   return { userOrder, isLoadingUserOrder };
 }

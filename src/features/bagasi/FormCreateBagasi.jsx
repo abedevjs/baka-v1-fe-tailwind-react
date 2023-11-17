@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { useGetUser } from "../user/useGetUser";
+import { useUpdateUser } from "../user/useUpdateUser";
 import { FormUploadDokumen } from "../../ui/FormUploadDokumen";
 import Notification from "../../ui/Notification";
 import Spinner from "../../ui/Spinner";
-import toast from "react-hot-toast";
-import { useGetUser } from "../user/useGetUser";
-import { useUpdateUser } from "../user/useUpdateUser";
 import { useCreateBagasi } from "./useCreateBagasi";
-import { useState } from "react";
 import Option from "../../ui/Option";
 
 const MIN_DAYS_BEFORE_DEPART_IN_MS = import.meta.env
@@ -64,14 +64,6 @@ function FormCreateBagasi() {
       toast.error("Mohon cek Tgl Berangkat dan Tgl Tiba kak");
       return;
     }
-
-    // //todo Jika Tgl Berangkat == Tgl Tiba, reject
-    // if (Date.parse(data.waktuBerangkat) == Date.parse(data.waktuTiba)) {
-    //   toast.error(
-    //     "Tgl Berangkat dan Tgl Tiba tidak bisa di hari yang sama kak"
-    //   );
-    //   return;
-    // }
 
     //todo Jika harga bagasi bukan angka atau ada karakter selain angka
     if (isNaN(Number(data.hargaRp)) || !Number(data.hargaRp)) {

@@ -9,7 +9,9 @@ export function useUpdateStatusBagasi() {
   const { mutate: updateStatusBagasi, isLoading: isUpdating } = useMutation({
     mutationFn: ({ id, body }) => apiUpdateStatusBagasi(id, body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["bagasi", "userBagasi"] });
+      queryClient.invalidateQueries({
+        queryKey: ["allBagasi", "oneBagasi", "userBagasi"],
+      });
       toast.success("Done. Cek Database Bagasi");
       navigate("/list-bagasi");
     },

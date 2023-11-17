@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { apiGetOneBagasi } from "../../services & hooks/apiBakaBagasi";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
+import { apiGetOneBagasi } from "../../services & hooks/apiBakaBagasi";
 
-export function useGetOneBagasi(id) {
-  const { data: bagasi, isLoading } = useQuery({
-    queryKey: ["bagasi"],
-    queryFn: apiGetOneBagasi(id),
+export function useGetOneBagasi() {
+  const { id } = useParams();
+  const { data: oneBagasi, isLoading: isLoadingOneBagasi } = useQuery({
+    queryKey: ["oneBagasi", id],
+    queryFn: () => apiGetOneBagasi(id),
     onError: (err) => {
       toast.error(err.message);
     },
   });
 
-  return { bagasi, isLoading };
+  return { oneBagasi, isLoadingOneBagasi };
 }

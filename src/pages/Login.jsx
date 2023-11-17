@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useIsAuthenticated } from "../features/authentication/useAuth";
 import ContentWrapper from "../ui/ContentWrapper";
 import Spinner from "../ui/Spinner";
+
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 function Login() {
-  // const { isLoading } = useAuthGoogle();
   const navigate = useNavigate();
   const { isAuthenticated, isLoading } = useIsAuthenticated();
 
@@ -13,6 +13,7 @@ function Login() {
 
   if (isAuthenticated) return navigate("/user");
 
+  //Handle oauth login
   function handleClick(provider) {
     window.open(`${BAKA_URL}/auth/${provider}`, "_self");
   }
