@@ -11,7 +11,7 @@ import Spinner from "../ui/Spinner";
 function Home() {
   const navigate = useNavigate();
   const { isAuthenticated, isLoading } = useIsAuthenticated();
-
+  console.log("tes");
   useEffect(
     function () {
       if (isAuthenticated) return navigate("/list-bagasi");
