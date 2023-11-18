@@ -68,7 +68,7 @@ function PageCreateOrder() {
           >
             {/* Icon */}
             <img
-              src={`/svg/${status}.svg`}
+              src={`/svg/${status.toLowerCase()}.svg`}
               className="w-12 h-auto lg:w-10"
               alt="Date"
             />
@@ -124,7 +124,7 @@ function PageCreateOrder() {
               <span className="text-sm text-primaryBlue sm:text-xs">Dari</span>
               <div className="flex space-x-2 text-base sm:text-sm">
                 <img src={`/svg/${dari}.svg`} alt={dari} />
-                <span>{dari}</span>
+                <span className=" capitalize">{dari}</span>
               </div>
             </div>
             {/* Content Box Tujuan */}
@@ -132,7 +132,7 @@ function PageCreateOrder() {
               <span className="text-sm text-primaryBlue">Tujuan</span>
               <div className="flex space-x-2 text-base sm:text-sm">
                 <img src={`/svg/${tujuan}.svg`} alt={tujuan} />
-                <span>{tujuan}</span>
+                <span className=" capitalize">{tujuan}</span>
               </div>
             </div>
           </div>

@@ -112,7 +112,7 @@ function FormUpdateOrder({
           >
             {/* Icon */}
             <img
-              src={`/svg/${status}.svg`}
+              src={`/svg/${status.toLowerCase()}.svg`}
               className="w-12 h-auto lg:w-8 sm:w-6"
               alt={status}
             />

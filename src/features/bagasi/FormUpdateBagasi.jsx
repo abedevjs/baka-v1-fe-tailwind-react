@@ -178,7 +178,7 @@ function FormUpdateBagasi() {
           >
             {/* Icon */}
             <img
-              src={`/svg/${status}.svg`}
+              src={`/svg/${status.toLowerCase()}.svg`}
               className="w-12 h-auto lg:w-10 sm:w-8"
               alt="Date"
             />
@@ -249,7 +249,7 @@ function FormUpdateBagasi() {
                 </span>
                 <div className="flex space-x-2 text-base lg:text-sm sm:text-xs">
                   <img src={`/svg/${dari}.svg`} alt={dari} />
-                  <span>{dari}</span>
+                  <span className=" capitalize">{dari}</span>
                 </div>
               </div>
               {/* Content Box Tujuan */}
@@ -259,7 +259,7 @@ function FormUpdateBagasi() {
                 </span>
                 <div className="flex space-x-2 text-base lg:text-sm">
                   <img src={`/svg/${tujuan}.svg`} alt={tujuan} />
-                  <span>{tujuan}</span>
+                  <span className=" capitalize">{tujuan}</span>
                 </div>
               </div>
             </div>

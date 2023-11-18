@@ -26,7 +26,7 @@ export function TabRules({ tabOpen }) {
             onClick={() => handleToggle(1)}
             className={`${
               openTab == 1
-                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold sm:shadow-md"
+                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold sm:shadow-slate-500"
                 : "bg-primaryBlueBold"
             } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300  hover:bg-primaryBlue sm:px-8 sm:text-xs`}
           >
@@ -38,7 +38,7 @@ export function TabRules({ tabOpen }) {
             onClick={() => handleToggle(2)}
             className={`${
               openTab == 2
-                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold sm:shadow-md"
+                ? " bg-primaryBlue -translate-y-4 shadow-lg shadow-primaryBlueBold sm:shadow-slate-500"
                 : "bg-primaryBlueBold"
             } p-2 px-28 rounded-lg text-sm text-white cursor-pointer transition duration-300  hover:bg-primaryBlue sm:px-8 sm:text-xs`}
           >
