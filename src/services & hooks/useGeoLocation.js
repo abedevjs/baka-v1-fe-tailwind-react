@@ -39,6 +39,10 @@ export function useGeolocation() {
 
           const data = await res.json();
 
+          //administrative_area_level_1, South Sulawesi, Indonesia
+          //administrative_area_level_2, Makassar City, South Sulawesi, Indonesia
+          //administrative_area_level_3, Malili, East Luwu Regency, South Sulawesi, Indonesia
+
           if (data.status !== "OK") return;
           setLocation(data.results[0].formatted_address);
         } catch (error) {

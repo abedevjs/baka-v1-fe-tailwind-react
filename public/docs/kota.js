@@ -12,7 +12,7 @@ export const kotaAsal = [
   { value: "cairo", label: "Cairo" },
   { value: "istanbul", label: "Istanbul" },
   // { value: "Berlin", label: "Berlin" },
-  // { value: "New York", label: "New York" },
+  // { value: "new york", label: "New York" },
 ];
 
 export const kotaTujuan = [
@@ -29,5 +29,5 @@ export const kotaTujuan = [
   { value: "cairo", label: "Cairo" },
   { value: "istanbul", label: "Istanbul" },
   // { value: "Berlin", label: "Berlin" },
-  // { value: "New York", label: "New York" },
+  // { value: "new york", label: "New York" },
 ];

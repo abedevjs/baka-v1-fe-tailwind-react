@@ -32,6 +32,14 @@ function NotificationUpdateBagasi({ bagasiStatus, orderListLength }) {
         text="Bagasi full atau siap berangkat. Have a nice flight ya kak"
       />
     );
+
+  if (bagasiStatus == "Canceled")
+    return (
+      <Notification
+        type="error"
+        text="Bagasi dibatalkan. Mohon di hapus untuk permohonan jual bagasi yang baru."
+      />
+    );
 }
 
 export default NotificationUpdateBagasi;

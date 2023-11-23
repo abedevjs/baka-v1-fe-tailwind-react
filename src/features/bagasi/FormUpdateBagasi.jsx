@@ -565,7 +565,9 @@ function FormUpdateBagasi() {
           {/* Box 9 Instruksi */}
           <div
             className={`${
-              ["Ready", "Closed", "Unloaded"].includes(status) ? "blur-sm" : ""
+              ["Ready", "Closed", "Unloaded", "Canceled"].includes(status)
+                ? "blur-sm"
+                : ""
             } w-full p-4 col-start-3 col-end-5 row-start-4 row-end-6 flex flex-col justify-between text-slate-50 bg-primaryBlue rounded-lg 
             sm:row-start-[9] sm:row-end-[11] sm:col-start-1 sm:col-end-5
             `}
