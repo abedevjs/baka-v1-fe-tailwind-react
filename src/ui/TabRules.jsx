@@ -172,7 +172,7 @@ export function RulesParagrafContent({ contentNumber }) {
       <div
         className={`${
           contentNumber == 1 ? " flex flex-col" : "hidden"
-        } w-full p-6 space-y-8 sm:mt-4 sm:p-2 sm:space-y-4`}
+        } w-full mb-8 p-6 space-y-8 sm:mt-4 sm:p-2 sm:space-y-4`}
       >
         <span className=" p-2 text-base rounded-md bg-secondaryYellow sm:text-sm">
           Untuk Traveler penjual Bagasi:
@@ -319,7 +319,7 @@ export function RulesParagrafContent({ contentNumber }) {
       <div
         className={`${
           contentNumber == 2 ? " flex flex-col" : "hidden"
-        } w-full p-6 space-y-8 sm:mt-4 sm:p-2 sm:space-y-4`}
+        } w-full mb-8 p-6 space-y-8 sm:mt-4 sm:p-2 sm:space-y-4`}
       >
         <span className=" p-2 text-base rounded-md bg-secondaryYellow sm:text-sm">
           Untuk Jastiper pembeli Bagasi:

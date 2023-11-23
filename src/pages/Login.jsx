@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useIsAuthenticated } from "../features/authentication/useAuth";
 import ContentWrapper from "../ui/ContentWrapper";
 import Spinner from "../ui/Spinner";
@@ -79,6 +79,13 @@ function Login() {
               </div>
             </button>
           </div>
+          {/* Link Syarat dan Ketentuan */}
+          <Link
+            to="/rules"
+            className=" mt-4 text-xs font-thin text-blue-500 underline duration-300 hover:text-primaryBlueBold sm:mt-0"
+          >
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </ContentWrapper>

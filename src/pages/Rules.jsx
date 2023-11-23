@@ -2,6 +2,7 @@ import { useState } from "react";
 import ContentWrapper from "../ui/ContentWrapper";
 import { TabRules, RulesParagrafContent } from "../ui/TabRules";
 import TextBox from "../ui/TextBox";
+import Policy from "../ui/Policy";
 
 function Rules() {
   const [open, setOpen] = useState(1); //* saya pakai useState di sini karena pargraf content terbuka dgn angka. angka tsb di pass back and forth antara TabRules sebagai child dan Rules(halaman ini) sebagai parent.
@@ -38,6 +39,8 @@ function Rules() {
         {/* Paragraf Container start */}
         <RulesParagrafContent contentNumber={open} />
         {/* Paragraf Container start */}
+
+        <Policy />
       </>
     </ContentWrapper>
   );
