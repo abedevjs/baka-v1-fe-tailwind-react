@@ -46,10 +46,10 @@ function DataUser() {
     )
       return;
 
-    //todo GuardClause 5. Jika User sudah ada rekeningBank trus otak-atik list bank, trus ngga milih bank (value = ''), data form nya di re-write ke user.rekeningBank. Sdh di revisi: Sy ganti langsung return aja, biar ga updateBank yang sm ke database.
+    //todo GuardClause 5. Jika User sudah ada rekeningBank trus otak-atik list bank, trus ngga milih bank (value = ''), data form nya di re-write ke user.rekeningBank
     if (rekeningBank && !data.rekeningBank) {
-      return;
-      // data = { ...data, rekeningBank: rekeningBank };
+      // return;
+      data = { ...data, rekeningBank: rekeningBank };
     }
 
     //Execute Update User Data

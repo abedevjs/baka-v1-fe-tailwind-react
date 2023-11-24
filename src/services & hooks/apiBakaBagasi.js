@@ -1,4 +1,6 @@
 import axios from "axios";
+import { decode } from "../utilities/cryptoJS";
+
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 //* www.nama.com/bagasi
@@ -11,7 +13,11 @@ export async function apiGetAllBagasi(page, limitResult, queryStatus) {
       withCredentials: true,
     });
     // console.log(res);
-    return res?.data?.data?.bagasi;
+
+    const data = decode(res.data.data.encryptedData);
+
+    // return res?.data?.data?.bagasi;
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -24,7 +30,10 @@ export async function apiGetOneBagasi(id) {
       withCredentials: true,
     });
 
-    return res?.data?.data?.bagasi;
+    const data = decode(res.data.data.encryptedData);
+
+    // return res?.data?.data?.bagasi;
+    return data;
   } catch (error) {
     console.log(error);
   }

@@ -69,12 +69,12 @@ function AdminOrderStatus() {
       <div className=" mb-6">
         <p>{`Order id: ${currOrder._id}`}</p>
         <p>{`Status: ${currOrder.status}`}</p>
-        <p>{`Dokumen: ${currOrder.dokumen}`}</p>
+        <p>{`Order Dokumen: ${currOrder.dokumen}`}</p>
         <p>{`Tagihan: ${currencyFormat(currOrder.netRp)}`}</p>
         <p>{`Owner: ${
           currOrder.owner.email ? currOrder.owner.email : currOrder.owner.nama
         }`}</p>
-        <p>{`currUserDokumen.Dokumen: ${
+        <p>{`User Dokumen: ${
           currUserDokumen?.length > 1
             ? `Cek dulu. Dokumen User ini terdiri dari:  ${currUserDokumen.length} dokumen`
             : currUserDokumen

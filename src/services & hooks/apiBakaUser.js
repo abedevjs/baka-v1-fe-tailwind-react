@@ -1,4 +1,5 @@
 import axios from "axios";
+import { decode } from "../utilities/cryptoJS";
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 export async function apiGetUser() {
@@ -7,7 +8,12 @@ export async function apiGetUser() {
       withCredentials: true,
     });
     // console.log(res.data.data.user);
-    return res.data?.data?.user;
+    // console.log(res);
+    // console.log(decode(res.data.data.encryptedData));
+    const data = decode(res.data.data.encryptedData);
+
+    // return res.data?.data?.user;
+    return data;
   } catch (error) {
     throw new Error(error.response.data.message);
   }
@@ -19,7 +25,11 @@ export async function apiGetAllUser() {
     const res = await axios.get(`${BAKA_URL}/user/all`, {
       withCredentials: true,
     });
-    return res.data.data.data;
+
+    const data = decode(res.data.data.encryptedData);
+
+    // return res.data.data.data;
+    return data;
   } catch (error) {
     throw new Error(error.response.data.message);
   }
@@ -30,7 +40,11 @@ export async function apiGetUserOrder() {
     const res = await axios.get(`${BAKA_URL}/user/profil`, {
       withCredentials: true,
     });
-    return res.data?.data?.user?.order;
+
+    const data = decode(res.data.data.encryptedData);
+
+    // return res.data?.data?.user?.order;
+    return data?.order;
   } catch (error) {
     throw new Error(error.response.data.message);
   }
@@ -41,7 +55,12 @@ export async function apiGetUserBagasi() {
     const res = await axios.get(`${BAKA_URL}/user/profil`, {
       withCredentials: true,
     });
-    return res.data?.data?.user?.bagasi;
+    // console.log(res);
+
+    const data = decode(res.data.data.encryptedData);
+
+    // return res.data?.data?.user?.bagasi;
+    return data?.bagasi;
   } catch (error) {
     throw new Error(error.response.data.message);
   }

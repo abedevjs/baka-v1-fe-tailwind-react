@@ -48,7 +48,7 @@ function Policy() {
         How we may use the information we collect
       </h2>
       <p>We use the information in the following ways:</p>
-      <p>
+      <div>
         <span className=" font-semibold">Information you supply to us.</span> We
         will use this information:
         <ul className=" list-inside list-disc">
@@ -58,7 +58,7 @@ function Policy() {
           </li>
           <li>To contact you to provide the information requested.</li>
         </ul>
-      </p>
+      </div>
 
       <h2 className=" mt-4 mb-1 text-base font-semibold">
         Disclosure of your information

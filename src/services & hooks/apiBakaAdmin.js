@@ -1,4 +1,6 @@
 import axios from "axios";
+import { decode } from "../utilities/cryptoJS";
+
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 export async function apiGetAdmin() {
@@ -6,7 +8,11 @@ export async function apiGetAdmin() {
     const res = await axios.get(`${BAKA_URL}/user/profil`, {
       withCredentials: true,
     });
-    return res.data?.data?.user?.email;
+
+    const data = decode(res.data.data.encryptedData);
+
+    // return res.data?.data?.user?.email;
+    return data?.email;
   } catch (error) {
     throw new Error(error.response.data.message);
   }

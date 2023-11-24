@@ -75,8 +75,8 @@ function AdminBagasiStatus() {
         <p className=" text-sm">{`Status: ${oneBagasi.status}`}</p>
         <p className=" text-sm">{`Pesawat: ${oneBagasi.pesawat}`}</p>
         <p className=" text-sm">{`Owner: ${email ? email : nama}`}</p>
-        <p className=" text-sm">{`Dokumen: ${oneBagasi.dokumen}`}</p>
-        <p className=" text-sm">{`Dokumen: ${
+        <p className=" text-sm">{`Bagasi Dokumen: ${oneBagasi.dokumen}`}</p>
+        <p className=" text-sm">{`User Dokumen: ${
           currUserDokumen?.length > 1
             ? `Cek dulu. Dokumen User ini terdiri dari:  ${currUserDokumen.length} dokumen`
             : currUserDokumen

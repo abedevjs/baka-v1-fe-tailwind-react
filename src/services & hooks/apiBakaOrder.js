@@ -1,4 +1,6 @@
 import axios from "axios";
+import { decode } from "../utilities/cryptoJS";
+
 const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 //* www.nama.com/order
@@ -13,7 +15,10 @@ export async function apiGetAllOrder(page, limitResult, queryStatus) {
 
     // if (page > 0) return res?.data;
 
-    return res?.data?.data?.order;
+    const data = decode(res.data.data.encryptedData);
+
+    // return res?.data?.data?.order;
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -26,7 +31,10 @@ export async function apiGetOneOrder(id) {
       withCredentials: true,
     });
 
-    return res?.data?.data?.order;
+    const data = decode(res.data.data.encryptedData);
+
+    // return res?.data?.data?.order;
+    return data;
   } catch (error) {
     console.log(error);
   }
