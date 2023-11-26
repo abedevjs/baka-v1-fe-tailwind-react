@@ -15,10 +15,15 @@ function DataUser() {
   if (isLoadingUser) return <Spinner />;
 
   const { isDirty } = formState;
-  const { nama, email, telpon, rekeningNomor, rekeningBank } = user;
 
   //Executing updateUser --START
   function onSuccess(data) {
+    if (!isDirty) return;
+
+    //todo GuardClause check nama
+    if (!data.nama && !user?.nama)
+      return toast.error("Mohon isi kolom nama ya kak");
+
     //todo GuardClause 1. Jika rekeningNomor tidak di update atau bukan angka
     if (data.rekeningNomor == "Belum ada" || isNaN(Number(data.rekeningNomor)))
       return toast.error(
@@ -26,7 +31,7 @@ function DataUser() {
       );
 
     //todo GuardClause 2. Jika rekeningBank tidak di update
-    if (!data.rekeningBank && !rekeningBank)
+    if (!data.rekeningBank && !user?.rekeningBank)
       return toast.error("Mohon pilih Nama Bank nya ya kak");
 
     //todo GuardClause 3. Jika telpon tidak di update atau bukan angka
@@ -39,17 +44,17 @@ function DataUser() {
 
     //todo GuardClause 4. Jika semua data tetap sama, reject
     if (
-      data.nama == nama &&
-      data.telpon == telpon &&
-      data.rekeningNomor == rekeningNomor &&
-      data.rekeningBank == rekeningBank
+      data.nama == user?.nama &&
+      data.telpon == user?.telpon &&
+      data.rekeningNomor == user?.rekeningNomor &&
+      data.rekeningBank == user?.rekeningBank
     )
       return;
 
     //todo GuardClause 5. Jika User sudah ada rekeningBank trus otak-atik list bank, trus ngga milih bank (value = ''), data form nya di re-write ke user.rekeningBank
-    if (rekeningBank && !data.rekeningBank) {
+    if (user?.rekeningBank && !data.rekeningBank) {
       // return;
-      data = { ...data, rekeningBank: rekeningBank };
+      data = { ...data, rekeningBank: user?.rekeningBank };
     }
 
     //Execute Update User Data
@@ -86,16 +91,14 @@ function DataUser() {
               maxLength={35}
               id="nama"
               {...register("nama")}
-              defaultValue={nama}
+              defaultValue={user?.nama}
               className="text-sm bg-transparent border-b-2 border-textColor outline-none"
             />
           </div>
           {/* Box 2 Email */}
           <div className="w-full p-4 col-start-2 flex flex-col bg-secondaryYellowTint rounded-lg sm:row-start-2 sm:col-start-1 sm:col-end-3">
             <span className="text-xs text-primaryBlue">Email</span>
-            <span className="text-sm">
-              {email ? email : "Email tidak tersedia"}
-            </span>
+            <span className="text-sm">{user?.email}</span>
           </div>
           {/* Box 3 Rekening Nomor */}
           <div className="w-full p-4 col-start-1 col-end-2 flex items-center justify-between bg-secondaryYellowTint rounded-lg sm:row-start-3 sm:col-start-1 sm:col-end-3">
@@ -113,7 +116,7 @@ function DataUser() {
                 maxLength={20}
                 id="rekeningNomor"
                 {...register("rekeningNomor")}
-                defaultValue={rekeningNomor ? rekeningNomor : "Belum ada"}
+                defaultValue={user?.rekeningNomor}
                 className="border-b-2 border-textColor text-sm bg-transparent outline-none"
               />
             </div>
@@ -138,9 +141,7 @@ function DataUser() {
               </div>
 
               {!showOption ? (
-                <span className=" w-1/2 text-sm">
-                  {rekeningBank ? rekeningBank : "Belum ada"}
-                </span>
+                <span className=" w-1/2 text-sm">{user?.rekeningBank}</span>
               ) : (
                 <select
                   name="tujuan"
@@ -175,7 +176,7 @@ function DataUser() {
                 maxLength={15}
                 id="telpon"
                 {...register("telpon")}
-                defaultValue={telpon ? telpon : "Belum ada"}
+                defaultValue={user?.telpon}
                 className="border-b-2 border-textColor text-sm bg-transparent outline-none"
               />
             </div>

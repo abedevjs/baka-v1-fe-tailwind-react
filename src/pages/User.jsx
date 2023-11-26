@@ -1,10 +1,7 @@
 import DataUser from "../features/user/DataUser";
 import { TabelUserBagasi, TabelUserOrder } from "../features/user/TabelUser";
 import { useDeleteUser } from "../features/user/useDeleteUser";
-import { ButtonRed } from "../ui/Button";
 import ContentWrapper from "../ui/ContentWrapper";
-import Notification from "../ui/Notification";
-import Pagination from "../ui/Pagination";
 import TextBox from "../ui/TextBox";
 import TextTitle from "../ui/TextTitle";
 import Wrapper from "../ui/Wrapper";

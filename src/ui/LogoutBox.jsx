@@ -8,19 +8,19 @@ const BAKA_URL = import.meta.env.VITE_BAKA_URL;
 
 function LogoutBox() {
   const { user, isLoading: isLoadingUser } = useGetUser();
-  const [namaUser, setNamaUser] = useState("");
-  const [imageUser, setImageUser] = useState("");
+  // const [namaUser, setNamaUser] = useState("");
+  // const [imageUser, setImageUser] = useState("");
   const position = useGeolocation();
 
-  useEffect(
-    function () {
-      if (!isLoadingUser) {
-        setNamaUser(user.nama);
-        setImageUser(user.image);
-      }
-    },
-    [isLoadingUser, user.image, user.nama]
-  );
+  // useEffect(
+  //   function () {
+  //     if (!isLoadingUser) {
+  //       setNamaUser(user.nama);
+  //       setImageUser(user.image);
+  //     }
+  //   },
+  //   [isLoadingUser, user.image, user.nama]
+  // );
 
   if (isLoadingUser) return <Spinner />;
 
@@ -32,13 +32,15 @@ function LogoutBox() {
       <div className=" flex  items-center space-x-1">
         <img
           className=" w-10 h-auto rounded-full"
-          src={`${!imageUser ? "/images/default-user.jpg" : imageUser}`}
+          // src={`${!user?.image ? "/images/default-user.jpg" : user?.image}`}
+          src={`${user?.image}`}
           referrerPolicy="no-referrer"
           alt=""
         />
         <div className=" flex flex-col text-xs text-textColor">
           <span className=" font-medium">{`${
-            !namaUser ? "Nama User" : cutWords(namaUser, 2)
+            !user?.nama ? "Nama User" : cutWords(user?.nama, 2)
+            // cutWords(user.nama, 2)
           }`}</span>
           <span className="capitalize font-thin">{`${
             !position ? "-" : cutWords(position, 2)

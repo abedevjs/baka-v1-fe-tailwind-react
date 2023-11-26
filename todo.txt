@@ -94,12 +94,13 @@ SUNNAH (while the app has been launched)
     ✅ done
 🔴 Perbaiki spinner glitch saat loading table, contoh ada di /user
     ✅ done ganti spinner, pake 3rd party/dependency
+🔴 Idealnya di admin updateBagasiStatus dan admin updateOrderStatus bisa lihat owner.dokumen array. Jadi di backend perlu buat getUser based on his id, terus di query user.dokumen array utk di tampilkan di admin
+    ✅ done, tdk perlu pake be. di fe langsung di query user dokumen nya via getuser
 🔴 Filtering n Sorting di bagasi dan order list. tanggal datang-tiba (asc-desc), harga (lowest-highest) alphabet(a-z)
 🔴 klo user sudah order bagasi yg sm tp blm bayar, setelah gagal navigate ke update order di bagasi tsb
 🔴 klo user sudah create bagasi tp ternyata sdh ada 3 bagasi aktif, setelah gagal navigate ke area user
 🔴 option2 di form akan kita buatkan ui (reusable) sendiri, dan component lain yg bs di reusable kan
 🔴 Jika Baka sudah jalan, sdh dapat feedback, minta saran dengan fitur baru JASTIP pada customer
-🔴 Idealnya di admin updateBagasiStatus dan admin updateOrderStatus bisa lihat owner.dokumen array. Jadi di backend perlu buat getUser based on his id, terus di query user.dokumen array utk di tampilkan di admin
 🔴 Styling date picker ke bhs indonesia
 🔴 Sort tabel berdasarkan tanggal brkt
 
