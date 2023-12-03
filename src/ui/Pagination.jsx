@@ -15,7 +15,7 @@ function Pagination({ count, setterPage, newDataCount }) {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
 
     searchParams.set("page", next);
-    setterPage(next);
+    setterPage(next); //* Passing the state to parent component
     setSearchParams(searchParams);
   }
 
@@ -23,7 +23,7 @@ function Pagination({ count, setterPage, newDataCount }) {
     const back = currentPage === 1 ? currentPage : currentPage - 1;
 
     searchParams.set("page", back);
-    setterPage(back);
+    setterPage(back); //* Passing the state to parent component
     setSearchParams(searchParams);
   }
 

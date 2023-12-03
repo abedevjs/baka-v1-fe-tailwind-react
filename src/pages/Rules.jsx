@@ -5,7 +5,7 @@ import TextBox from "../ui/TextBox";
 import Policy from "../ui/Policy";
 
 function Rules() {
-  const [open, setOpen] = useState(1); //* saya pakai useState di sini karena pargraf content terbuka dgn angka. angka tsb di pass back and forth antara TabRules sebagai child dan Rules(halaman ini) sebagai parent.
+  const [open, setOpen] = useState(1); //* Example of receiving state from children component. Saya pakai useState di sini karena pargraf content terbuka dgn angka. angka tsb di pass back and forth antara TabRules sebagai child dan Rules(halaman ini) sebagai parent.
 
   return (
     <ContentWrapper padding="p-6">

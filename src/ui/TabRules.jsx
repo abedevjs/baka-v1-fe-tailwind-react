@@ -8,7 +8,7 @@ export function TabRules({ tabOpen }) {
     // console.log(e.target.tabIndex);
     // if (e.target.tabIndex == -1) e.target.tabIndex = 1;
     setOpenTab(e);
-    tabOpen(e);
+    tabOpen(e); //* Example of passing state to parent component.
   }
 
   return (
@@ -66,14 +66,14 @@ function TabRulesContent({ contentNumber }) {
           {/* Vertical Line */}
           <div className="absolute top-8 left-[20px] w-[2px] h-[80%] bg-secondaryYellow z-[1] " />
           {/* Step 1 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               1
             </div>
             <span>{`Registrasi Bagasi dengan mengisi formulir 'Jual Bagasi'`}</span>
           </div>
           {/* Step 2 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               2
             </div>
@@ -82,21 +82,21 @@ function TabRulesContent({ contentNumber }) {
             </span>
           </div>
           {/* Step 3 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               3
             </div>
             <span>Admin memeriksa dokumen bukti keberangkatan</span>
           </div>
           {/* Step 4 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               4
             </div>
             <span>{`Jika dokumen keberangkatan valid, Bagasi akan masuk list 'Daftar Bagasi Traveler'`}</span>
           </div>
           {/* Step 5 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               5
             </div>
@@ -118,7 +118,7 @@ function TabRulesContent({ contentNumber }) {
           {/* Vertical Line */}
           <div className="absolute top-8 left-[20px] w-[2px] h-[80%] bg-secondaryYellow z-[1] " />
           {/* Step 1 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               1
             </div>
@@ -128,28 +128,28 @@ function TabRulesContent({ contentNumber }) {
             </span>
           </div>
           {/* Step 2 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               2
             </div>
             <span>Melakukan pembayaran melalui rekening Admin.</span>
           </div>
           {/* Step 3 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               3
             </div>
             <span>Upload dokumen Bukti Pembayaran.</span>
           </div>
           {/* Step 4 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               4
             </div>
             <span>Admin melakukan validasi pada dokumen Bukti Pembayaran.</span>
           </div>
           {/* Step 5 */}
-          <div className="flex space-x-3 items-center z-10">
+          <div className="flex space-x-3 items-center z-[5]">
             <div className="py-2 px-4 rounded-[50%] text-center text-base bg-secondaryYellow sm:text-sm">
               5
             </div>

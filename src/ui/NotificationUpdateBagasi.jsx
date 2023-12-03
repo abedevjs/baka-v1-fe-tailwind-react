@@ -37,7 +37,7 @@ function NotificationUpdateBagasi({ bagasiStatus, orderListLength }) {
     return (
       <Notification
         type="error"
-        text="Bagasi dibatalkan. Mohon di hapus untuk permohonan jual bagasi yang baru."
+        text="Tiket penerbangan tidak valid atau belum tersedia, Bagasi dibatalkan. Mohon di hapus untuk permohonan jual bagasi yang baru."
       />
     );
 }

@@ -6,7 +6,7 @@ import { useGetUser } from "../features/user/useGetUser";
 
 function ButtonHamburger() {
   const [isActive, setIsActive] = useState(false);
-  const { refetch } = useGetUser();
+  const { refetch: reFetchUser } = useGetUser();
 
   //Using useRef and Dialog element from HTML which failed. But it's good to know the new feature of html dialog element
   // const dialogRef = useRef(null);
@@ -20,7 +20,7 @@ function ButtonHamburger() {
 
   function handleClick() {
     setIsActive((current) => !current);
-    refetch();
+    reFetchUser();
   }
 
   return (

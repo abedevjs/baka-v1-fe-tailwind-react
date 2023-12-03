@@ -17,7 +17,7 @@ const HERO_LIMIT = import.meta.env.VITE_HERO_LIMIT;
 
 export function TabelBagasiComplete({ complete = true }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); //* There's 'Two Way Data Binding' is going on here. Parent Component (Tabel Bagasi) - Child Component (Pagination)
   const [status, setStatus] = useState("");
   const queryClient = useQueryClient();
   const { allBagasi, isLoadingAllBagasi } = useGetAllBagasi();
@@ -34,13 +34,14 @@ export function TabelBagasiComplete({ complete = true }) {
   useEffect(
     function () {
       if (status) {
-        setPage(1);
+        setPage(1); //This number (1) is basically the initial state of Pagination component
         searchParams.set("page", 1);
         setSearchParams(searchParams);
       }
     },
 
     //Utk Array Dependency useEffect dibwh ini, sengaja sy tdk masukkan searchParams dan setSearchParams, karena dy error (sdh di tes).
+    // If we use Object, Array, Function as dependency it will cause error because in JavaScript and React see everything is Object, and new objects as different, {} !== {}
     [status]
   );
   //Setting filter n page for query allBagasi --end
