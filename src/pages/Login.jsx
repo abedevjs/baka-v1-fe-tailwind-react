@@ -64,8 +64,9 @@ function Login() {
               atau
             </span>
             <button
+              disabled={true}
               onClick={() => handleClick("facebook")}
-              className="py-4 px-6 bg-secondaryYellow rounded-md opacity-80 hover:opacity-100 duration-300 sm:py-3"
+              className="py-4 px-6 bg-secondaryYellow rounded-md opacity-80 cursor-not-allowed hover:opacity-100 duration-300 sm:py-3"
             >
               <div className="flex items-center space-x-2 lg:space-x-1 lg:text-center">
                 <img
@@ -74,7 +75,7 @@ function Login() {
                   alt=""
                 />
                 <span className="text-sm text-textColor sm:text-xs">
-                  Masuk dengan Facebook
+                  <span className="italic">(Dalam perbaikan)</span> ⛔
                 </span>
               </div>
             </button>

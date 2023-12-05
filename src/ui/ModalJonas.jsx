@@ -32,7 +32,7 @@ function useOutsideClick(handler, listenCapturing = true) {
 
 const ModalContext = createContext();
 
-function Modal({ children }) {
+function ModalJonas({ children }) {
   const [openName, setOpenName] = useState("");
 
   const close = () => setOpenName("");
@@ -77,10 +77,10 @@ function Window({ children, name }) {
   );
 }
 
-Modal.Open = Open;
-Modal.Window = Window;
+ModalJonas.Open = Open;
+ModalJonas.Window = Window;
 
-export default Modal;
+export default ModalJonas;
 
 const StyledModal = `
   position: fixed;

@@ -2,6 +2,7 @@
   "name": "baka-v1-fe-tailwind-react",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://babagasi.com",
   "type": "module",
   "scripts": {
     "dev": "vite",

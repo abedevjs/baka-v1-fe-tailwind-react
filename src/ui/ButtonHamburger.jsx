@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import Modal from "./Modal";
+import ModalJonas from "./ModalJonas";
+import ModalAbe from "./ModalAbe";
 import BarNavigation from "./BarNavigation";
 import BarNavigationMobile from "./BarNavigationMobile";
 import { useGetUser } from "../features/user/useGetUser";
@@ -39,9 +40,9 @@ function ButtonHamburger() {
       </div>
 
       {isActive && (
-        <TheModal>
+        <ModalAbe>
           <BarNavigationMobile />
-        </TheModal>
+        </ModalAbe>
       )}
 
       {/* <BarNavigationMobile /> */}
@@ -77,14 +78,6 @@ function ButtonHamburger() {
   //     </Modal.Window>
   //   </Modal>
   // );
-}
-
-function TheModal({ children }) {
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-10">
-      {children}
-    </div>
-  );
 }
 
 export default ButtonHamburger;
